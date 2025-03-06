@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/02/26 16:05:51 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:25:20 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,22 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+typedef struct s_data
+{
+    char    **map;
+    int     fd_map;
+    int     count_direction;
+    char    *NO;
+    char    *SO;
+    char    *EA;
+    char    *WE;
+    char    *F;
+    char    *C;
+
+} t_data ;
+
+// parsing
+
+int check_cub(char *str, t_data *data);
 
 # endif
