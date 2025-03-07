@@ -6,15 +6,16 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/03/06 17:25:20 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:38:01 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEST_H
 # define TEST_H
 
-#include "../minilibx-linux/mlx.h"
+# include "../libft42/Include/get_next_line.h"
 # include "../libft42/Include/libft.h"
+# include "../minilibx-linux/mlx.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
@@ -29,20 +30,32 @@
 
 typedef struct s_data
 {
-    char    **map;
-    int     fd_map;
-    int     count_direction;
-    char    *NO;
-    char    *SO;
-    char    *EA;
-    char    *WE;
-    char    *F;
-    char    *C;
-
-} t_data ;
+	char	**map;
+	int		fd_map;
+	int		count_direction;
+	int		count_player;
+	int		handle_error;
+	char	*NO;
+	char	*SO;
+	char	*EA;
+	char	*WE;
+	char	*F;
+	char	*C;
+    int     flag;
+	int		pos_x;
+    int     nbr_line;
+	int		pos_y;
+}			t_data;
 
 // parsing
 
-int check_cub(char *str, t_data *data);
+int			check_cub(char *str, t_data *data);
+int			parsing(t_data *data);
+int			copy_check_map(t_data *data);
 
-# endif
+// handle error + init data
+
+void		init_data(t_data *data);
+void		handle_error(t_data *data);
+
+#endif

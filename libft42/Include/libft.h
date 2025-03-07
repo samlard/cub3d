@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 17:16:49 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/01/17 19:27:49 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:22:17 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_strndup2(char *s, size_t len);
+
 
 #endif
