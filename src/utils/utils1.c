@@ -22,4 +22,5 @@ void	init_data(t_data *data)
 	data->pos_x = 0;
 	data->pos_y = 0;
     data->nbr_line = 0;
+	data->larg_row = 0;
 }

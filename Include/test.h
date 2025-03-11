@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/03/07 17:38:01 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:25:00 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ typedef struct s_data
 	char	*WE;
 	char	*F;
 	char	*C;
-    int     flag;
+	int		flag;
 	int		pos_x;
-    int     nbr_line;
+	int		nbr_line;
 	int		pos_y;
+	int		larg_row;
 }			t_data;
 
 // parsing
@@ -52,6 +53,7 @@ typedef struct s_data
 int			check_cub(char *str, t_data *data);
 int			parsing(t_data *data);
 int			copy_check_map(t_data *data);
+void		get_map_square(t_data *data);
 
 // handle error + init data
 

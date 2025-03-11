@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/03/07 18:10:37 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:59:47 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	get_pos(t_data *data)
 	while (data->map[i])
 	{
 		j = 0;
+		if ((int)ft_strlen(data->map[i]) > data->larg_row)
+			data->larg_row = (int)ft_strlen(data->map[i]);
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
@@ -74,28 +76,6 @@ int	map_copy(t_data *data)
 	return (0);
 }
 
-void	backtrack(t_data *data, int x, int y)
-{
-	if (data->map[x][y] == ' ')
-	{
-		printf("oui\n");
-		data->flag = 1;
-		return ;
-	}
-	data->map[x][y] = 'z';
-	if (x > 0 && (y <= (int)ft_strlen(data->map[x - 1])) && (data->map[x
-			- 1][y] != 'z' && data->map[x - 1][y] != '1'))
-		backtrack(data, x - 1, y);
-	if (x < data->nbr_line && (y <= (int)ft_strlen(data->map[x + 1])) && (data->map[x
-			+ 1][y] != 'z' && data->map[x + 1][y] != '1'))
-		backtrack(data, x + 1, y);
-	if (y < (int)ft_strlen(data->map[x]) && (data->map[x][y + 1] != 'z'
-			&& data->map[x][y + 1] != '1'))
-		backtrack(data, x, y + 1);
-	if (y > 0 && (data->map[x][y - 1] != 'z' && data->map[x][y - 1] != '1'))
-		backtrack(data, x, y - 1);
-}
-
 int	copy_check_map(t_data *data)
 {
 	int i;
@@ -109,14 +89,6 @@ int	copy_check_map(t_data *data)
 								//freemap;
 	}
 	get_pos(data);
-	printf("nbr line %d\n", data->nbr_line);
-	backtrack(data, data->pos_y, data->pos_x);
-	if (data->flag == 1)
-		printf("there is a hole in your ass\n");
-	while (data->map[i])
-	{
-		printf("%s\n", data->map[i]);
-		i++;
-	}
+	get_map_square(data);
 	return (0);
 }
