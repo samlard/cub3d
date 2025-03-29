@@ -74,10 +74,7 @@ int	check_texture(t_data *data)
 int	parsing(t_data *data)
 {
 	if (check_texture(data))
-	{
-		printf("ERROR not enough pack texture\n");
-		return (0);
-	}
+		return (err_msg(ERROR_TEXTURE, NULL, 0));
 	// printf("%s\n", data->C);
 	// printf("%s\n", data->WE);
 	// printf("%s\n", data->EA);

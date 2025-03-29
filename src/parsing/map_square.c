@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:24:05 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/03/11 16:58:48 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/03/29 12:26:42 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	backtrack(t_data *data, char **map, int x, int y)
 	if (map[x][y] == ' ' || (map[x][y] == '0' && (y == ((int)ft_strlen(map[x])
 					- 1) || y == 0 || x == 0 || x == data->nbr_line - 1)))
 	{
-		printf("oui\n");
 		data->flag = 1;
 		return ;
 	}

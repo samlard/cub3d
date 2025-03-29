@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/03/11 16:25:00 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/03/29 14:34:16 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft42/Include/get_next_line.h"
 # include "../libft42/Include/libft.h"
 # include "../minilibx-linux/mlx.h"
+# include "color.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
@@ -28,8 +29,30 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+//define window
+
+#ifndef WIN_HEIGHT
+# define WIN_HEIGHT 1000
+#endif
+
+#ifndef WIN_WIDTH
+# define WIN_WIDTH 1400
+#endif
+
+// message error
+
+# define ERROR_CUB "Not a .cub file"
+# define ERROR_TEXTURE "Not enough pack texture"
+# define ERROR_MLX_INIT "Crash when lauching mlx_init()"
+# define ERROR_WIN_INIT "Crash when creating the window"
+
 typedef struct s_data
 {
+
+	void	*mlx;
+	void	*win;
+	int		win_height;
+	int		win_width;
 	char	**map;
 	int		fd_map;
 	int		count_direction;
@@ -42,11 +65,12 @@ typedef struct s_data
 	char	*F;
 	char	*C;
 	int		flag;
-	int		pos_x;
+	float		pos_x;
 	int		nbr_line;
-	int		pos_y;
+	float		pos_y;
 	int		larg_row;
 }			t_data;
+
 
 // parsing
 
@@ -58,6 +82,8 @@ void		get_map_square(t_data *data);
 // handle error + init data
 
 void		init_data(t_data *data);
+int			init_window(t_data *data);
 void		handle_error(t_data *data);
+int			err_msg(char *detail, char *str, int code);
 
 #endif

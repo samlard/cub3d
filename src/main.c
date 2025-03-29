@@ -8,11 +8,11 @@ int	main(int	ac, char **av)
 		return (1);
 	init_data(&data);
 	if (!check_cub(av[1], &data))
-	{
-		printf("invalid map");
-		return (1); // invalid extension .cub
-	}
+		return (err_msg(ERROR_CUB, NULL, 1));
 	if (!parsing(&data))
 		return (1);
+	if (!init_window(&data))
+		return (1);
+	mlx_loop(data.mlx);
 	return (0);
 }
