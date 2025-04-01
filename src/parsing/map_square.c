@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:24:05 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/03/29 12:26:42 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/03/30 15:36:03 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,26 @@ void	backtrack(t_data *data, char **map, int x, int y)
 		backtrack(data, map, x, y - 1);
 }
 
+
+char	**cpy_map(char **map, t_data *data)
+{
+	char **tab;
+	int i;
+
+	i = 0;
+	tab = malloc((data->nbr_line + 1) * sizeof(char *));
+	if (!tab)
+		return (NULL);
+	while (i < data->nbr_line)
+	{
+		tab[i] = malloc((data->larg_row + 1) * sizeof(char));
+		ft_strcpy(tab[i], map[i], ft_strlen(map[i]));
+		i++;
+	}
+	tab[i] = NULL;
+	return (tab);
+}
+
 void	get_map_square(t_data *data)
 {
 	char **tab;
@@ -68,12 +88,9 @@ void	get_map_square(t_data *data)
 	}
 	tab[i] = NULL;
 	i = 0;
-	while (tab[i])
-	{
-		printf("<%s>\n", tab[i]);
-		i++;
-	}
-	backtrack(data, tab, data->pos_y, data->pos_x);
+	ft_free(data->map);
+	data->map = cpy_map(tab, data);
+	backtrack(data, tab, data->player->pos_y, data->player->pos_x);
 	if (data->flag == 1)
 		printf("there is a hole in your ass\n");
 }

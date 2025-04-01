@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/03/11 16:59:47 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:10:59 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	get_pos(t_data *data)
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
 				|| data->map[i][j] == 'W' || data->map[i][j] == 'E')
 			{
-				data->pos_x = j;
-				data->pos_y = i;
+				data->player->pos_x = j;
+				data->player->pos_y = i;
 			}
 			j++;
 		}
