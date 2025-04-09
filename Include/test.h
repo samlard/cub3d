@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/03/30 18:18:50 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:21:40 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@
 # include <unistd.h>
 
 //define window
+# define PI 3.14159265358979323846
 
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 510
+#  define WIN_HEIGHT 1510
 # endif
 
 # ifndef SQUARE_SIZE
@@ -41,11 +42,11 @@
 # endif
 
 # ifndef MOVE_SPEED
-#  define MOVE_SPEED 3
+#  define MOVE_SPEED 7
 # endif
 
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 1024
+#  define WIN_WIDTH 2024
 # endif
 
 // message error
@@ -70,8 +71,13 @@ typedef struct s_data
 {
 	void				*mlx;
 	void				*win;
+	int					size_line;
+	int					bpp;
 	int					win_height;
+	int					endian;
 	int					win_width;
+	void				*img;
+	void				*img_addr;
 	char				**map;
 	int					fd_map;
 	int					count_direction;
@@ -94,7 +100,7 @@ typedef struct s_player
 {
 	float				pos_x;
 	float				pos_y;
-	int 				pdx; //correspond a la pente (direction)
+	int pdx; //correspond a la pente (direction)
 	int					pdy;
 }						t_player;
 
@@ -118,4 +124,5 @@ void					drawPlayer(t_data *data);
 int						display(t_data *data);
 int						handle_keypress(int keycode, t_data *data);
 int						handle_keyrelease(int keysym, t_data *data);
+void					clear_image(t_data *data, int color);
 #endif
