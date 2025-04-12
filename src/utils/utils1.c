@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/09 16:20:42 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:14:04 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,17 @@ void	init_data(t_data *data)
 	data->flag = 0;
 	data->player->pos_x = 0;
 	data->player->pos_y = 0;
-	data->player->pdx = 1;
-	data->player->pdy = 1;
+	data->player->pa = 90;
+	data->player->pdx = cos((data->player->pa) * PI / 180);
+	data->player->pdy = -sin((data->player->pa) * PI/ 180);
 	data->nbr_line = 0;
 	data->larg_row = 0;
 	data->key.key_w = 0;
 	data->key.key_s = 0;
 	data->key.key_a = 0;
 	data->key.key_d= 0;
+	data->key.key_l= 0;
+	data->key.key_r= 0;
 }
 
 int	init_window(t_data *data)

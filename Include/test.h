@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/04/09 17:21:40 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:54:53 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <math.h>
 
 //define window
 # define PI 3.14159265358979323846
@@ -65,6 +66,8 @@ typedef struct s_key
 	int					key_s;
 	int					key_a;
 	int					key_d;
+	int					key_l;
+	int					key_r;
 }						t_key;
 
 typedef struct s_data
@@ -100,8 +103,10 @@ typedef struct s_player
 {
 	float				pos_x;
 	float				pos_y;
-	int pdx; //correspond a la pente (direction)
-	int					pdy;
+	float pdx; //correspond a la pente (direction)
+	float					pdy;
+	float				pa;
+	
 }						t_player;
 
 // parsing
