@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/12 17:46:43 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/13 17:51:15 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,143 +162,60 @@ void	draw_map(t_data *data)
 	}
 }
 
-// void draw_ray(t_data *data)
-// {
-// 	float	ra = data->player->pa;
-
-// 	while (ra - 30 < ra + 30)
-// 	{
-// 		ra += 1;
-// 	}
-	
-// }
-
 void draw_ray(t_data *data)
 {
     float ra; // Rayon actuel
-    int r;    // Compteur pour les rayons (nombre de rayons)
-    float disV, disH; // Distance à la verticale et à l'horizontale
     float rx, ry;      // Coordonnées de l'impact du rayon
     float Tan;         // Tangente pour les calculs
-    int dof;           // Distance jusqu'à l'impact avec un mur
-    int mx, my;        // Coordonnées de la grille
-    int mp;            // Case de la carte
+    float px = data->player->pos_x;
+    float py = data->player->pos_y;
 
-    ra = data->player->pa - 30.0f; // Commencer à -30° par rapport à l'angle du joueur
+    // Angle du rayon (avec sécurité pour éviter les angles > 360)
+    ra = data->player->pa;
+    if (ra > 360)
+        ra -= 360;
 
-    for (r = 0; r < 60; r++) // 60 rayons dans le champ de vision
+    // Calcul de la tangente pour l'angle
+    Tan = tan(ra * PI / 180);
+
+    // Initialisation des coordonnées du rayon
+    rx = 0;
+    ry = 0;
+
+    // Sécurités pour gérer la direction du rayon (regarder à droite, éviter 90° et 270°)
+    if (cos(ra * PI / 180) > 0 && ra != 90 && ra != 270) // regarde vers la droite
     {
-        // Calcul de l'angle du rayon
-        if (ra > 360 )
-			ra = ra /360;
+        rx = ((int)(px / 64)) * 64 + 64;  // Premier multiple de 64 à droite
+        ry = (px - rx) * Tan + py;         // Calcul de la coordonnée y du rayon
 
-        // --- Partie Raycasting Vertical ---
-        dof = 0;
-        disV = 100000.0f; // Distance maximale par défaut
-        Tan = tan(ra * PI / 180);
-        
-        if (cos(ra * PI / 180) > 0.001) // Rayon qui regarde vers la droite
+        // Trace le rayon
+        for (int x = px; x < 1500; x++) // Limiter à une largeur d'écran de 1500 px
         {
-            rx = (((int)data->player->pos_x >> 6) << 6) + 64;
-            ry = (data->player->pos_x - rx) * Tan + data->player->pos_y;
-        }
-        else if (cos(ra * PI / 180) < -0.001) // Rayon qui regarde vers la gauche
-        {
-            rx = (((int)data->player->pos_x >> 6) << 6) - 0.0001f;
-            ry = (data->player->pos_x - rx) * Tan + data->player->pos_y;
-        }
-        else // Regarder directement vers le haut ou vers le bas
-        {
-            rx = data->player->pos_x;
-            ry = data->player->pos_y;
-            dof = 8;
-        }
+            // Calcul de la coordonnée y avec la formule d'une droite
+            float y = Tan * (px - x) + py;
 
-        while (dof < 8)
-        {
-            mx = (int)(rx) >> 6;
-            my = (int)(ry) >> 6;
-            mp = my * data->larg_row + mx; // ID de la case dans la carte
-            
-            if (mp > 0 && mp < data->larg_row * data->nbr_line && data->map[mx][my] == '1') // Mur
+            // Vérifier si la position (x, y) touche un mur dans la carte
+            int map_x = (int)(x / 64);  // Position du rayon sur la carte (x)
+            int map_y = (int)(y / 64);  // Position du rayon sur la carte (y)
+
+            // Vérifier que les coordonnées sont dans les limites de la carte
+            if (map_x >= 0 && map_x < data->larg_row * 64 && map_y >= 0 && map_y < data->nbr_line * 64)
             {
-                dof = 8;
-                disV = cos(ra * PI / 180) * (rx - data->player->pos_x) - sin(ra * PI / 180) * (ry - data->player->pos_y);
+                // Si le rayon touche un mur, arrêter le tracé
+                if (data->map[map_y][map_x] == '1') // 1 signifie un mur
+                {
+                    my_pixel_put(data, x, y, 0xFF0000);  // Dessine le rayon en rouge
+                    break;  // Arrêter dès que le rayon touche un mur
+                }
             }
-            else
-            {
-                rx += 64; // Avancer à la prochaine case
-                ry += 64 * Tan; // Avancer à la prochaine case
-                dof++;
-            }
+
+            // Dessiner le rayon (sécurité pour ne pas dépasser l'écran)
+            if (x >= 0 && x < 1500 && y >= 0 && y < 1000)
+                my_pixel_put(data, x, y, 0xFF0000); // Dessiner un pixel à la position (x, y)
         }
-
-        // --- Partie Raycasting Horizontal ---
-        dof = 0;
-        disH = 100000.0f;
-        Tan = 1.0f / Tan;
-
-        if (sin(ra * PI / 180) > 0.001) // Rayon qui regarde vers le bas
-        {
-            ry = (((int)data->player->pos_y >> 6) << 6) + 64;
-            rx = (data->player->pos_y - ry) * Tan + data->player->pos_x;
-        }
-        else if (sin(ra * PI / 180) < -0.001) // Rayon qui regarde vers le haut
-        {
-            ry = (((int)data->player->pos_y >> 6) << 6) - 0.0001f;
-            rx = (data->player->pos_y - ry) * Tan + data->player->pos_x;
-        }
-        else
-        {
-            rx = data->player->pos_x;
-            ry = data->player->pos_y;
-            dof = 8;
-        }
-
-        while (dof < 8)
-        {
-            mx = (int)(rx) >> 6;
-            my = (int)(ry) >> 6;
-            mp = my * data->larg_row + mx;
-
-            if (mp > 0 && mp < data->larg_row * data->nbr_line && data->map[mx][my] == '1') // Mur
-            {
-                dof = 8;
-                disH = cos(ra * PI / 180) * (rx - data->player->pos_x) - sin(ra * PI / 180) * (ry - data->player->pos_y);
-            }
-            else
-            {
-                rx += 64 * Tan;
-                ry += 64;
-                dof++;
-            }
-        }
-
-        // --- Dessin des rayons ---
-        if (disV < disH) // Si le rayon vertical touche le mur le plus tôt
-        {
-            // rx = rx;
-            // ry = ry;
-            disH = disV;
-        }
-
-        // Correction fisheye pour les rayons qui sont plus loin
-        disH = disH * cos(PI *(ra - data->player->pa) /180);
-
-        // Dessiner la ligne entre le joueur et le mur
-        int lineHeight = (int)(320.0f / disH);
-        if (lineHeight > 320) lineHeight = 320;
-        int lineOff = 160 - (lineHeight >> 1); // Position verticale du mur
-
-        for (int i = r * 8 + 530; i < r * 8 + 530 + 8; i++) // Chaque rayon est un petit segment de ligne
-        {
-            for (int j = lineOff; j < lineOff + lineHeight; j++)
-                my_pixel_put(data, i, j, 0xFF0000); // Dessiner le mur
-        }
-
-        ra = PI * (ra + 1) /180; // Passer au rayon suivant
     }
 }
+
 
 int	display(t_data *data)
 {
