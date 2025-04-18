@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/12 15:14:04 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:01:38 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,9 @@ int	init_window(t_data *data)
 	data->player->pos_x = data->player->pos_x * 64;
 	data->player->pos_y = data->player->pos_y * 64;
 	return (1);
+}
+
+float	deg_to_rad(float pa)
+{
+	return (pa * PI / 180);
 }

@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/09 18:00:49 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:57:11 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ int	map_copy(t_data *data)
 
 int	copy_check_map(t_data *data)
 {
-	int i;
-
-	i = 0;
 	map_copy(data);
 	if (data->count_player != 1)
 	{

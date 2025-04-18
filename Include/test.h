@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/04/12 14:54:53 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:10:27 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <X11/X.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <math.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -29,7 +30,6 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <math.h>
 
 //define window
 # define PI 3.14159265358979323846
@@ -104,9 +104,9 @@ typedef struct s_player
 	float				pos_x;
 	float				pos_y;
 	float pdx; //correspond a la pente (direction)
-	float					pdy;
+	float				pdy;
 	float				pa;
-	
+
 }						t_player;
 
 // parsing
@@ -130,4 +130,13 @@ int						display(t_data *data);
 int						handle_keypress(int keycode, t_data *data);
 int						handle_keyrelease(int keysym, t_data *data);
 void					clear_image(t_data *data, int color);
+
+// moove function
+void					moove_up(t_data *data);
+void					moove_down(t_data *data);
+void					moove_left(t_data *data);
+void					moove_right(t_data *data);
+void					ft_rotate(t_data *data);
+float					deg_to_rad(float pa);
+
 #endif
