@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/18 20:15:52 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:25:03 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ void	draw_map(t_data *data)
 	}
 }
 
+
+
 void	draw_ray(t_data *data)
 {
 	float	ra;
@@ -167,81 +169,152 @@ void	draw_ray(t_data *data)
 	int		x;
 	float	xo;
 	float	yo;
+	float	h_dist;
+	float	v_dist;
 	int		i = 0;
-
 	xo = 0;
 	yo = 0;
 	float rx, ry;
+	float rx_v, ry_v;
 	px = data->player->pos_x;
 	py = data->player->pos_y;
 	rx = 0;
 	ry = 0;
 	x = 0;
 	ra = data->player->pa;
-	ra -= 33;
-	while (x < 66)
+	ra -= 30;
+	while (x < 60)
 	{
-		if (ra > 360)
+		h_dist = 0;
+		v_dist = 0;
+		if (ra >= 360)
 			ra -= 360;
+		if (ra < 0)
+			ra += 360;
 		Tan = tan(deg_to_rad(ra));
 		if (cos(deg_to_rad(ra)) > 0.0001)
 		{
-			rx = ((int)(px / 64)) * 64 + 64;
-			ry = (px - rx) * Tan + py;
+			rx_v = ((int)(px / 64)) * 64 + 64;
+			ry_v = (px - rx_v) * Tan + py;
 			xo = 64;
 			yo = -64 * Tan;
 		}
 		else if (cos(deg_to_rad(ra)) < 0.0001)
 		{
-			rx = ((int)(px / 64))* 64 -0.0001 ;
-			ry = (px - rx) * Tan + py;
+			rx_v = ((int)(px / 64))* 64 -0.0001 ;
+			ry_v = (px - rx_v) * Tan + py;
 			xo = -64;
 			yo = 64 * Tan;
 		}
 		else 
 		{
+			rx_v = px;
+			ry_v = py;
+			if (ra > 80 && ra < 100)
+				yo = -64;
+			else
+				yo = 64;
+			xo = 0;
+		}
+		while (i < 8)
+		{
+			map_x = (int)(rx_v / 64);
+			map_y = (int)(ry_v / 64);
+			if (map_x < 0 || map_x >= data->larg_row || map_y < 0
+				|| map_y >= data->nbr_line)
+				{
+					v_dist = 8 * 64;
+					break ;
+				}
+			// if (rx_v > (data->larg_row -1) * 64 && rx_v <= 0 && ry_v <= 0
+			// 	&& ry_v > (data->nbr_line -1 ) * 64)
+			// 	break;
+			if (data->map[map_y][map_x] == '1')
+			{
+				v_dist = sqrtf((px - rx_v) * (px - rx_v) + (py - ry_v) * (py - ry_v));
+				break ;
+			}
+			rx_v += xo;
+			ry_v += yo;
+			i++;
+		}
+		i = 0;
+		Tan = 1 / tan(deg_to_rad(ra));
+		if (sin(deg_to_rad(ra)) > 0.0001)
+		{
+			ry = ((int)(py / 64)) * 64 - 0.001;
+			rx = (py - ry) * Tan + px;
+			yo = -64;
+			xo = -yo * Tan;
+		}
+		else if (sin(deg_to_rad(ra)) < -0.0001)
+		{
+			ry = ((int)(py / 64))* 64 + 64;
+			rx = (py - ry) * Tan + px;
+			yo = 64;
+			xo = -yo * Tan;
+		}
+		else
+		{
 			rx = px;
 			ry = py;
+			if (ra > 170 && ra < 190)
+				xo = -64;
+			else 
+				xo = 64;
+			yo = 0;
 		}
-		while (i < 1500)
+		while (i < 8)
 		{
 			map_x = (int)(rx / 64);
 			map_y = (int)(ry / 64);
 			if (map_x < 0 || map_x >= data->larg_row || map_y < 0
 				|| map_y >= data->nbr_line)
-				break ;
+				{
+					h_dist = 8 * 64;
+					break ;
+				}
+			
+			// if (rx > (data->larg_row -1) * 64 && rx <= 0 && ry <= 0
+			// 	&& ry > (data->nbr_line + 1) * 64)
+			// 	break;
 			if (data->map[map_y][map_x] == '1')
+			{
+				h_dist = sqrtf((px - rx) * (px - rx) + (py - ry) * (py - ry));
 				break ;
-			if (rx < data->larg_row * 64 && rx >= 0 && ry >= 0
-				&& ry < data->nbr_line * 64)
-					my_pixel_put(data, rx, ry, 0xFF0000);
-			rx += xo/200;
-			ry += yo/200;
+			}
+			rx += xo;
+			ry += yo;
 			i++;
 		}
-		
+		i = 0;
+		printf("v_dist = %f\n h_dist = %f\n", v_dist, h_dist);
+		if (v_dist < h_dist)
+		{
+			my_pixel_put(data, rx_v, ry_v, 0xFF0000);
+		}
+		else
+			my_pixel_put(data, rx, ry, 0xFF0000);
 		ra++;
 		x++;
 	}
 }
 	// x = 0;
-	// ra = data->player->pa;
-	// ra-=33;
-	// i = 0;
-	// while (x < 66)
+	// ra-=60;
+	// while (x < 60)
 	// {
 	// 	xo = 0;
 	// 	if (ra > 360)
 	// 		ra -= 360;
 	// 	Tan = 1 / tan(deg_to_rad(ra));
-	// 	if (sin(deg_to_rad(ra)) > 0.001)
+	// 	if (sin(deg_to_rad(ra)) > 0.0001)
 	// 	{
 	// 		ry = ((int)(py / 64)) * 64 - 0.001;
 	// 		rx = (py - ry) * Tan + px;
 	// 		yo = -64;
 	// 		xo = -yo * Tan;
 	// 	}
-	// 	else if (sin(deg_to_rad(ra)) < -0.001)
+	// 	else if (sin(deg_to_rad(ra)) < -0.0001)
 	// 	{
 	// 		ry = ((int)(py / 64))* 64 + 64;
 	// 		rx = (py - ry) * Tan + px;
@@ -250,11 +323,10 @@ void	draw_ray(t_data *data)
 	// 	}
 	// 	else
 	// 	{
-	// 		rx = px;
-	// 		ry = py;
-	// 		xo++;
+	// 		rx = 0;
+	// 		ry = 0;
 	// 	}
-	// 	while (i < 8)
+	// 	while (i < 1500)
 	// 	{
 	// 		map_x = (int)(rx / 64);
 	// 		map_y = (int)(ry / 64);
@@ -263,44 +335,131 @@ void	draw_ray(t_data *data)
 	// 			break ;
 	// 		else if (data->map[map_y][map_x] == '1')
 	// 			break ;
-	// 		else if (rx < data->larg_row * 64 && rx >= 0 && ry >= 0
+	// 		else if (rx < (data->larg_row -1) * 64 && rx >= 0 && ry >= 0
 	// 			&& ry < data->nbr_line * 64)
 	// 			my_pixel_put(data, rx, ry, 0xFF0000);
-	// 		rx ++;
-	// 		ry ++;
+	// 		rx += xo/200;
+	// 		ry += yo/200;
 	// 		i++;
 	// 	}
+	// 	i = 0;
 	// 	ra++;
 	// 	x++;
 	// }
-// else if (cos(deg_to_rad(ra)) < 0 && ra != 90 && ra != 270)
+// }
+// // void	draw_ray(t_data *data)
 // {
-// 	Tan = tan(deg_to_rad(ra));
-// 	rx = ((int)(px / 64)) * 64;
-// 	ry = (px - rx) * Tan - py;
-// 	xo = (rx - px);
-// 	yo = ry - py;
+// 	float	ra = data->player->pa - 30;
+// 	float	px = data->player->pos_x;
+// 	float	py = data->player->pos_y;
 
+// 	if (ra < 0)
+// 		ra += 360;
+
+// 	for (int x = 0; x < 60; x++, ra++)
+// 	{
+// 		if (ra > 360)
+// 			ra -= 360;
+
+// 		float hor_rx, hor_ry, vert_rx, vert_ry;
+// 		float hor_dist = 1e30, vert_dist = 1e30;
+// 		float Tan = tan(deg_to_rad(ra));
+// 		float xo, yo;
+// 		int map_x, map_y;
+// 		int i;
+
+// 		// --- Vertical Raycasting ---
+// 		float ra_rad = deg_to_rad(ra);
+// 		i = 0;
+
+// 		if (cos(ra_rad) > 0.0001) // Looking right
+// 		{
+// 			vert_rx = ((int)(px / 64)) * 64 + 64;
+// 			vert_ry = (px - vert_rx) * Tan + py;
+// 			xo = 64;
+// 			yo = -64 * Tan;
+// 		}
+// 		else if (cos(ra_rad) < -0.0001) // Looking left
+// 		{
+// 			vert_rx = ((int)(px / 64)) * 64 - 0.0001;
+// 			vert_ry = (px - vert_rx) * Tan + py;
+// 			xo = -64;
+// 			yo = 64 * Tan;
+// 		}
+// 		else
+// 		{
+// 			vert_rx = px;
+// 			vert_ry = py;
+// 			xo = yo = 0;
+// 			i = 1500;
+// 		}
+
+// 		while (i < 1500)
+// 		{
+// 			map_x = (int)(vert_rx / 64);
+// 			map_y = (int)(vert_ry / 64);
+// 			if (map_x < 0 || map_x >= data->larg_row || map_y < 0 || map_y >= data->nbr_line)
+// 				break;
+// 			if (data->map[map_y][map_x] == '1')
+// 			{
+// 				vert_dist = sqrtf((vert_rx - px) * (vert_rx - px) + (vert_ry - py) * (vert_ry - py));
+// 				break;
+// 			}
+// 			vert_rx += xo;
+// 			vert_ry += yo;
+// 			i++;
+// 		}
+
+// 		// --- Horizontal Raycasting ---
+// 		Tan = 1 / Tan;
+// 		i = 0;
+
+// 		if (sin(ra_rad) > 0.0001) // Looking up
+// 		{
+// 			hor_ry = ((int)(py / 64)) * 64 - 0.0001;
+// 			hor_rx = (py - hor_ry) * Tan + px;
+// 			yo = -64;
+// 			xo = -yo * Tan;
+// 		}
+// 		else if (sin(ra_rad) < -0.0001) // Looking down
+// 		{
+// 			hor_ry = ((int)(py / 64)) * 64 + 64;
+// 			hor_rx = (py - hor_ry) * Tan + px;
+// 			yo = 64;
+// 			xo = -yo * Tan;
+// 		}
+// 		else
+// 		{
+// 			hor_rx = px;
+// 			hor_ry = py;
+// 			xo = yo = 0;
+// 			i = 1500;
+// 		}
+
+// 		while (i < 1500)
+// 		{
+// 			map_x = (int)(hor_rx / 64);
+// 			map_y = (int)(hor_ry / 64);
+// 			if (map_x < 0 || map_x >= data->larg_row || map_y < 0 || map_y >= data->nbr_line)
+// 				break;
+// 			if (data->map[map_y][map_x] == '1')
+// 			{
+// 				hor_dist = sqrtf((hor_rx - px) * (hor_rx - px) + (hor_ry - py) * (hor_ry - py));
+// 				break;
+// 			}
+// 			hor_rx += xo;
+// 			hor_ry += yo;
+// 			i++;
+// 		}
+
+// 		// --- Draw the shortest ray ---
+// 		if (hor_dist < vert_dist)
+// 			my_pixel_put(data, hor_rx, hor_ry, 0xFF0000);
+// 		else
+// 			my_pixel_put(data, vert_rx, vert_ry, 0xFF0000);
+// 	}
 // }
-// while (rx < data->larg_row * 64 &&  ry < data->nbr_line * 64)
-// {
-// 	map_x = (int)(rx / 64);
-// 	map_y = (int)(ry / 64);
-// 	if (map_x < 0 || map_x >= data->larg_row * 64 || map_y < 0
-// 		|| map_y >= data->nbr_line * 64)
-// 		break ;
-// 	if (data->map[map_y][map_x] == '1')
-// 			break ;
-// 	if (rx < data->larg_row * 64 && rx >= 0 && ry >= 0 && ry < data->nbr_line* 64)
-// 		my_pixel_put(data, rx, ry, 0xFF0000);
-// 	rx+= xo;
-// 	ry-= yo;
-// 	line++;
-// }
-//}
-// x++;
-//}
-//}
+
 
 //float y = Tan * (px - rx) + py;
 // Calcul de la coordonnée y avec la formule d'une droite

@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/04/17 17:10:27 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:33:46 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,6 @@ void					moove_left(t_data *data);
 void					moove_right(t_data *data);
 void					ft_rotate(t_data *data);
 float					deg_to_rad(float pa);
+
 
 #endif
