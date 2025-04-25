@@ -6,11 +6,20 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/25 15:32:50 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:46:00 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
+
+int		pos_player(t_data *data)
+{
+	if(data->player->pos_x == 0 || data->player->pos_y == 0)
+		return(1);
+	else if(data->player->pos_x == data->larg_row - 1 || data->player->pos_y == data->nbr_line - 1)
+		return(1);
+	return(0);
+}
 
 void	get_pos(t_data *data)
 {
@@ -105,6 +114,20 @@ int	copy_check_map(t_data *data)
 		return (1);
 	}
 	get_pos(data);
+	if(data->larg_row < 3 || data->nbr_line < 3)
+	{
+		err_msg("invalid map !", NULL, 1);
+		ft_free_texture(data);
+		ft_free_tab(data->map);
+		return (1);
+	}
+	if (pos_player(data))
+	{
+		err_msg("position player error !", NULL, 1);
+		ft_free_texture(data);
+		ft_free_tab(data->map);
+		return (1);
+	}
 	if(get_map_square(data))
 	{
 		ft_free_texture(data);
