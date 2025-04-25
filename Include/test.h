@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/04/19 17:24:04 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:15:06 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # endif
 
 # ifndef MOVE_SPEED
-#  define MOVE_SPEED 7
+#  define MOVE_SPEED 3
 # endif
 
 # ifndef WIN_WIDTH
@@ -96,6 +96,7 @@ typedef struct s_data
 	int					nbr_line;
 	int					larg_row;
 	t_player			*player;
+	// t_raycast			raycast;
 	t_key				key;
 }						t_data;
 
@@ -108,6 +109,26 @@ typedef struct s_player
 	float				pa;
 
 }						t_player;
+
+// typedef struct s_raycast
+// {
+// 	float ra;
+// 	float Tan;
+// 	float	px;
+// 	float	py;
+// 	int		map_x;
+// 	int		map_y;
+// 	int		x;
+// 	float	xo;
+// 	float	yo;
+// 	float	h_dist;
+// 	float	v_dist;
+// 	float 	rx_h;
+// 	float	ry_h;
+// 	float 	rx_v;
+// 	float	 ry_v;
+
+// }						t_raycast;
 
 // parsing
 
@@ -140,5 +161,6 @@ void					moove_left(t_data *data);
 void					moove_right(t_data *data);
 void					ft_rotate(t_data *data);
 float					deg_to_rad(float pa);
+
 
 #endif

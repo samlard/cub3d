@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/17 17:10:13 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:03:19 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void    moove_left(t_data *data)
     data->player->pos_x = new_x;
     data->player->pos_y = new_y;
 }
-
+    
 void    moove_right(t_data *data)
 {
     float new_y;
@@ -76,10 +76,10 @@ void	ft_rotate(t_data *data)
 {
 	if (data->player->pa >= 360 )
 		data->player->pa = data->player->pa/360; 
-	if (data->key.key_l == 1)
-		data->player->pa-= 5;
 	if (data->key.key_r == 1)
-		data->player->pa+= 5;
+		data->player->pa-= 2;
+	if (data->key.key_l == 1)
+		data->player->pa+= 2;
 	data->player->pdx = cos((data->player->pa) * PI / 180);
 	data->player->pdy = -sin((data->player->pa) * PI/ 180);
 }

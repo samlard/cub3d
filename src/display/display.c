@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/18 20:15:52 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/25 13:21:00 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	drawPlayer(t_data *data)
 		moove_up(data);
 	if (data->key.key_s == 1)
 		moove_down(data);
-	if (data->key.key_a == 1)
-		moove_left(data);
 	if (data->key.key_d == 1)
+		moove_left(data);
+	if (data->key.key_a == 1)
 		moove_right(data);
 	if (data->key.key_l == 1 || data->key.key_r == 1)
 		ft_rotate(data);
@@ -164,151 +164,159 @@ void	draw_ray(t_data *data)
 	float	py;
 	int		map_x;
 	int		map_y;
-	int		x;
+	float	x;
 	float	xo;
 	float	yo;
-	int		i = 0;
+	float	h_dist;
+	float	v_dist;
+	float	dist;
+	float	ca;
+	float	line_h;
+	float	line_o;
+	int		color;
 
+	color = 0;
 	xo = 0;
 	yo = 0;
 	float rx, ry;
+	float rx_v, ry_v;
 	px = data->player->pos_x;
 	py = data->player->pos_y;
 	rx = 0;
 	ry = 0;
 	x = 0;
 	ra = data->player->pa;
-	ra -= 33;
-	while (x < 66)
+	ra -= 30;
+	while (x < 60)
 	{
-		if (ra > 360)
+		h_dist = 0;
+		v_dist = 0;
+		if (ra >= 360)
 			ra -= 360;
+		if (ra < 0)
+			ra += 360;
 		Tan = tan(deg_to_rad(ra));
 		if (cos(deg_to_rad(ra)) > 0.0001)
 		{
-			rx = ((int)(px / 64)) * 64 + 64;
-			ry = (px - rx) * Tan + py;
+			rx_v = ((int)(px / 64)) * 64 + 64;
+			ry_v = (px - rx_v) * Tan + py;
 			xo = 64;
 			yo = -64 * Tan;
 		}
 		else if (cos(deg_to_rad(ra)) < 0.0001)
 		{
-			rx = ((int)(px / 64))* 64 -0.0001 ;
-			ry = (px - rx) * Tan + py;
+			rx_v = ((int)(px / 64)) * 64 - 0.0001;
+			ry_v = (px - rx_v) * Tan + py;
 			xo = -64;
 			yo = 64 * Tan;
 		}
-		else 
+		else
+		{
+			rx_v = px;
+			ry_v = py;
+			if (ra > 80 && ra < 100)
+				yo = -64;
+			else
+				yo = 64;
+			xo = 0;
+		}
+		while (1)
+		{
+			map_x = (int)(rx_v / 64);
+			map_y = (int)(ry_v / 64);
+			if (map_x < 0 || map_x >= data->larg_row || map_y < 0
+				|| map_y >= data->nbr_line)
+			{
+				v_dist = 8 * 64;
+				break ;
+			}
+			if (data->map[map_y][map_x] == '1')
+			{
+				v_dist = sqrtf((px - rx_v) * (px - rx_v) + (py - ry_v) * (py
+							- ry_v));
+				break ;
+			}
+			rx_v += xo;
+			ry_v += yo;
+		}
+		Tan = 1 / tan(deg_to_rad(ra));
+		if (sin(deg_to_rad(ra)) > 0.0001)
+		{
+			ry = ((int)(py / 64)) * 64 - 0.001;
+			rx = (py - ry) * Tan + px;
+			yo = -64;
+			xo = -yo * Tan;
+		}
+		else if (sin(deg_to_rad(ra)) < -0.0001)
+		{
+			ry = ((int)(py / 64)) * 64 + 64;
+			rx = (py - ry) * Tan + px;
+			yo = 64;
+			xo = -yo * Tan;
+		}
+		else
 		{
 			rx = px;
 			ry = py;
+			if (ra > 170 && ra < 190)
+				xo = -64;
+			else
+				xo = 64;
+			yo = 0;
 		}
-		while (i < 1500)
+		while (1)
 		{
 			map_x = (int)(rx / 64);
 			map_y = (int)(ry / 64);
-			if (map_x < 0 || map_x >= data->larg_row || map_y < 0
+			if (map_x < 0 || map_x > data->larg_row || map_y < 0
 				|| map_y >= data->nbr_line)
+			{
+				h_dist = 8 * 64;
 				break ;
+			}
 			if (data->map[map_y][map_x] == '1')
+			{
+				h_dist = sqrtf((px - rx) * (px - rx) + (py - ry) * (py - ry));
 				break ;
-			if (rx < data->larg_row * 64 && rx >= 0 && ry >= 0
-				&& ry < data->nbr_line * 64)
-					my_pixel_put(data, rx, ry, 0xFF0000);
-			rx += xo/200;
-			ry += yo/200;
-			i++;
+			}
+			rx += xo;
+			ry += yo;
 		}
-		
-		ra++;
-		x++;
+		if (v_dist < h_dist)
+			dist = v_dist;
+		else
+			dist = h_dist;
+		ca = data->player->pa - ra;
+		if (ca < 0)
+			ca += 360;
+		if (ca > 360)
+			ca -= 360;
+		if (dist == v_dist)
+			color = 0xFFF000;
+		else
+			color = 0xFF0000;
+		// 	my_pixel_put(data, rx ,ry, color);
+		// }
+		dist = dist * cos(deg_to_rad(ca));
+		line_h = 64 * 1500 / dist;
+		if (line_h > 1500)
+			line_h = 1500;
+		line_o = 750 - (line_h / 2);
+		while (line_h >= 0)
+		{
+			my_pixel_put(data, x * 30, line_o, color);
+			line_h--;
+			line_o++;
+		}
+		ra+=0.1;
+		x+= 0.1;
 	}
 }
-	// x = 0;
-	// ra = data->player->pa;
-	// ra-=33;
-	// i = 0;
-	// while (x < 66)
-	// {
-	// 	xo = 0;
-	// 	if (ra > 360)
-	// 		ra -= 360;
-	// 	Tan = 1 / tan(deg_to_rad(ra));
-	// 	if (sin(deg_to_rad(ra)) > 0.001)
-	// 	{
-	// 		ry = ((int)(py / 64)) * 64 - 0.001;
-	// 		rx = (py - ry) * Tan + px;
-	// 		yo = -64;
-	// 		xo = -yo * Tan;
-	// 	}
-	// 	else if (sin(deg_to_rad(ra)) < -0.001)
-	// 	{
-	// 		ry = ((int)(py / 64))* 64 + 64;
-	// 		rx = (py - ry) * Tan + px;
-	// 		yo = 64;
-	// 		xo = -yo * Tan;
-	// 	}
-	// 	else
-	// 	{
-	// 		rx = px;
-	// 		ry = py;
-	// 		xo++;
-	// 	}
-	// 	while (i < 8)
-	// 	{
-	// 		map_x = (int)(rx / 64);
-	// 		map_y = (int)(ry / 64);
-	// 		if (map_x < 0 || map_x >= data->larg_row || map_y < 0
-	// 			|| map_y >= data->nbr_line)
-	// 			break ;
-	// 		else if (data->map[map_y][map_x] == '1')
-	// 			break ;
-	// 		else if (rx < data->larg_row * 64 && rx >= 0 && ry >= 0
-	// 			&& ry < data->nbr_line * 64)
-	// 			my_pixel_put(data, rx, ry, 0xFF0000);
-	// 		rx ++;
-	// 		ry ++;
-	// 		i++;
-	// 	}
-	// 	ra++;
-	// 	x++;
-	// }
-// else if (cos(deg_to_rad(ra)) < 0 && ra != 90 && ra != 270)
-// {
-// 	Tan = tan(deg_to_rad(ra));
-// 	rx = ((int)(px / 64)) * 64;
-// 	ry = (px - rx) * Tan - py;
-// 	xo = (rx - px);
-// 	yo = ry - py;
-
-// }
-// while (rx < data->larg_row * 64 &&  ry < data->nbr_line * 64)
-// {
-// 	map_x = (int)(rx / 64);
-// 	map_y = (int)(ry / 64);
-// 	if (map_x < 0 || map_x >= data->larg_row * 64 || map_y < 0
-// 		|| map_y >= data->nbr_line * 64)
-// 		break ;
-// 	if (data->map[map_y][map_x] == '1')
-// 			break ;
-// 	if (rx < data->larg_row * 64 && rx >= 0 && ry >= 0 && ry < data->nbr_line* 64)
-// 		my_pixel_put(data, rx, ry, 0xFF0000);
-// 	rx+= xo;
-// 	ry-= yo;
-// 	line++;
-// }
-//}
-// x++;
-//}
-//}
-
-//float y = Tan * (px - rx) + py;
-// Calcul de la coordonnée y avec la formule d'une droite
 
 int	display(t_data *data)
 {
 	clear_image(data, 0x000000);
-	draw_map(data);
+	//draw_map(data);
 	drawPlayer(data);
 	draw_ray(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);

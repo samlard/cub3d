@@ -19,7 +19,7 @@ int	main(int ac, char **av)
 		return (1);
 	while(data.map[i])
 	{
-		printf("%s\n", data.map[i]);
+		printf("<%s>\n", data.map[i]);
 		i++;
 	}
 	data.img = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
