@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:02:51 by mvan-vel          #+#    #+#             */
-/*   Updated: 2024/05/07 16:35:20 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:30:37 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	*ft_memset(void *b, int c, size_t len)
 		bcopy[i] = c;
 		i++;
 	}
+	bcopy[i] = '\0';
 	return (b);
 }
 /*

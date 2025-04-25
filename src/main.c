@@ -9,7 +9,10 @@ int	main(int ac, char **av)
 		return (1);
 	init_data(&data);
 	if (!check_cub(av[1], &data))
-		return (err_msg(ERROR_CUB, NULL, 1));
+	{
+		ft_free_texture(&data);
+		return (1);
+	}
 	if (!parsing(&data))
 		return (1);
 	if (!init_window(&data))

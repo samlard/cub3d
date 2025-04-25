@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/18 15:57:11 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:32:50 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	get_pos(t_data *data)
 	{
 		j = 0;
 		if ((int)ft_strlen(data->map[i]) > data->larg_row)
-			data->larg_row = (int)ft_strlen(data->map[i]);
+			data->larg_row = ((int)ft_strlen(data->map[i]));
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
@@ -46,9 +46,17 @@ int	check_valid(t_data *data, char *str)
 		if (*str == 'N' || *str == 'S' || *str == 'W' || *str == 'E')
 		{
 			data->count_player++;
+			if(data->count_player > 1)
+			{
+				err_msg("too many player !", NULL, 0);
+				data->handle_error = 1;
+			}
 		}
 		else if (*str != '0' && *str != '1' && *str != ' ' && *str != '\n')
+		{
+			err_msg("invalid caracter in map !", NULL, 0);
 			data->handle_error = 1; // 1 = pas les bons caractere
+		}
 		str++;
 	}
 	return (data->handle_error);
@@ -65,27 +73,42 @@ int	map_copy(t_data *data)
 		temp = get_next_line(data->fd_map);
 		if (temp == NULL)
 			break ;
-		if (check_valid(data, temp))
-			return (1);
+		check_valid(data, temp);
 		str = ft_strjoin(str, temp);
 		free(temp);
 	}
-	data->map = ft_split(str, '\n');
-	free(str);
-	free(temp);
-	return (0);
+	if(ft_strlen(str) != 0)
+	{
+		if (data->count_player == 0)
+		{
+			err_msg("need a player !", NULL, 0);
+			data->handle_error = 1;
+		}
+		data->map = ft_split(str, '\n');
+		free(str);
+		free(temp);
+	}
+	else
+	{
+		free(str);
+		return(err_msg("missing map !", NULL, 1));
+	}
+	return (data->handle_error);
 }
 
 int	copy_check_map(t_data *data)
 {
-	map_copy(data);
-	if (data->count_player != 1)
+	if(map_copy(data))
 	{
-		printf("error nb player %d\n", data->count_player);
-		data->handle_error = 2; // 2 = trop de player;
-								//freemap;
+		ft_free_texture(data);
+		ft_free_tab(data->map);
+		return (1);
 	}
 	get_pos(data);
-	get_map_square(data);
+	if(get_map_square(data))
+	{
+		ft_free_texture(data);
+		return(1);
+	}
 	return (0);
 }

@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   map_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:24:05 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/03/30 15:36:03 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:03:14 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-size_t	ft_strcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strcpy(char *dst, const char *src)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
 	j = ft_strlen(src);
-	if (dstsize < 1)
+	if (j < 1)
 		return (j);
-	while (src[i] && i < dstsize)
+	while (src[i] && i < j)
 	{
 		dst[i] = src[i];
 		i++;
@@ -60,17 +60,17 @@ char	**cpy_map(char **map, t_data *data)
 	tab = malloc((data->nbr_line + 1) * sizeof(char *));
 	if (!tab)
 		return (NULL);
-	while (i < data->nbr_line)
+	while (map[i])
 	{
 		tab[i] = malloc((data->larg_row + 1) * sizeof(char));
-		ft_strcpy(tab[i], map[i], ft_strlen(map[i]));
+		ft_strcpy(tab[i], map[i]);
 		i++;
 	}
 	tab[i] = NULL;
 	return (tab);
 }
 
-void	get_map_square(t_data *data)
+int	get_map_square(t_data *data)
 {
 	char **tab;
 	int i;
@@ -78,19 +78,24 @@ void	get_map_square(t_data *data)
 	i = 0;
 	tab = malloc((data->nbr_line + 1) * sizeof(char *));
 	if (!tab)
-		return ;
+		return (err_msg("initialization malloc", NULL, 1));
 	while (i < data->nbr_line)
 	{
 		tab[i] = malloc((data->larg_row + 1) * sizeof(char));
-		ft_memset(tab[i], ' ', data->larg_row);
-		ft_strcpy(tab[i], data->map[i], ft_strlen(data->map[i]));
+		ft_memset(tab[i], ' ', data->larg_row + 1);
+		ft_strcpy(tab[i], data->map[i]);
 		i++;
 	}
 	tab[i] = NULL;
 	i = 0;
 	ft_free(data->map);
 	data->map = cpy_map(tab, data);
-	backtrack(data, tab, data->player->pos_y, data->player->pos_x);
+	ft_free_tab(tab);
+	backtrack(data, data->map, data->player->pos_y, data->player->pos_x);
 	if (data->flag == 1)
-		printf("there is a hole in your ass\n");
+	{
+		ft_free_tab(data->map);
+		return(err_msg("invalid map, there is a hole!", NULL, 1));
+	}
+	return(0);
 }

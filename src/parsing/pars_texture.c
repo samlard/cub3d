@@ -3,13 +3,13 @@
 int	check_cub(char *str, t_data *data)
 {
 	if ((data->fd_map = open(str, O_RDONLY)) == -1)
-		return (0);
+		return (err_msg("directory not found", NULL, 0));
 	if (ft_strlen(str) < 5)
-		return (0);
+		return (err_msg(ERROR_CUB, NULL, 0));
 	while (*str && *str != '.')
 		str++;
 	if (ft_strcmp(str, ".cub") != 0)
-		return (0);
+		return (err_msg(ERROR_CUB, NULL, 0));
 	return (1);
 }
 
@@ -74,13 +74,10 @@ int	check_texture(t_data *data)
 int	parsing(t_data *data)
 {
 	if (check_texture(data))
+	{
+		ft_free_texture(data);
 		return (err_msg(ERROR_TEXTURE, NULL, 0));
-	// printf("%s\n", data->C);
-	// printf("%s\n", data->WE);
-	// printf("%s\n", data->EA);
-	// printf("%s\n", data->NO);
-	// printf("%s\n", data->SO);
-	// printf("%s\n", data->F);
+	}
 	if(copy_check_map(data))
 		return(0);
 	return (1);

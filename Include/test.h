@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/04/17 17:10:27 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/04/19 17:24:04 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ typedef struct s_player
 int						check_cub(char *str, t_data *data);
 int						parsing(t_data *data);
 int						copy_check_map(t_data *data);
-void					get_map_square(t_data *data);
+int					get_map_square(t_data *data);
 
 // handle error + init data
 
@@ -122,6 +122,8 @@ void					init_data(t_data *data);
 int						init_window(t_data *data);
 void					handle_error(t_data *data);
 int						err_msg(char *detail, char *str, int code);
+void	ft_free_tab(char **tab);
+void	ft_free_texture(t_data *data);
 
 //draw function
 void					draw_map(t_data *data);
