@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/25 13:21:00 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:17:38 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void	drawPlayer(t_data *data)
 	// Taille du carré représentant le joueur (16x16 pixels)
 	// Dessiner un carré représentant le joueur
 	if (data->key.key_w == 1)
+	{
+		usleep(20000);
 		moove_up(data);
+	}
 	if (data->key.key_s == 1)
 		moove_down(data);
 	if (data->key.key_d == 1)
@@ -142,10 +145,10 @@ void	draw_map(t_data *data)
 		x++; // Passer à la ligne suivante
 	}
 	x = 0;
-	while (x < data->larg_row * 64) // Parcourt les lignes de la carte
+	while (x < data->larg_row * SQUARE_SIZE) // Parcourt les lignes de la carte
 	{
 		y = 0;
-		while (y < data->nbr_line * 64) // Parcourt les colonnes de chaque ligne
+		while (y < data->nbr_line * SQUARE_SIZE) // Parcourt les colonnes de chaque ligne
 		{
 			color = 0xFFF00;
 			my_pixel_put(data, x, y, color);
@@ -187,47 +190,44 @@ void	draw_ray(t_data *data)
 	x = 0;
 	ra = data->player->pa;
 	ra -= 30;
-	while (x < 60)
+	while (x < WIN_WIDTH)
 	{
 		h_dist = 0;
 		v_dist = 0;
-		if (ra >= 360)
-			ra -= 360;
-		if (ra < 0)
-			ra += 360;
+		ra = fix_angle(ra);
 		Tan = tan(deg_to_rad(ra));
 		if (cos(deg_to_rad(ra)) > 0.0001)
 		{
-			rx_v = ((int)(px / 64)) * 64 + 64;
+			rx_v = ((int)(px / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
 			ry_v = (px - rx_v) * Tan + py;
-			xo = 64;
-			yo = -64 * Tan;
+			xo = SQUARE_SIZE;
+			yo = -SQUARE_SIZE * Tan;
 		}
 		else if (cos(deg_to_rad(ra)) < 0.0001)
 		{
-			rx_v = ((int)(px / 64)) * 64 - 0.0001;
+			rx_v = ((int)(px / SQUARE_SIZE)) * SQUARE_SIZE - 0.0001;
 			ry_v = (px - rx_v) * Tan + py;
-			xo = -64;
-			yo = 64 * Tan;
+			xo = -SQUARE_SIZE;
+			yo = SQUARE_SIZE * Tan;
 		}
-		else
-		{
-			rx_v = px;
-			ry_v = py;
-			if (ra > 80 && ra < 100)
-				yo = -64;
-			else
-				yo = 64;
-			xo = 0;
-		}
+		// else
+		// {
+		// 	rx_v = px;
+		// 	ry_v = py;
+		// 	if (ra > 80 && ra < 100)
+		// 		yo = -SQUARE_SIZE;
+		// 	else
+		// 		yo = SQUARE_SIZE;
+		// 	xo = 0;
+		// }
 		while (1)
 		{
-			map_x = (int)(rx_v / 64);
-			map_y = (int)(ry_v / 64);
+			map_x = (int)(rx_v / SQUARE_SIZE);
+			map_y = (int)(ry_v / SQUARE_SIZE);
 			if (map_x < 0 || map_x >= data->larg_row || map_y < 0
 				|| map_y >= data->nbr_line)
 			{
-				v_dist = 8 * 64;
+				v_dist = data->nbr_line * SQUARE_SIZE;
 				break ;
 			}
 			if (data->map[map_y][map_x] == '1')
@@ -242,36 +242,36 @@ void	draw_ray(t_data *data)
 		Tan = 1 / tan(deg_to_rad(ra));
 		if (sin(deg_to_rad(ra)) > 0.0001)
 		{
-			ry = ((int)(py / 64)) * 64 - 0.001;
+			ry = ((int)(py / SQUARE_SIZE)) * SQUARE_SIZE - 0.001;
 			rx = (py - ry) * Tan + px;
-			yo = -64;
+			yo = -SQUARE_SIZE;
 			xo = -yo * Tan;
 		}
 		else if (sin(deg_to_rad(ra)) < -0.0001)
 		{
-			ry = ((int)(py / 64)) * 64 + 64;
+			ry = ((int)(py / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
 			rx = (py - ry) * Tan + px;
-			yo = 64;
+			yo = SQUARE_SIZE;
 			xo = -yo * Tan;
 		}
-		else
-		{
-			rx = px;
-			ry = py;
-			if (ra > 170 && ra < 190)
-				xo = -64;
-			else
-				xo = 64;
-			yo = 0;
-		}
+		// else
+		// {
+		// 	rx = px;
+		// 	ry = py;
+		// 	if (ra > 170 && ra < 190)
+		// 		xo = -SQUARE_SIZE;
+		// 	else
+		// 		xo = SQUARE_SIZE;
+		// 	yo = 0;
+		// }
 		while (1)
 		{
-			map_x = (int)(rx / 64);
-			map_y = (int)(ry / 64);
+			map_x = (int)(rx / SQUARE_SIZE);
+			map_y = (int)(ry / SQUARE_SIZE);
 			if (map_x < 0 || map_x > data->larg_row || map_y < 0
 				|| map_y >= data->nbr_line)
 			{
-				h_dist = 8 * 64;
+				h_dist = data->larg_row * SQUARE_SIZE;
 				break ;
 			}
 			if (data->map[map_y][map_x] == '1')
@@ -298,18 +298,18 @@ void	draw_ray(t_data *data)
 		// 	my_pixel_put(data, rx ,ry, color);
 		// }
 		dist = dist * cos(deg_to_rad(ca));
-		line_h = 64 * 1500 / dist;
-		if (line_h > 1500)
-			line_h = 1500;
-		line_o = 750 - (line_h / 2);
+		line_h = SQUARE_SIZE * WIN_HEIGHT / dist;
+		if (line_h > WIN_HEIGHT)
+			line_h = WIN_HEIGHT;
+		line_o = WIN_HEIGHT / 2 - (line_h / 2);
 		while (line_h >= 0)
 		{
-			my_pixel_put(data, x * 30, line_o, color);
+			my_pixel_put(data, x, line_o, color);
 			line_h--;
 			line_o++;
 		}
-		ra+=0.1;
-		x+= 0.1;
+		ra+= (float)FOV/(float)WIN_WIDTH;
+		x+=1;
 	}
 }
 

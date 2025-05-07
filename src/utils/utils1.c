@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/19 18:13:17 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:19:14 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	handle_error(t_data *data)
 void	init_data(t_data *data)
 {
 	data->player = malloc(sizeof(t_player) * 1);
+	// data->player = malloc(sizeof(t_ray) * 1);
 	data->map = NULL;
 	data->mlx = NULL;
 	data->win = NULL;
@@ -38,11 +39,17 @@ void	init_data(t_data *data)
 	data->flag = 0;
 	data->player->pos_x = 0;
 	data->player->pos_y = 0;
-	data->player->pa = 90;
-	data->player->pdx = cos((data->player->pa) * PI / 180);
-	data->player->pdy = -sin((data->player->pa) * PI/ 180);
+	data->player->pa = 0;
+	data->player->pdx = cos(deg_to_rad(data->player->pa));
+	data->player->pdy = -sin(deg_to_rad(data->player->pa));
 	data->nbr_line = 0;
 	data->larg_row = 0;
+	init_key(data);
+
+}
+
+void	init_key(t_data *data)
+{
 	data->key.key_w = 0;
 	data->key.key_s = 0;
 	data->key.key_a = 0;
@@ -61,11 +68,19 @@ int	init_window(t_data *data)
 			"Hulahup Barbatruc");
 	if (!data->win)
 		return (err_msg(ERROR_WIN_INIT, NULL, 0));
-	data->player->pos_x = data->player->pos_x * 64;
-	data->player->pos_y = data->player->pos_y * 64;
+	data->player->pos_x = data->player->pos_x * SQUARE_SIZE;
+	data->player->pos_y = data->player->pos_y * SQUARE_SIZE;
 	return (1);
 }
 
+float	fix_angle(float ra)
+{
+	if (ra >= 360)
+			ra -= 360;
+	if (ra < 0)
+			ra += 360;
+	return (ra);
+}
 float	deg_to_rad(float pa)
 {
 	return (pa * PI / 180);

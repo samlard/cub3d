@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/04/25 16:15:06 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:19:30 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define PI 3.14159265358979323846
 
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 1510
+#  define WIN_HEIGHT 500
 # endif
 
 # ifndef SQUARE_SIZE
@@ -47,7 +47,15 @@
 # endif
 
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 2024
+#  define WIN_WIDTH 1000
+# endif
+
+# ifndef FOV
+#  define FOV 60
+# endif
+
+# ifndef ROT_SPEED
+#  define ROT_SPEED 0.5
 # endif
 
 // message error
@@ -96,6 +104,7 @@ typedef struct s_data
 	int					nbr_line;
 	int					larg_row;
 	t_player			*player;
+	// t_ray				*ray;
 	// t_raycast			raycast;
 	t_key				key;
 }						t_data;
@@ -110,23 +119,24 @@ typedef struct s_player
 
 }						t_player;
 
-// typedef struct s_raycast
+// typedef struct s_ray
 // {
-// 	float ra;
-// 	float Tan;
-// 	float	px;
-// 	float	py;
-// 	int		map_x;
-// 	int		map_y;
-// 	int		x;
-// 	float	xo;
-// 	float	yo;
-// 	float	h_dist;
-// 	float	v_dist;
-// 	float 	rx_h;
-// 	float	ry_h;
-// 	float 	rx_v;
-// 	float	 ry_v;
+// 	float ra; //vecteur directon du player
+// 	float				Tan;
+// 	float px;     //pos en x du joueur
+// 	float py;     //pos en y du joueur
+// 	int map_x;    //index position dans la map 2d
+// 	int map_y;    //index position dans la map 2d
+// 	float v_dist; //distance par rapport a la verticale entre joueur et mur
+// 	float h_dist; //dist horizontal entre joueur et mur
+// 	float dist;   // dist plus courte entre h_dist et v_dist
+// 	float xo;     // pas a faire quand check si mur
+// 	float yo;     //pas a faire quand check si mur
+// 	float rx;   //coordone avec ligne verticale la plus proche
+// 	float ry;   //coordone avec ligne verticale la plus proche
+// 	int		color;
+
+// }						t_ray;
 
 // }						t_raycast;
 
@@ -135,16 +145,17 @@ typedef struct s_player
 int						check_cub(char *str, t_data *data);
 int						parsing(t_data *data);
 int						copy_check_map(t_data *data);
-int					get_map_square(t_data *data);
+int						get_map_square(t_data *data);
 
 // handle error + init data
 
 void					init_data(t_data *data);
+void					init_key(t_data *data);
 int						init_window(t_data *data);
 void					handle_error(t_data *data);
 int						err_msg(char *detail, char *str, int code);
-void	ft_free_tab(char **tab);
-void	ft_free_texture(t_data *data);
+void					ft_free_tab(char **tab);
+void					ft_free_texture(t_data *data);
 
 //draw function
 void					draw_map(t_data *data);
@@ -153,6 +164,7 @@ int						display(t_data *data);
 int						handle_keypress(int keycode, t_data *data);
 int						handle_keyrelease(int keysym, t_data *data);
 void					clear_image(t_data *data, int color);
+float					fix_angle(float ra);
 
 // moove function
 void					moove_up(t_data *data);
@@ -161,6 +173,5 @@ void					moove_left(t_data *data);
 void					moove_right(t_data *data);
 void					ft_rotate(t_data *data);
 float					deg_to_rad(float pa);
-
 
 #endif
