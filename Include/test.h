@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/08 13:45:22 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:44:55 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # endif
 
 # ifndef MOVE_SPEED
-#  define MOVE_SPEED 3
+#  define MOVE_SPEED 4
 # endif
 
 # ifndef WIN_WIDTH
@@ -55,7 +55,7 @@
 # endif
 
 # ifndef ROT_SPEED
-#  define ROT_SPEED 0.5
+#  define ROT_SPEED 0.8
 # endif
 
 // message error
@@ -104,6 +104,7 @@ typedef struct s_data
 	int					flag;
 	int					nbr_line;
 	int					larg_row;
+	float				speed_factor;
 	t_player			*player;
 	t_ray				*ray;
 	// t_raycast			raycast;

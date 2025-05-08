@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/07 16:24:42 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:38:08 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 void	handle_error(t_data *data)
 {
 	(void)data;
+}
+
+void get_speed_factor(t_data *data)
+{
+	float ref_area;
+	float	actual_area;
+	
+	ref_area = 3000000;
+	actual_area = WIN_HEIGHT * WIN_WIDTH;
+	data->speed_factor = actual_area/ ref_area;
 }
 
 void	init_data(t_data *data)
@@ -44,6 +54,7 @@ void	init_data(t_data *data)
 	data->nbr_line = 0;
 	data->larg_row = 0;
 	init_key(data);
+	get_speed_factor(data);
 
 }
 
@@ -56,6 +67,7 @@ void	init_key(t_data *data)
 	data->key.key_l= 0;
 	data->key.key_r= 0;
 }
+
 
 int	init_window(t_data *data)
 {
