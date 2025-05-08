@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/07 16:19:30 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:45:22 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define PI 3.14159265358979323846
 
 # ifndef WIN_HEIGHT
-#  define WIN_HEIGHT 500
+#  define WIN_HEIGHT 1000
 # endif
 
 # ifndef SQUARE_SIZE
@@ -47,7 +47,7 @@
 # endif
 
 # ifndef WIN_WIDTH
-#  define WIN_WIDTH 1000
+#  define WIN_WIDTH 1500
 # endif
 
 # ifndef FOV
@@ -66,6 +66,7 @@
 # define ERROR_WIN_INIT "Crash when creating the window"
 
 typedef struct s_player	t_player;
+typedef struct s_ray	t_ray;
 // typedef struct s_key	t_key;
 
 typedef struct s_key
@@ -104,7 +105,7 @@ typedef struct s_data
 	int					nbr_line;
 	int					larg_row;
 	t_player			*player;
-	// t_ray				*ray;
+	t_ray				*ray;
 	// t_raycast			raycast;
 	t_key				key;
 }						t_data;
@@ -119,24 +120,27 @@ typedef struct s_player
 
 }						t_player;
 
-// typedef struct s_ray
-// {
-// 	float ra; //vecteur directon du player
-// 	float				Tan;
-// 	float px;     //pos en x du joueur
-// 	float py;     //pos en y du joueur
-// 	int map_x;    //index position dans la map 2d
-// 	int map_y;    //index position dans la map 2d
-// 	float v_dist; //distance par rapport a la verticale entre joueur et mur
-// 	float h_dist; //dist horizontal entre joueur et mur
-// 	float dist;   // dist plus courte entre h_dist et v_dist
-// 	float xo;     // pas a faire quand check si mur
-// 	float yo;     //pas a faire quand check si mur
-// 	float rx;   //coordone avec ligne verticale la plus proche
-// 	float ry;   //coordone avec ligne verticale la plus proche
-// 	int		color;
+typedef struct s_ray
+{
+	float ra; //vecteur directon du player
+	float				Tan;
+	float px;   //pos en x du joueur
+	float py;   //pos en y du joueur
+	int map_x;  //index position dans la map 2d
+	int map_y;  //index position dans la map 2d
+	float dist; // dist plus courte entre h_dist et v_dist
+	float xo;   // pas a faire quand check si mur
+	float yo;   //pas a faire quand check si mur
+	float rx;   //coordone avec ligne verticale la plus proche
+	float ry;   //coordone avec ligne verticale la plus proche
+	int					color;
+	float				v_dist;
+	float				h_dist;
+	float				line_h;
+	float				line_o;
+	float				ca;
 
-// }						t_ray;
+}						t_ray;
 
 // }						t_raycast;
 
@@ -165,6 +169,11 @@ int						handle_keypress(int keycode, t_data *data);
 int						handle_keyrelease(int keysym, t_data *data);
 void					clear_image(t_data *data, int color);
 float					fix_angle(float ra);
+void					draw_ray(t_data *data);
+void					my_pixel_put(t_data *data, int x, int y, int color);
+void					vertical_distance(t_data *data, t_ray *ray);
+void					horizontal_distance(t_data *data, t_ray *ray);
+void					compute_distance(float pa, t_ray *ray);
 
 // moove function
 void					moove_up(t_data *data);

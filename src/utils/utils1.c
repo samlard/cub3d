@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/07 16:19:14 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:24:42 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	handle_error(t_data *data)
 void	init_data(t_data *data)
 {
 	data->player = malloc(sizeof(t_player) * 1);
-	// data->player = malloc(sizeof(t_ray) * 1);
 	data->map = NULL;
 	data->mlx = NULL;
 	data->win = NULL;

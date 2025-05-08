@@ -1,0 +1,121 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calcul_distance.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
+/*   Updated: 2025/05/08 13:48:39 by ssoumill         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "test.h"
+
+void	compute_distance(float pa, t_ray *ray)
+{
+	if (ray->v_dist < ray->h_dist)
+		ray->dist = ray->v_dist;
+	else
+		ray->dist = ray->h_dist;
+	ray->ca = pa - ray->ra;
+	fix_angle(ray->ca);
+	if (ray->dist == ray->v_dist)
+		ray->color = 0xFFF000;
+	else
+		ray->color = 0xFF0000;
+	ray->dist = ray->dist * cos(deg_to_rad(ray->ca));
+	ray->line_h = SQUARE_SIZE * WIN_HEIGHT / ray->dist;
+	if (ray->line_h > WIN_HEIGHT)
+		ray->line_h = WIN_HEIGHT;
+	ray->line_o = WIN_HEIGHT / 2 - (ray->line_h / 2);
+}
+
+void	set_h_variable(t_ray *ray)
+{
+	ray->ra = fix_angle(ray->ra);
+	ray->Tan = 1 / tan(deg_to_rad(ray->ra));
+	if (sin(deg_to_rad(ray->ra)) > 0.0001)
+	{
+		ray->ry = ((int)(ray->py / SQUARE_SIZE)) * SQUARE_SIZE - 0.001;
+		ray->rx = (ray->py - ray->ry) * ray->Tan + ray->px;
+		ray->yo = -SQUARE_SIZE;
+		ray->xo = -ray->yo * ray->Tan;
+}
+	else if (sin(deg_to_rad(ray->ra)) < -0.0001)
+	{
+		ray->ry = ((int)(ray->py / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
+		ray->rx = (ray->py - ray->ry) * ray->Tan + ray->px;
+		ray->yo = SQUARE_SIZE;
+		ray->xo = -ray->yo * ray->Tan;
+	}
+}
+
+
+void	horizontal_distance(t_data *data, t_ray *ray)
+{
+		set_h_variable(ray);
+		while (1)
+		{
+			ray->map_x = (int)(ray->rx / SQUARE_SIZE);
+			ray->map_y = (int)(ray->ry / SQUARE_SIZE);
+			if (ray->map_x < 0 || ray->map_x >= data->larg_row || ray->map_y < 0
+				|| ray->map_y >= data->nbr_line)
+			{
+				ray->h_dist = data->larg_row * SQUARE_SIZE;
+				break ;
+			}
+			if (data->map[ray->map_y][ray->map_x] == '1')
+			{
+				ray->h_dist = sqrtf((ray->px - ray->rx) * (ray->px - ray->rx) + (ray->py - ray->ry) * (ray->py
+							- ray->ry));
+				break ;
+			}
+			ray->rx += ray->xo;
+			ray->ry += ray->yo;
+		}
+}
+
+void	set_v_variable(t_ray *ray)
+{
+	ray->ra = fix_angle(ray->ra);
+	ray->Tan = tan(deg_to_rad(ray->ra));
+	if (cos(deg_to_rad(ray->ra)) > 0.0001)
+		{
+			ray->rx = ((int)(ray->px / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
+			ray->ry = (ray->px - ray->rx) * ray->Tan + ray->py;
+			ray->xo = SQUARE_SIZE;
+			ray->yo = -SQUARE_SIZE * ray->Tan;
+		}
+		else if (cos(deg_to_rad(ray->ra)) < 0.0001)
+		{
+			ray->rx = ((int)(ray->px / SQUARE_SIZE)) * SQUARE_SIZE - 0.001;
+			ray->ry = (ray->px - ray->rx) * ray->Tan + ray->py;
+			ray->xo = -SQUARE_SIZE;
+			ray->yo = SQUARE_SIZE * ray->Tan;
+		}
+}
+
+void	vertical_distance(t_data *data, t_ray *ray)
+{
+		set_v_variable(ray);
+		while (1)
+		{
+			ray->map_x = (int)(ray->rx / SQUARE_SIZE);
+			ray->map_y = (int)(ray->ry / SQUARE_SIZE);
+			if (ray->map_x < 0 || ray->map_x >= data->larg_row || ray->map_y < 0
+				|| ray->map_y >= data->nbr_line)
+			{
+				ray->v_dist = data->nbr_line * SQUARE_SIZE;
+				break ;
+			}
+			if (data->map[ray->map_y][ray->map_x] == '1')
+			{
+				ray->v_dist = sqrtf((ray->px - ray->rx) * (ray->px - ray->rx) + (ray->py - ray->ry) * (ray->py
+							- ray->ry));
+				break ;
+			}
+			ray->rx += ray->xo;
+			ray->ry += ray->yo;
+		}
+}

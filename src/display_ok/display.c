@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/07 16:17:38 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:46:02 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	drawPlayer(t_data *data)
 	// Dessiner un carré représentant le joueur
 	if (data->key.key_w == 1)
 	{
-		usleep(20000);
+		//usleep(20000);
 		moove_up(data);
 	}
 	if (data->key.key_s == 1)
@@ -159,159 +159,6 @@ void	draw_map(t_data *data)
 	}
 }
 
-void	draw_ray(t_data *data)
-{
-	float	ra;
-	float	Tan;
-	float	px;
-	float	py;
-	int		map_x;
-	int		map_y;
-	float	x;
-	float	xo;
-	float	yo;
-	float	h_dist;
-	float	v_dist;
-	float	dist;
-	float	ca;
-	float	line_h;
-	float	line_o;
-	int		color;
-
-	color = 0;
-	xo = 0;
-	yo = 0;
-	float rx, ry;
-	float rx_v, ry_v;
-	px = data->player->pos_x;
-	py = data->player->pos_y;
-	rx = 0;
-	ry = 0;
-	x = 0;
-	ra = data->player->pa;
-	ra -= 30;
-	while (x < WIN_WIDTH)
-	{
-		h_dist = 0;
-		v_dist = 0;
-		ra = fix_angle(ra);
-		Tan = tan(deg_to_rad(ra));
-		if (cos(deg_to_rad(ra)) > 0.0001)
-		{
-			rx_v = ((int)(px / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
-			ry_v = (px - rx_v) * Tan + py;
-			xo = SQUARE_SIZE;
-			yo = -SQUARE_SIZE * Tan;
-		}
-		else if (cos(deg_to_rad(ra)) < 0.0001)
-		{
-			rx_v = ((int)(px / SQUARE_SIZE)) * SQUARE_SIZE - 0.0001;
-			ry_v = (px - rx_v) * Tan + py;
-			xo = -SQUARE_SIZE;
-			yo = SQUARE_SIZE * Tan;
-		}
-		// else
-		// {
-		// 	rx_v = px;
-		// 	ry_v = py;
-		// 	if (ra > 80 && ra < 100)
-		// 		yo = -SQUARE_SIZE;
-		// 	else
-		// 		yo = SQUARE_SIZE;
-		// 	xo = 0;
-		// }
-		while (1)
-		{
-			map_x = (int)(rx_v / SQUARE_SIZE);
-			map_y = (int)(ry_v / SQUARE_SIZE);
-			if (map_x < 0 || map_x >= data->larg_row || map_y < 0
-				|| map_y >= data->nbr_line)
-			{
-				v_dist = data->nbr_line * SQUARE_SIZE;
-				break ;
-			}
-			if (data->map[map_y][map_x] == '1')
-			{
-				v_dist = sqrtf((px - rx_v) * (px - rx_v) + (py - ry_v) * (py
-							- ry_v));
-				break ;
-			}
-			rx_v += xo;
-			ry_v += yo;
-		}
-		Tan = 1 / tan(deg_to_rad(ra));
-		if (sin(deg_to_rad(ra)) > 0.0001)
-		{
-			ry = ((int)(py / SQUARE_SIZE)) * SQUARE_SIZE - 0.001;
-			rx = (py - ry) * Tan + px;
-			yo = -SQUARE_SIZE;
-			xo = -yo * Tan;
-		}
-		else if (sin(deg_to_rad(ra)) < -0.0001)
-		{
-			ry = ((int)(py / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
-			rx = (py - ry) * Tan + px;
-			yo = SQUARE_SIZE;
-			xo = -yo * Tan;
-		}
-		// else
-		// {
-		// 	rx = px;
-		// 	ry = py;
-		// 	if (ra > 170 && ra < 190)
-		// 		xo = -SQUARE_SIZE;
-		// 	else
-		// 		xo = SQUARE_SIZE;
-		// 	yo = 0;
-		// }
-		while (1)
-		{
-			map_x = (int)(rx / SQUARE_SIZE);
-			map_y = (int)(ry / SQUARE_SIZE);
-			if (map_x < 0 || map_x > data->larg_row || map_y < 0
-				|| map_y >= data->nbr_line)
-			{
-				h_dist = data->larg_row * SQUARE_SIZE;
-				break ;
-			}
-			if (data->map[map_y][map_x] == '1')
-			{
-				h_dist = sqrtf((px - rx) * (px - rx) + (py - ry) * (py - ry));
-				break ;
-			}
-			rx += xo;
-			ry += yo;
-		}
-		if (v_dist < h_dist)
-			dist = v_dist;
-		else
-			dist = h_dist;
-		ca = data->player->pa - ra;
-		if (ca < 0)
-			ca += 360;
-		if (ca > 360)
-			ca -= 360;
-		if (dist == v_dist)
-			color = 0xFFF000;
-		else
-			color = 0xFF0000;
-		// 	my_pixel_put(data, rx ,ry, color);
-		// }
-		dist = dist * cos(deg_to_rad(ca));
-		line_h = SQUARE_SIZE * WIN_HEIGHT / dist;
-		if (line_h > WIN_HEIGHT)
-			line_h = WIN_HEIGHT;
-		line_o = WIN_HEIGHT / 2 - (line_h / 2);
-		while (line_h >= 0)
-		{
-			my_pixel_put(data, x, line_o, color);
-			line_h--;
-			line_o++;
-		}
-		ra+= (float)FOV/(float)WIN_WIDTH;
-		x+=1;
-	}
-}
 
 int	display(t_data *data)
 {
