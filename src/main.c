@@ -8,12 +8,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (1);
 	init_data(&data);
-	if (!check_cub(av[1], &data))
-	{
-		ft_free_texture(&data);
-		return (1);
-	}
-	if (!parsing(&data))
+	if (!parsing(&data, av[1]))
 		return (1);
 	if (!init_window(&data))
 		return (1);

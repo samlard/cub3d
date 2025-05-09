@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/08 15:44:55 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:57:11 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,21 @@ typedef struct s_data
 	void				*img_addr;
 	char				**map;
 	int					fd_map;
-	int					count_direction;
+	int					count_texture;
 	int					count_player;
 	int					handle_error;
 	char				*NO;
+	int					f_NO;
 	char				*SO;
+	int					f_SO;
 	char				*EA;
+	int					f_EA;
 	char				*WE;
+	int					f_WE;
 	char				*F;
+	int					f_F;
 	char				*C;
+	int					f_C;
 	int					flag;
 	int					nbr_line;
 	int					larg_row;
@@ -109,6 +115,13 @@ typedef struct s_data
 	t_ray				*ray;
 	// t_raycast			raycast;
 	t_key				key;
+	// mlx image et la couleur
+	void 				*img_no;
+	void 				*img_so;
+	void 				*img_ea;
+	void 				*img_we;
+	int					rgb_c;
+	int					rgb_f;
 }						t_data;
 
 typedef struct s_player
@@ -148,9 +161,11 @@ typedef struct s_ray
 // parsing
 
 int						check_cub(char *str, t_data *data);
-int						parsing(t_data *data);
+int						parsing(t_data *data, char *str);
+int						check_texture(t_data *data);
 int						copy_check_map(t_data *data);
 int						get_map_square(t_data *data);
+int 					check_xpm_color(t_data *data);
 
 // handle error + init data
 

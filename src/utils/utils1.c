@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/08 15:38:08 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:56:26 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_data(t_data *data)
 	data->win_height = WIN_HEIGHT;
 	data->win_width = WIN_WIDTH;
 	data->fd_map = 0;
-	data->count_direction = 0;
+	data->count_texture = 0;
 	data->count_player = 0;
 	data->handle_error = 0;
 	data->NO = NULL;
@@ -66,6 +66,12 @@ void	init_key(t_data *data)
 	data->key.key_d= 0;
 	data->key.key_l= 0;
 	data->key.key_r= 0;
+	data->f_F = 0;
+	data->f_C = 0;
+	data->f_EA = 0;
+	data->f_WE = 0;
+	data->f_SO = 0;
+	data->f_NO = 0;
 }
 
 

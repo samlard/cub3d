@@ -6,11 +6,26 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/25 16:46:00 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:59:53 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
+
+int	find_back(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			if(str[i + 1] == '\n')
+				return(1);
+		i++;
+	}
+	return(0);
+}
 
 int		pos_player(t_data *data)
 {
@@ -88,7 +103,13 @@ int	map_copy(t_data *data)
 	}
 	if(ft_strlen(str) != 0)
 	{
-		if (data->count_player == 0)
+		str = ft_strtrim(str, "\n");
+		if(find_back(str))
+		{
+			err_msg("invalid map !", NULL, 0);
+			data->handle_error = 1;
+		}
+		else if (data->count_player == 0)
 		{
 			err_msg("need a player !", NULL, 0);
 			data->handle_error = 1;
