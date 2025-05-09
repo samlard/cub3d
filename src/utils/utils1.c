@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/09 12:56:26 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:11:12 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void	init_data(t_data *data)
 	data->player->pdy = -sin(deg_to_rad(data->player->pa));
 	data->nbr_line = 0;
 	data->larg_row = 0;
+	data->img_no = NULL;
+	data->img_so = NULL;
+	data->img_ea = NULL;
+	data->img_we = NULL;
 	init_key(data);
 	get_speed_factor(data);
 

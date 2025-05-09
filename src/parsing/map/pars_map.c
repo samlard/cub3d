@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/04/28 12:59:53 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:40:35 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ int	map_copy(t_data *data)
 		str = ft_strjoin(str, temp);
 		free(temp);
 	}
+	str = ft_strtrim(str, "\n");
 	if(ft_strlen(str) != 0)
 	{
-		str = ft_strtrim(str, "\n");
 		if(find_back(str))
 		{
 			err_msg("invalid map !", NULL, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calcul_distance.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/08 13:48:39 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:34:30 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	compute_distance(float pa, t_ray *ray)
 	ray->ca = pa - ray->ra;
 	fix_angle(ray->ca);
 	if (ray->dist == ray->v_dist)
-		ray->color = 0xFFF000;
+		ray->color = 14753280;
 	else
-		ray->color = 0xFF0000;
+		ray->color = 14443520;
 	ray->dist = ray->dist * cos(deg_to_rad(ray->ca));
 	ray->line_h = SQUARE_SIZE * WIN_HEIGHT / ray->dist;
 	if (ray->line_h > WIN_HEIGHT)
