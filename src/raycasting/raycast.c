@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/08 13:41:00 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/14 13:11:50 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,23 @@ void	init_ray(t_data *data, t_ray *ray)
 
 void	draw_ray_column(t_data *data, int x, t_ray *ray)
 {
+	int	i;
+
+	i = 0;
+	while (i < ray->line_o)
+	{
+		my_pixel_put(data, x, i, data->rgb_c);
+		i++;
+	}
 	while (ray->line_h >= 0)
 	{
 		my_pixel_put(data, x, ray->line_o, ray->color);
 		ray->line_h--;
+		ray->line_o++;
+	}
+	while (ray->line_o < WIN_HEIGHT)
+	{
+		my_pixel_put(data, x, ray->line_o, data->rgb_f);
 		ray->line_o++;
 	}
 }

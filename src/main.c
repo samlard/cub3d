@@ -12,6 +12,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (!init_window(&data))
 		return (1);
+	get_xpm(&data);
 	while(data.map[i])
 	{
 		printf("<%s>\n", data.map[i]);
