@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/15 17:55:00 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:01:20 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@
 # define ERROR_WIN_INIT "Crash when creating the window"
 
 typedef struct s_player	t_player;
-typedef struct s_ray	t_ray;
-// typedef struct s_texture	t_texture;
-// typedef struct s_key	t_key;
+
 
 typedef struct s_texture
 {
@@ -88,6 +86,30 @@ typedef struct s_texture
 	char	*addr;
 	void	*img;
 }						t_texture;
+
+typedef struct s_ray
+{
+	float ra; //vecteur directon du player
+	float				Tan;
+	float px;   //pos en x du joueur
+	float py;   //pos en y du joueur
+	int map_x;  //index position dans la map 2d
+	int map_y;  //index position dans la map 2d
+	float dist; // dist plus courte entre h_dist et v_dist
+	float xo;   // pas a faire quand check si mur
+	float yo;   //pas a faire quand check si mur
+	float rx_v;   //coordone avec ligne verticale la plus proche
+	float ry_v;   //coordone avec ligne verticale la plus proche
+	float	ry_h;
+	float	rx_h;
+	int					color;
+	float				v_dist;
+	float				h_dist;
+	float				line_h;
+	float				line_o;
+	float				ca;
+
+}						t_ray;
 
 typedef struct s_key
 {
@@ -154,32 +176,6 @@ typedef struct s_player
 	float				pa;
 
 }						t_player;
-
-typedef struct s_ray
-{
-	float ra; //vecteur directon du player
-	float				Tan;
-	float px;   //pos en x du joueur
-	float py;   //pos en y du joueur
-	int map_x;  //index position dans la map 2d
-	int map_y;  //index position dans la map 2d
-	float dist; // dist plus courte entre h_dist et v_dist
-	float xo;   // pas a faire quand check si mur
-	float yo;   //pas a faire quand check si mur
-	float rx_v;   //coordone avec ligne verticale la plus proche
-	float ry_v;   //coordone avec ligne verticale la plus proche
-	float	ry_h;
-	float	rx_h;
-	int					color;
-	float				v_dist;
-	float				h_dist;
-	float				line_h;
-	float				line_o;
-	float				ca;
-
-}						t_ray;
-
-// }						t_raycast;
 
 
 void get_xpm(t_data *data);

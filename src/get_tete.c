@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/15 16:03:35 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:38:12 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ void	get_xpm(t_data *data)
 	texture = data->texture;
 	i = 0;
 	if (!(texture[NORTH].img = mlx_xpm_file_to_image(data->mlx,
-				"texture/north.xpm", &texture[NORTH].width,
+				data->NO, &texture[NORTH].width,
 				&texture[NORTH].height)))
 		i = err_msg("NO file xpm", data->NO, 1);
 	if (!(texture[SOUTH].img = mlx_xpm_file_to_image(data->mlx,
-				"texture/south.xpm", &texture[SOUTH].width,
+				data->SO, &texture[SOUTH].width,
 				&texture[SOUTH].height)))
 		i = err_msg("SO file xpm", data->SO, 1);
 	if (!(texture[EAST].img = mlx_xpm_file_to_image(data->mlx,
-				"texture/east.xpm", &texture[EAST].width,
+				data->EA, &texture[EAST].width,
 				&texture[EAST].height)))
 		i = err_msg("EA file xpm", data->EA, 1);
 	if (!(texture[WEST].img = mlx_xpm_file_to_image(data->mlx,
-				"texture/west.xpm", &texture[WEST].width,
+				data->WE, &texture[WEST].width,
 				&texture[WEST].height)))
 		i = err_msg("WE file xpm", data->WE, 1);
     if (i != 0)

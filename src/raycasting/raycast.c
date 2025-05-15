@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/15 17:56:32 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:57:19 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,22 @@ void	draw_texture(t_data *data, int x, t_ray *ray)
 
 	if (ray->h_dist < ray->v_dist)
 	{
-		if (sin(ray->ra) > 0)
+		if (sin(deg_to_rad(ray->ra)) > 0)
 			texture = &data->texture[NORTH];
 		else
 			texture = &data->texture[SOUTH];
-		text_x = (int)(ray->rx_h * texture->width) % texture->width; 
+		text_x = (int)(fmod(ray->rx_h, SQUARE_SIZE) / SQUARE_SIZE * texture->width);
 	}
 	else
 	{
-		if (cos(ray->ra) > 0)
+		if (cos(deg_to_rad(ray->ra)) > 0)
 			texture = &data->texture[EAST];
 		else
 			texture = &data->texture[WEST];
-		text_x = (int)(ray->rx_v * texture->width) % texture->width; 
+		text_x = (int)(fmod(ray->ry_v, SQUARE_SIZE) / SQUARE_SIZE * texture->width);
 	}
-	step = SQUARE_SIZE * texture->height / ray->line_h;
-	texture_pos = ray->line_o * step;
+	step = texture->height / ray->line_h;
+	texture_pos = (ray->line_o - WIN_HEIGHT / 2 + ray->line_h / 2) * step;
 	while (ray->line_h >= 0)
 	{
 		text_y = (int)texture_pos % texture->height;
