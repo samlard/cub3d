@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/14 13:38:45 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:35:42 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	set_h_variable(t_ray *ray)
 	ray->Tan = 1 / tan(deg_to_rad(ray->ra));
 	if (sin(deg_to_rad(ray->ra)) > 0.0001)
 	{
-		ray->ry = ((int)(ray->py / SQUARE_SIZE)) * SQUARE_SIZE - 0.001;
-		ray->rx = (ray->py - ray->ry) * ray->Tan + ray->px;
+		ray->ry_h = ((int)(ray->py / SQUARE_SIZE)) * SQUARE_SIZE - 0.001;
+		ray->rx_h = (ray->py - ray->ry_h) * ray->Tan + ray->px;
 		ray->yo = -SQUARE_SIZE;
 		ray->xo = -ray->yo * ray->Tan;
 }
 	else if (sin(deg_to_rad(ray->ra)) < 0.0001)
 	{
-		ray->ry = ((int)(ray->py / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
-		ray->rx = (ray->py - ray->ry) * ray->Tan + ray->px;
+		ray->ry_h = ((int)(ray->py / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
+		ray->rx_h = (ray->py - ray->ry_h) * ray->Tan + ray->px;
 		ray->yo = SQUARE_SIZE;
 		ray->xo = -ray->yo * ray->Tan;
 	}
@@ -57,18 +57,18 @@ void	horizontal_distance(t_data *data, t_ray *ray)
 		set_h_variable(ray);
 		while (1)
 		{
-			ray->map_x = (int)(ray->rx / SQUARE_SIZE);
-			ray->map_y = (int)(ray->ry / SQUARE_SIZE);
+			ray->map_x = (int)(ray->rx_h / SQUARE_SIZE);
+			ray->map_y = (int)(ray->ry_h / SQUARE_SIZE);
 			if (ray->map_x < 0 || ray->map_x >= data->larg_row || ray->map_y < 0
 				|| ray->map_y >= data->nbr_line)
 				break ;
 			if (data->map[ray->map_y][ray->map_x] == '1')
 				break ;
-			ray->rx += ray->xo;
-			ray->ry += ray->yo;
+			ray->rx_h += ray->xo;
+			ray->ry_h += ray->yo;
 		}
-		ray->h_dist = sqrtf((ray->px - ray->rx) * (ray->px - ray->rx) + (ray->py - ray->ry) * (ray->py
-			- ray->ry));
+		ray->h_dist = sqrtf((ray->px - ray->rx_h) * (ray->px - ray->rx_h) + (ray->py - ray->ry_h) * (ray->py
+			- ray->ry_h));
 }
 
 void	set_v_variable(t_ray *ray)
@@ -77,15 +77,15 @@ void	set_v_variable(t_ray *ray)
 	ray->Tan = tan(deg_to_rad(ray->ra));
 	if (cos(deg_to_rad(ray->ra)) > 0.0001)
 		{
-			ray->rx = ((int)(ray->px / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
-			ray->ry = (ray->px - ray->rx) * ray->Tan + ray->py;
+			ray->rx_v = ((int)(ray->px / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
+			ray->ry_v = (ray->px - ray->rx_v) * ray->Tan + ray->py;
 			ray->xo = SQUARE_SIZE;
 			ray->yo = -SQUARE_SIZE * ray->Tan;
 		}
 		else if (cos(deg_to_rad(ray->ra)) < 0.0001)
 		{
-			ray->rx = ((int)(ray->px / SQUARE_SIZE)) * SQUARE_SIZE - 0.001;
-			ray->ry = (ray->px - ray->rx) * ray->Tan + ray->py;
+			ray->rx_v = ((int)(ray->px / SQUARE_SIZE)) * SQUARE_SIZE - 0.001;
+			ray->ry_v = (ray->px - ray->rx_v) * ray->Tan + ray->py;
 			ray->xo = -SQUARE_SIZE;
 			ray->yo = SQUARE_SIZE * ray->Tan;
 		}
@@ -96,16 +96,16 @@ void	vertical_distance(t_data *data, t_ray *ray)
 		set_v_variable(ray);
 		while (1)
 		{
-			ray->map_x = (int)(ray->rx / SQUARE_SIZE);
-			ray->map_y = (int)(ray->ry / SQUARE_SIZE);
+			ray->map_x = (int)(ray->rx_v / SQUARE_SIZE);
+			ray->map_y = (int)(ray->ry_v / SQUARE_SIZE);
 			if (ray->map_x < 0 || ray->map_x >= data->larg_row || ray->map_y < 0
 				|| ray->map_y >= data->nbr_line)
 				break ;
 			if (data->map[ray->map_y][ray->map_x] == '1')
 				break ;
-			ray->rx += ray->xo;
-			ray->ry += ray->yo;
+			ray->rx_v += ray->xo;
+			ray->ry_v += ray->yo;
 		}
-		ray->v_dist = sqrtf((ray->px - ray->rx) * (ray->px - ray->rx) + (ray->py - ray->ry) * (ray->py
-			- ray->ry));
+		ray->v_dist = sqrtf((ray->px - ray->rx_v) * (ray->px - ray->rx_v) + (ray->py - ray->ry_v) * (ray->py
+			- ray->ry_v));
 }
