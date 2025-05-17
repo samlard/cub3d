@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moove.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/08 15:42:56 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:48:26 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    moove_up(t_data *data)
 
     new_y = data->player->pos_y - ((float) sin(deg_to_rad(data->player->pa)) * MOVE_SPEED* data->speed_factor);
     new_x = data->player->pos_x + ((float) cos(deg_to_rad(data->player->pa)) * MOVE_SPEED* data->speed_factor);
-    if (new_y >= data->nbr_line * 64 || new_y <= 0 || new_x >= data->larg_row * 64 || new_x <= 0)
+    if (new_y >= (data->nbr_line - 1) * 64 || new_y <= 0 || new_x >= (data->larg_row - 1) * 64 || new_x <= 0)
         return;
     if (data->map[(int) (new_y /(float)SQUARE_SIZE)][(int) (new_x /(float)SQUARE_SIZE)] == '1')
         return;

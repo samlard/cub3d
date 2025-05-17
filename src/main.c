@@ -6,7 +6,7 @@ int	main(int ac, char **av)
 	int i = 0;
 
 	if (ac != 2)
-		return (1);
+		return (err_msg("only one argument : exemple.cub", NULL, 1));
 	init_data(&data);
 	if (!parsing(&data, av[1]))
 		return (1);

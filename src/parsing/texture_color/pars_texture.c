@@ -1,26 +1,43 @@
 #include "test.h"
 
-int name_error_texture(t_data *data)
+int	check_invalid_line(char *str)
 {
-	int i;
-
-	i = 0;
-    if (data->f_NO == 0 || data->f_NO > 1 || !data->NO)
-    	i = err_msg("only 1 texture for NO, no more, no less !", NULL, 1);
-    if (data->f_SO == 0 || data->f_SO > 1 || !data->SO)
-    	i = err_msg("only 1 texture for SO, no more, no less !", NULL, 1);
-    if (data->f_WE == 0 || data->f_WE > 1 || !data->WE)
-    	i = err_msg("only 1 texture for WE, no more, no less !", NULL, 1);
-    if (data->f_EA == 0 || data->f_EA > 1 || !data->EA)
-    	i = err_msg("only 1 texture for EA, no more, no less !", NULL, 1);
-    if (data->f_C == 0 || data->f_C > 1 || !data->C)
-        i = err_msg("only 1 C ask for ceiling color, no more, no less !", NULL, 1);
-    if (data->F == 0 || data->f_F > 1 || !data->F)
-        i = err_msg("only 1 F ask for floor color, no more, no less !", NULL, 1);
-return(i);
+	while (*str)
+	{
+		if (*str != ' ' && *str != '\n')
+			return (1);
+		str++;
+	}
+	return (0);
 }
 
-void verif_flag(char *str, t_data *data)
+int	name_error_texture(t_data *data, int end)
+{
+	int	i;
+
+	i = 0;
+	if (data->f_NO == 0 || data->f_NO > 1 || !data->NO)
+		i = err_msg("only 1 texture for NO, no more, no less !", NULL, 1);
+	if (data->f_SO == 0 || data->f_SO > 1 || !data->SO)
+		i = err_msg("only 1 texture for SO, no more, no less !", NULL, 1);
+	if (data->f_WE == 0 || data->f_WE > 1 || !data->WE)
+		i = err_msg("only 1 texture for WE, no more, no less !", NULL, 1);
+	if (data->f_EA == 0 || data->f_EA > 1 || !data->EA)
+		i = err_msg("only 1 texture for EA, no more, no less !", NULL, 1);
+	if (data->f_C == 0 || data->f_C > 1 || !data->C)
+		i = err_msg("only 1 C ask for ceiling color, no more, no less !", NULL,
+				1);
+	if (data->F == 0 || data->f_F > 1 || !data->F)
+		i = err_msg("only 1 F ask for floor color, no more, no less !", NULL,
+				1);
+	if (end == 0)
+		i = (err_msg("missing map !", NULL, 1));
+	if (end == 2)
+		i = 1;
+	return (i);
+}
+
+void	verif_flag(char *str, t_data *data)
 {
 	if (ft_strnstr(str, "NO", 3) != 0)
 		data->f_NO += 1;
@@ -35,7 +52,6 @@ void verif_flag(char *str, t_data *data)
 	if (ft_strnstr(str, "F", 2) != 0)
 		data->f_F += 1;
 }
-
 
 char	*get_texture(char *str, int i, char *final, t_data *data)
 {
@@ -64,7 +80,7 @@ char	*get_texture(char *str, int i, char *final, t_data *data)
 
 int	handle_texture(t_data *data, char *str)
 {
-	if ((ft_strnstr(str, "NO", 3)) != NULL)
+	if ((ft_strnstr(str, "NO", 2)) != NULL)
 		data->NO = get_texture(str, 1, data->NO, data);
 	else if (ft_strnstr(str, "SO", 3) != NULL)
 		data->SO = get_texture(str, 1, data->SO, data);
@@ -77,23 +93,36 @@ int	handle_texture(t_data *data, char *str)
 	else if (ft_strnstr(str, "F", 2) != NULL)
 		data->F = get_texture(str, 0, data->F, data);
 	else if (ft_strchr(str, '1') || (ft_strchr(str, '0')))
+	{
+		data->map_first_line = ft_strdup(str);
+		data->map_first_line = ft_strtrim(data->map_first_line, " ");
 		return (1);
+	}
+	else if (check_invalid_line(str))
+		return (err_msg("invalid line in file :", str, 2));
+		// remplacer ca par un exit
 	return (0);
 }
 int	check_texture(t_data *data)
 {
 	char	*str;
-	//int		err_flag;
+	int		check_empty;
+	int		end;
 
 	str = NULL;
-	//err_flag = 0; //idee de boucle pour verifier plus que les 6 textures voirent si il y en a pas apres mais probleme sur lecture de map;
-	while (data->count_texture != 6)
+	check_empty = 0;
+	end = 0;
+	while (1)
 	{
 		str = get_next_line(data->fd_map);
+		if (!str && check_empty == 0)
+			return (err_msg("empty file !", NULL, 1));
 		if (!str)
-			return (1);
-		handle_texture(data, str);
+			break;
+		if ((end = handle_texture(data, str)) > 0)
+			break ;
 		free(str);
+		check_empty++;
 	}
-	return (name_error_texture(data));
+	return (name_error_texture(data, end));
 }

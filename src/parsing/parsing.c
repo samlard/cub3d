@@ -6,11 +6,12 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:39:10 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/09 17:39:15 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:46:45 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
+
 
 int	check_cub(char *str, t_data *data)
 {
@@ -25,11 +26,6 @@ int	check_cub(char *str, t_data *data)
 	return (1);
 }
 
-// void space_to_wall(t_data *data)
-// {
-	
-// }
-
 int	parsing(t_data *data, char *str)
 {
     if (!check_cub(str, data))
@@ -38,16 +34,18 @@ int	parsing(t_data *data, char *str)
 		close(data->fd_map);
 		return (0);
 	}
+	printf("bonjour\n");
 	if (check_texture(data))
 	{
 		ft_free_texture(data);
 		close(data->fd_map);
 		return (0);
 	}
+	printf("bonjour\n");
 	if (check_xpm_color(data))
 		return(0);
+	printf("bonjour\n");
 	if(copy_check_map(data))
 		return(0);
-	// space_to_wall(data);
 	return (1);
 }

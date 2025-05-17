@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/09 17:11:12 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:41:22 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_data(t_data *data)
 	data->win_height = WIN_HEIGHT;
 	data->win_width = WIN_WIDTH;
 	data->fd_map = 0;
+	data->map_first_line = NULL;
 	data->count_texture = 0;
 	data->count_player = 0;
 	data->handle_error = 0;
