@@ -2,7 +2,7 @@
 static char *bb5c8f59fb42488ee2fa3b18a0d3b0215R1dauUS5aoHA0Py[] = {
 /* columns rows colors chars-per-pixel */
 "64 64 2 1 ",
-"  c black",
+"  c #000000",
 ". c #ED1C24",
 /* pixels */
 "................................................................",

@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/15 17:40:54 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:10:00 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@
 #  define ROT_SPEED 0.8
 # endif
 
+#define NORTH 0
+
+#define SOUTH 1
+
+#define EAST 2
+
+#define WEST 3
+
 // message error
 
 # define ERROR_CUB "Not a .cub file"
@@ -66,8 +74,42 @@
 # define ERROR_WIN_INIT "Crash when creating the window"
 
 typedef struct s_player	t_player;
-typedef struct s_ray	t_ray;
-// typedef struct s_key	t_key;
+
+
+typedef struct s_texture
+{
+	int	endian;
+	int	bpp;
+	int	size_line;
+	int	width;
+	int	height;
+	char	*addr;
+	void	*img;
+}						t_texture;
+
+typedef struct s_ray
+{
+	float ra; //vecteur directon du player
+	float				Tan;
+	float px;   //pos en x du joueur
+	float py;   //pos en y du joueur
+	int map_x;  //index position dans la map 2d
+	int map_y;  //index position dans la map 2d
+	float dist; // dist plus courte entre h_dist et v_dist
+	float xo;   // pas a faire quand check si mur
+	float yo;   //pas a faire quand check si mur
+	float rx_v;   //coordone avec ligne verticale la plus proche
+	float ry_v;   //coordone avec ligne verticale la plus proche
+	float	ry_h;
+	float	rx_h;
+	int					color;
+	float				v_dist;
+	float				h_dist;
+	float				line_h;
+	float				line_o;
+	float				ca;
+
+}						t_ray;
 
 typedef struct s_key
 {
@@ -123,6 +165,7 @@ typedef struct s_data
 	void 				*img_we;
 	int					rgb_c;
 	int					rgb_f;
+	t_texture			texture[4];
 }						t_data;
 
 typedef struct s_player
@@ -134,30 +177,6 @@ typedef struct s_player
 	float				pa;
 
 }						t_player;
-
-typedef struct s_ray
-{
-	float ra; //vecteur directon du player
-	float				Tan;
-	float px;   //pos en x du joueur
-	float py;   //pos en y du joueur
-	int map_x;  //index position dans la map 2d
-	int map_y;  //index position dans la map 2d
-	float dist; // dist plus courte entre h_dist et v_dist
-	float xo;   // pas a faire quand check si mur
-	float yo;   //pas a faire quand check si mur
-	float rx;   //coordone avec ligne verticale la plus proche
-	float ry;   //coordone avec ligne verticale la plus proche
-	int					color;
-	float				v_dist;
-	float				h_dist;
-	float				line_h;
-	float				line_o;
-	float				ca;
-
-}						t_ray;
-
-// }						t_raycast;
 
 
 void get_xpm(t_data *data);

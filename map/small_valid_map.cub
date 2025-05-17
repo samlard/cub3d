@@ -1,10 +1,10 @@
-NO texture/north.xpm
-SO texture/south.xpm
-WE texture/west.xpm
-EA texture/east.xpm             
+NO texture/wolfenstein/red_brick.xpm
+SO texture/wolfenstein/purple_stone.xpm
+WE texture/wolfenstein/grey_stone.xpm
+EA texture/wolfenstein/color_stone.xpm        
 
 F 220,100,0
-C 225,30,0
+C 50,200,3
 
 11111111
 10100001

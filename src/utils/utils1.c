@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/15 17:41:22 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:09:49 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	init_data(t_data *data)
 	data->img_so = NULL;
 	data->img_ea = NULL;
 	data->img_we = NULL;
+	
 	init_key(data);
 	get_speed_factor(data);
 

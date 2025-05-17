@@ -2,7 +2,7 @@
 static char *test[] = {
 "4 4 2 1",
 "A c #FFFFFF",
-"B c #000000",
+"B c #FFFFFF",
 "AAAA",
 "ABBA",
 "ABBA",
