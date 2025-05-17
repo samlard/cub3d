@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/17 15:06:53 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:14:42 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ typedef struct s_data
 	void				*img;
 	void				*img_addr;
 	char				**map;
+	char				*map_first_line;
 	int					fd_map;
 	int					count_texture;
 	int					count_player;
