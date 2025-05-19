@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/17 15:09:49 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:25:58 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ int	init_window(t_data *data)
 
 float	fix_angle(float ra)
 {
-	if (ra >= 360)
+	if (ra > 360)
 			ra -= 360;
-	if (ra < 0)
+	else if (ra < 0)
 			ra += 360;
 	return (ra);
 }

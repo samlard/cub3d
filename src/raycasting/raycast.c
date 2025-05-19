@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/17 15:09:47 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:32:08 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,12 @@ void draw_texture(t_data *data, int x, t_ray *ray)
     float step;
     t_texture *texture;
 
-    // Sélection de la texture en fonction de l'orientation du rayon
     if (ray->h_dist < ray->v_dist) {
         if (sin(deg_to_rad(ray->ra)) > 0)
             texture = &data->texture[NORTH];
         else
             texture = &data->texture[SOUTH];
-        
-        // Calcul du text_x pour le rayon horizontal
-        text_x = (int)(fmod(ray->rx_h, SQUARE_SIZE) / SQUARE_SIZE * texture->width);
-		printf("%i\n", text_x);
+        text_x = (int)fmod(ray->rx_h, texture->width);
     } else {
         if (cos(deg_to_rad(ray->ra)) > 0)
             texture = &data->texture[EAST];
@@ -99,13 +95,13 @@ void draw_texture(t_data *data, int x, t_ray *ray)
             texture = &data->texture[WEST];
         
         // Calcul du text_x pour le rayon vertical
-        text_x = (int)(fmod(ray->ry_v, SQUARE_SIZE) / SQUARE_SIZE * texture->width);
+        text_x = (int)fmod(ray->ry_v, texture->width);
     }
 
     // Calcul de la hauteur de la texture projetée sur l'écran
     step = texture->height / ray->line_h;
-    
-    // Calcul de la position verticale de la texture, ajustée en fonction de la hauteur du mur
+	if (step < 0.01)
+		step = 0.01;
     texture_pos = (ray->line_o - WIN_HEIGHT / 2 + ray->line_h / 2) * step;
 
     // Dessin de la texture ligne par ligne

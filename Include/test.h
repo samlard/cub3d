@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/17 15:14:42 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:05:39 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@
 # endif
 
 # ifndef ROT_SPEED
-#  define ROT_SPEED 0.8
+#  define ROT_SPEED 1.2f
 # endif
+
+#define OFFSET 0.3f
 
 #define NORTH 0
 

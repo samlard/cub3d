@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/17 14:43:15 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:53:46 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	compute_distance(float pa, t_ray *ray)
 		ray->color =0xFFFF00;
 	ray->dist = ray->dist * cos(deg_to_rad(ray->ca));
 	ray->line_h = SQUARE_SIZE * WIN_HEIGHT / ray->dist;
-	if (ray->line_h > WIN_HEIGHT)
-		ray->line_h = WIN_HEIGHT;
+	// if (ray->line_h > WIN_HEIGHT)
+	// 	ray->line_h = WIN_HEIGHT;
 	ray->line_o = WIN_HEIGHT / 2 - (ray->line_h / 2);
 }
 
@@ -44,14 +44,14 @@ void	set_h_variable(t_ray *ray)
 				ray->xo = 0;
 				ray->yo = -SQUARE_SIZE;
 				ray->rx_h = ray->px;
-				ray->ry_h = ((int)(ray->py / SQUARE_SIZE)) * SQUARE_SIZE - 0.001;;
+				ray->ry_h = ((int)(ray->py / SQUARE_SIZE)) * SQUARE_SIZE - 0.001;
 			}
 		else
 		{
 			ray->xo = 0;
 			ray->yo = SQUARE_SIZE;
 			ray->rx_h = ray->px;
-			ray->ry_h = ((int)(ray->py / SQUARE_SIZE)) * SQUARE_SIZE + SQUARE_SIZE;
+			ray->ry_h = 0;
 		}
 	}
 	ray->Tan = 1 / tan(deg_to_rad(ray->ra));
