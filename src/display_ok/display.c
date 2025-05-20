@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/09 17:49:55 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:29:15 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,6 @@ void	drawPlayer(t_data *data)
 	playerSize = 4;
 	// Taille du carré représentant le joueur (16x16 pixels)
 	// Dessiner un carré représentant le joueur
-	if (data->key.key_w == 1)
-	{
-		//usleep(20000);
-		moove_up(data);
-	}
-	if (data->key.key_s == 1)
-		moove_down(data);
-	if (data->key.key_d == 1)
-		moove_left(data);
-	if (data->key.key_a == 1)
-		moove_right(data);
-	if (data->key.key_l == 1 || data->key.key_r == 1)
-		ft_rotate(data);
 	for (int i = data->player->pos_x; i < data->player->pos_x + playerSize; i++)
 	{
 		for (int j = data->player->pos_y; j < data->player->pos_y
@@ -163,8 +150,22 @@ void	draw_map(t_data *data)
 int	display(t_data *data)
 {
 	clear_image(data, 0x000000);
-	//draw_map(data);
+	if (data->key.key_w == 1)
+	{
+		//usleep(20000);
+		moove_up(data);
+	}
+	if (data->key.key_s == 1)
+		moove_down(data);
+	if (data->key.key_d == 1)
+		moove_left(data);
+	if (data->key.key_a == 1)
+		moove_right(data);
+	if (data->key.key_l == 1 || data->key.key_r == 1)
+		ft_rotate(data);
+	printf("%f\n", data->player->pa);
 	draw_ray(data);
+	draw_map(data);
 	drawPlayer(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
