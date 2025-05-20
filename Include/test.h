@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/19 16:05:39 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:35:59 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,7 @@ typedef struct s_data
 	float				speed_factor;
 	t_player			*player;
 	t_ray				*ray;
-	// t_raycast			raycast;
 	t_key				key;
-	// mlx image et la couleur
 	void 				*img_no;
 	void 				*img_so;
 	void 				*img_ea;
@@ -174,8 +172,10 @@ typedef struct s_player
 {
 	float				pos_x;
 	float				pos_y;
-	float pdx; //correspond a la pente (direction)
+	float 				pdx; 
 	float				pdy;
+	float				posdxp;
+	float				posdyp;
 	float				pa;
 
 }						t_player;

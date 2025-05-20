@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/19 16:29:15 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/20 17:19:10 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,7 @@ int	display(t_data *data)
 {
 	clear_image(data, 0x000000);
 	if (data->key.key_w == 1)
-	{
-		//usleep(20000);
 		moove_up(data);
-	}
 	if (data->key.key_s == 1)
 		moove_down(data);
 	if (data->key.key_d == 1)
@@ -163,7 +160,6 @@ int	display(t_data *data)
 		moove_right(data);
 	if (data->key.key_l == 1 || data->key.key_r == 1)
 		ft_rotate(data);
-	printf("%f\n", data->player->pa);
 	draw_ray(data);
 	draw_map(data);
 	drawPlayer(data);

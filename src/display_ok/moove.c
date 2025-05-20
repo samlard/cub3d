@@ -6,60 +6,58 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/19 16:52:24 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:35:23 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-void	moove_up(t_data *data)
+void	check_offset(t_data *data, int *xo, int *yo, char dir)
 {
-	float	new_y;
-	float	new_x;
-	int		signe_x;
-	int		signe_y;
-
-	if (sin(deg_to_rad(data->player->pa) > 0.0))
-		signe_y = -1;
-	else
-		signe_y = -1;
-	if (cos(deg_to_rad(data->player->pa) < 0.0))
-		signe_x = 1;
-    else
-		signe_x = -1;
-	new_y = data->player->pos_y - ((float)sin(deg_to_rad(data->player->pa))
-			* MOVE_SPEED * data->speed_factor);
-	new_x = data->player->pos_x + ((float)cos(deg_to_rad(data->player->pa))
-			* MOVE_SPEED * data->speed_factor);
-	if (new_y >= (data->nbr_line) * 64 || new_y <= 0
-		|| new_x >= (data->larg_row) * 64 || new_x <= 0)
-		return ;
-	if (data->map[(int)((new_y / (float)SQUARE_SIZE) + OFFSET
-			* signe_y)][(int)((new_x / (float)SQUARE_SIZE) + OFFSET
-			* signe_x)] == '1')
-		return ;
-	data->player->pos_x = new_x;
-	data->player->pos_y = new_y;
+	if (dir == 'v')
+	{
+		if (data->player->pdx < 0)
+			*xo = -20;
+		else
+			*xo = 20;
+		if (data->player->pdy < 0)
+			*yo = -20;
+		else
+			*yo = 20;
+	}
+	if (dir == 'h')
+	{
+		if (data->player->pdx < 0)
+			*xo = -20;
+		else
+			*xo = 20;
+		if (data->player->pdy < 0)
+			*yo = -20;
+		else
+			*yo = 20;
+	}
 }
 
-
-void move_down(t_data *data)
+void moove_up(t_data *data)
 {
-    float new_x, new_y;
-    int grid_x, grid_y;
-    float offset = 0.2; // Même principe d’offset pour éviter les erreurs d’arrondi
+    int xo, yo;
+	float	new_y;
+	float	new_x;
 
-    new_x = data->player->pos_x - cos(deg_to_rad(data->player->pa)) * MOVE_SPEED * data->speed_factor;
-    new_y = data->player->pos_y + sin(deg_to_rad(data->player->pa)) * MOVE_SPEED * data->speed_factor;
-
-    grid_x = (int)(new_x / SQUARE_SIZE - (offset * copysign(1, cos(deg_to_rad(data->player->pa)))));
-    grid_y = (int)(new_y / SQUARE_SIZE - (offset * copysign(1, sin(deg_to_rad(data->player->pa)))));
-
-    if (data->map[grid_y][grid_x] == '1')
-        return;
-
-    data->player->pos_x = new_x;
-    data->player->pos_y = new_y;
+    check_offset(data, &xo, &yo, 'v');
+	new_y = data->player->pos_y + (data->player->pdy * (float)MOVE_SPEED);
+	new_x = data->player->pos_x + data->player->pdx * MOVE_SPEED;
+	printf("%f %f\n", new_x, new_y);
+    if (data->map[(int)((new_y + yo)/ (float)SQUARE_SIZE)]
+                 [(int)(data->player->pos_x / (float)SQUARE_SIZE)] != '1')
+    {
+        data->player->pos_y = new_y;
+    }
+    if (data->map[(int)(data->player->pos_y / (float)SQUARE_SIZE)]
+                 [(int)( (new_x  + xo)/ (float)SQUARE_SIZE)] != '1')
+    {
+        data->player->pos_x = new_x;
+    }
 }
 
 
@@ -79,6 +77,7 @@ void	moove_down(t_data *data)
     else
 		signe_x = 1;
 	new_y = data->player->pos_y + ((float)sin(deg_to_rad(data->player->pa))
+	
 			* MOVE_SPEED * data->speed_factor);
 	new_x = data->player->pos_x - ((float)cos(deg_to_rad(data->player->pa))
 			* MOVE_SPEED * data->speed_factor);
@@ -140,4 +139,6 @@ void	ft_rotate(t_data *data)
     data->player->pa = fix_angle(data->player->pa);
 	data->player->pdx = cos((data->player->pa) * PI / 180);
 	data->player->pdy = -sin((data->player->pa) * PI / 180);
+	data->player->posdxp = cos((data->player->pa) * PI / 180);
+	data->player->posdyp = sin((data->player->pa) * PI / 180);
 }
