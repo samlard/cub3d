@@ -6,26 +6,11 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/15 18:16:42 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:14:25 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
-
-int	find_back(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			if (str[i + 1] == '\n')
-				return (1);
-		i++;
-	}
-	return (0);
-}
 
 int	pos_player(t_data *data)
 {
