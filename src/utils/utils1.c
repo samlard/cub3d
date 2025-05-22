@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/19 16:25:58 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:37:54 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	init_data(t_data *data)
 	data->player->pa = 0;
 	data->player->pdx = cos(deg_to_rad(data->player->pa));
 	data->player->pdy = -sin(deg_to_rad(data->player->pa));
+	data->player->posdxp = sin((data->player->pa) * PI / 180);
+	data->player->posdyp =  cos((data->player->pa) * PI / 180);
 	data->nbr_line = 0;
 	data->larg_row = 0;
 	data->img_no = NULL;
@@ -91,8 +93,8 @@ int	init_window(t_data *data)
 			"Hulahup Barbatruc");
 	if (!data->win)
 		return (err_msg(ERROR_WIN_INIT, NULL, 0));
-	data->player->pos_x = data->player->pos_x * SQUARE_SIZE;
-	data->player->pos_y = data->player->pos_y * SQUARE_SIZE;
+	data->player->pos_x = data->player->pos_x * SQUARE_SIZE + 10;
+	data->player->pos_y = data->player->pos_y * SQUARE_SIZE + 10;
 	return (1);
 }
 
