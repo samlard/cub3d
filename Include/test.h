@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/22 16:16:33 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:30:15 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@
 #define EAST 2
 
 #define WEST 3
+
+#define UP_RIGHT 0
+#define UP_LEFT 1
+#define DOWN_RIGHT 2
+#define DOWN_LEFT 3
 
 // message error
 
@@ -163,6 +168,7 @@ typedef struct s_data
 	void 				*img_we;
 	int					rgb_c;
 	int					rgb_f;
+	int					wall_hit[4];
 	t_texture			texture[4];
 }						t_data;
 

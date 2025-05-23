@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/22 14:30:04 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:30:57 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void	init_data(t_data *data)
 	data->img_so = NULL;
 	data->img_ea = NULL;
 	data->img_we = NULL;
-	
+	data->wall_hit[UP_RIGHT] = 0;
+	data->wall_hit[UP_LEFT] = 0;
+	data->wall_hit[DOWN_RIGHT] = 0;
+	data->wall_hit[DOWN_LEFT] = 0;
 	init_key(data);
 	// get_speed_factor(data);
 
