@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/20 18:35:59 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:16:33 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@
 # endif
 
 # ifndef SQUARE_SIZE
-#  define SQUARE_SIZE 64
+#  define SQUARE_SIZE 64.0f
 # endif
 
 # ifndef MOVE_SPEED
-#  define MOVE_SPEED 4
+#  define MOVE_SPEED 4.0f
 # endif
 
 # ifndef WIN_WIDTH
@@ -55,10 +55,8 @@
 # endif
 
 # ifndef ROT_SPEED
-#  define ROT_SPEED 1.2f
+#  define ROT_SPEED 2.2f
 # endif
-
-#define OFFSET 0.3f
 
 #define NORTH 0
 
@@ -174,8 +172,6 @@ typedef struct s_player
 	float				pos_y;
 	float 				pdx; 
 	float				pdy;
-	float				posdxp;
-	float				posdyp;
 	float				pa;
 
 }						t_player;
@@ -215,11 +211,11 @@ void					vertical_distance(t_data *data, t_ray *ray);
 void					horizontal_distance(t_data *data, t_ray *ray);
 void					compute_distance(float pa, t_ray *ray);
 
-// moove function
-void					moove_up(t_data *data);
-void					moove_down(t_data *data);
-void					moove_left(t_data *data);
-void					moove_right(t_data *data);
+// move function
+void					move_up(t_data *data);
+void					move_down(t_data *data);
+void					move_left(t_data *data);
+void					move_right(t_data *data);
 void					ft_rotate(t_data *data);
 float					deg_to_rad(float pa);
 

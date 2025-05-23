@@ -21,6 +21,10 @@ int	main(int ac, char **av)
 	data.img = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
 	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.size_line,
 		&data.endian);
+	draw_ray(&data);
+	draw_map(&data);
+	drawPlayer(&data);
+	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	mlx_hook(data.win, 17, 0, (void *)exit, 0);
 	mlx_hook(data.win, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.win, KeyRelease, KeyReleaseMask, &handle_keyrelease, &data);

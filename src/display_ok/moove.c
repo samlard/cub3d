@@ -1,159 +1,185 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moove.c                                            :+:      :+:    :+:   */
+/*   move.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/20 20:04:35 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:06:02 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-void	check_offset(t_data *data, int *xo, int *yo, char dir)
-{
-	if (dir == 'v')
-	{
-		if (data->player->pdx < 0)
-			*xo = -20;
-		else
-			*xo = 20;
-		if (data->player->pdy < 0)
-			*yo = -20;
-		else
-			*yo = 20;
-	}
-	if (dir == 'h')
-	{
-		if (data->player->pdx <0)
-			*xo = 20;
-		else
-			*xo = -20;
-		if (data->player->pdy < 0)
-			*yo = 20;
-		else
-			*yo = -20;
-	}
-}
-
-void moove_up(t_data *data)
-{
-    int xo, yo;
-	float	new_y;
-	float	new_x;
-
-    check_offset(data, &xo, &yo, 'v');
-	new_y = data->player->pos_y + (data->player->pdy * (float)MOVE_SPEED);
-	new_x = data->player->pos_x + (data->player->pdx * (float)MOVE_SPEED);
-    if (data->map[(int)((new_y + yo)/ (float)SQUARE_SIZE)]
-                 [(int)(data->player->pos_x / (float)SQUARE_SIZE)] != '1')
-    {
-        data->player->pos_y = new_y;
-    }
-    if (data->map[(int)(data->player->pos_y / (float)SQUARE_SIZE)]
-                 [(int)( (new_x  + xo)/ (float)SQUARE_SIZE)] != '1')
-    {
-        data->player->pos_x = new_x;
-    }
-}
-
-void moove_down(t_data *data)
-{
-    int xo, yo;
-	float	new_y;
-	float	new_x;
-
-    check_offset(data, &xo, &yo, 'v');
-	new_y = data->player->pos_y - (data->player->pdy * (float)MOVE_SPEED);
-	new_x = data->player->pos_x - (data->player->pdx * (float) MOVE_SPEED);
-    if (data->map[(int)((new_y - yo)/ (float)SQUARE_SIZE)]
-                 [(int)(data->player->pos_x / (float)SQUARE_SIZE)] != '1')
-    {
-        data->player->pos_y = new_y;
-    }
-    if (data->map[(int)(data->player->pos_y / (float)SQUARE_SIZE)]
-                 [(int)( (new_x  - xo)/ (float)SQUARE_SIZE)] != '1')
-    {
-        data->player->pos_x = new_x;
-    }
-}
-
-
-// void moove_left(t_data *data)
+// void	check_offset(t_data *data, int *xo, int *yo, char dir)
 // {
-//     int xo, yo;
-// 	float	new_y;
-// 	float	new_x;
+// 	if (dir == 'h')
+// 	{
+// 		if (data->player->pdx < 0)
+// 			*xo = -20;
+// 		else
+// 			if (data->player->pdx < 0)
+// 			*xo = 20;
+// 		if (data->player->pdy < 0)
+// 			*yo = -20;
+// 		else
+// 			*xo = -20;
+// 		if (data->player->pdy < 0)
+// 			*yo = 20;
+// 		else
+// 			*yo = -20;
+// 	}
+// }
+// int		check_border(t_data *data)
+// {
+// 	if (data->player->pdx > 0)
+// 	{
+// 		if(data->player->pdy < 0)
+// 		{
+// 			if (data->map[(int)((data->player->pos_y - SQUARE_SIZE) / SQUARE_SIZE)]
+// 					[(int)((data->player->pos_x + SQUARE_SIZE) / SQUARE_SIZE)] == '1')
+// 			{
+// 				if (data->player->pos_y - (floorf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE) < 20 && (ceilf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE) - data->player->pos_x < 20)
+// 					return (0);
+// 				return (1);
+// 			}
+// 		}
+// 		else
+// 		{
+// 			if (data->map[(int)((data->player->pos_y + SQUARE_SIZE) / SQUARE_SIZE)]
+// 					[(int)((data->player->pos_x + SQUARE_SIZE) / SQUARE_SIZE)] == '1')
+// 			{
+// 				if ((ceilf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE) - data->player->pos_y < 20 && (ceilf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE) - data->player->pos_x < 20)
+// 					return (0);
+// 				return (1);
+// 			}
+// 		}
+// 	}
+// 	else
+// 	{
+// 		if(data->player->pdy < 0)
+// 		{
+// 			if (data->map[(int)((data->player->pos_y - SQUARE_SIZE) / SQUARE_SIZE)]
+// 			[(int)((data->player->pos_x - SQUARE_SIZE) / SQUARE_SIZE)] == '1')
+// 			{
+// 				if (data->player->pos_y - (floorf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE) < 20 && (data->player->pos_x - floorf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE) < 20)
+// 					return (0);
+// 				return (1);
+// 			}
+// 		}
+// 		else
+// 		{
+// 			if (data->map[(int)((data->player->pos_y + SQUARE_SIZE) / SQUARE_SIZE)]
+// 					[(int)((data->player->pos_x - SQUARE_SIZE) / SQUARE_SIZE)] == '1')
+// 			{
+// 				if ((ceilf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE) - data->player->pos_y < 20 && (floorf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE) - data->player->pos_x < 20)
+// 					return (0);
+// 				return (1);
 
-//     check_offset(data, &xo, &yo, 'h');
-// 	printf("%f %i\n", data->player->pdx, xo);
-// 	new_y = data->player->pos_y - (data->player->pdy * (float)MOVE_SPEED);
-// 	new_x = data->player->pos_x - (data->player->pdx * (float) MOVE_SPEED);
-//     if (data->map[(int)((new_y - yo)/ (float)SQUARE_SIZE)]
-//                  [(int)(data->player->pos_x / (float)SQUARE_SIZE)] != '1')
-//     {
-//         data->player->pos_y = new_y;
-//     }
-//     if (data->map[(int)(data->player->pos_y / (float)SQUARE_SIZE)]
-//                  [(int)( (new_x - xo)/ (float)SQUARE_SIZE)] != '1')
-//     {
-//         data->player->pos_x = new_x;
-//     }
+// 			}
+
+// 		}
+
+// 	}
+// 	return (1);
 // }
 
+// int		check_border(t_data *data)
+// {
 
-
-void	moove_left(t_data *data)
+// }
+void	move_up(t_data *data)
 {
-	float	new_y;
-	float	new_x;
-	int xo, yo;
-	
-    check_offset(data, &xo, &yo, 'h');
-	new_y = data->player->pos_y - ((float)cos(deg_to_rad(data->player->pa))
-			* MOVE_SPEED * data->speed_factor);
-	new_x = data->player->pos_x - ((float)sin(deg_to_rad(data->player->pa))
-			* MOVE_SPEED * data->speed_factor);
-	if (new_y >= data->nbr_line * 64 || new_y <= 0 || new_x >= data->larg_row
-		* 64 || new_x <= 0)
-		return ;
-	if (data->map[(int)(((new_y + (float)yo) / (float)SQUARE_SIZE))][(int)((new_x - (float)xo)
-				/ (float)SQUARE_SIZE)] == '1')
-		return ;
-	data->player->pos_x = new_x;
-	data->player->pos_y = new_y;
+	int	xo;
+	int	yo;
+
+	if (data->player->pdx > 0)
+		xo = 20;
+	else
+		xo = -20;
+	if (data->player->pdy > 0)
+		yo = 20;
+	else
+		yo = -20;
+	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
+					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
+		data->player->pos_y += (data->player->pdy * MOVE_SPEED);
+	if (data->map[(int)((data->player->pos_y) / SQUARE_SIZE)]
+					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1')
+		data->player->pos_x += (data->player->pdx * MOVE_SPEED);
 }
 
-void	moove_right(t_data *data)
+void	move_down(t_data *data)
 {
-	float	new_y;
-	float	new_x;
+	int	xo;
+	int	yo;
 
-	new_y = data->player->pos_y + ((float)cos(deg_to_rad(data->player->pa))
-			* MOVE_SPEED * data->speed_factor);
-	new_x = data->player->pos_x + ((float)sin(deg_to_rad(data->player->pa))
-			* MOVE_SPEED * data->speed_factor);
-	if (new_y >= data->nbr_line * 64 || new_y <= 0 || new_x >= data->larg_row
-		* 64 || new_x <= 0)
-		return ;
-	if (data->map[(int)((new_y / (float)SQUARE_SIZE) - 0.3)][(int)((new_x
-				/ (float)SQUARE_SIZE) - 0.3)] == '1')
-		return ;
-	data->player->pos_x = new_x;
-	data->player->pos_y = new_y;
+	if (data->player->pdx > 0)
+		xo = -20;
+	else
+		xo = 20;
+	if (data->player->pdy > 0)
+		yo = -20;
+	else
+		yo = 20;
+	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
+					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
+		data->player->pos_y -= (data->player->pdy * MOVE_SPEED);
+	if (data->map[(int)((data->player->pos_y) / SQUARE_SIZE)]
+					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1')
+		data->player->pos_x -= (data->player->pdx * MOVE_SPEED);
+}
+
+void	move_left(t_data *data)
+{
+	int	xo;
+	int	yo;
+
+	if (data->player->pdy > 0)
+		xo = 20;
+	else
+		xo = -20;
+	if (data->player->pdx > 0)
+		yo = -20;
+	else
+		yo = 20;
+	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
+					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
+		data->player->pos_y -= (data->player->pdx * MOVE_SPEED);
+	if (data->map[(int)((data->player->pos_y) / SQUARE_SIZE)]
+					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1')
+		data->player->pos_x += (data->player->pdy * MOVE_SPEED);
+}
+
+void	move_right(t_data *data)
+{
+	int	xo;
+	int	yo;
+
+	if (data->player->pdy > 0)
+		xo = -20;
+	else
+		xo = 20;
+	if (data->player->pdx > 0)
+		yo = 20;
+	else
+		yo = -20;
+	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
+					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
+		data->player->pos_y += (data->player->pdx * MOVE_SPEED);
+	if (data->map[(int)((data->player->pos_y) / SQUARE_SIZE)]
+					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1')
+		data->player->pos_x -= (data->player->pdy * MOVE_SPEED);
 }
 
 void	ft_rotate(t_data *data)
 {
 	if (data->key.key_r == 1)
-		data->player->pa -= 2 * ROT_SPEED * data->speed_factor;
+		data->player->pa -= ROT_SPEED;
 	if (data->key.key_l == 1)
-		data->player->pa += 2 * ROT_SPEED * data->speed_factor;
-    data->player->pa = fix_angle(data->player->pa);
-	data->player->pdx = cos((data->player->pa) * PI / 180);
-	data->player->pdy = -sin((data->player->pa) * PI / 180);
-	data->player->posdxp = sin((data->player->pa) * PI / 180);
-	data->player->posdyp = cos((data->player->pa) * PI / 180);
+		data->player->pa += ROT_SPEED;
+	data->player->pa = fix_angle(data->player->pa);
+	data->player->pdx = cos(deg_to_rad(data->player->pa));
+	data->player->pdy = -sin(deg_to_rad(data->player->pa));
 }

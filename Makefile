@@ -29,7 +29,7 @@ MLX = $(MLX_DIR)/libmlx.a
 LIB		=	$(LIB_DIR)/libft.a
 
 #---------------------------------------------------------#
-NAME	=	cub3d
+NAME	=	cub3D
 
 all:		$(NAME)
 

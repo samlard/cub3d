@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/20 17:19:10 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:28:06 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ void	draw_map(t_data *data)
 	while (x < data->larg_row * SQUARE_SIZE) // Parcourt les lignes de la carte
 	{
 		y = 0;
-		while (y < data->nbr_line * SQUARE_SIZE) // Parcourt les colonnes de chaque ligne
+		while (y < data->nbr_line * SQUARE_SIZE)
+		// Parcourt les colonnes de chaque ligne
 		{
 			color = 0xFFF00;
 			my_pixel_put(data, x, y, color);
@@ -146,23 +147,42 @@ void	draw_map(t_data *data)
 	}
 }
 
+int	key_pressed(t_key key)
+{
+	if (key.key_w == 1 || key.key_s == 1 || key.key_d == 1 || key.key_a == 1
+		|| key.key_l == 1 || key.key_r == 1)
+		return (1);
+	return (0);
+}
+
+void	check_move(t_data *data)
+{
+	if (data->key.key_d == 1)
+		move_left(data);
+	if (data->key.key_a == 1)
+		move_right(data);
+	if (data->key.key_w == 1)
+		move_up(data);
+	if (data->key.key_s == 1)
+		move_down(data);
+	if (data->key.key_l == 1 || data->key.key_r == 1)
+		ft_rotate(data);
+	// printf("px : %f\n", data->player->pos_x / 64.0f);
+	// printf("py : %f\n", data->player->pos_y / 64.0f);
+	// printf("pa : %f\n", data->player->pa);
+	
+}
 
 int	display(t_data *data)
 {
 	clear_image(data, 0x000000);
-	if (data->key.key_w == 1)
-		moove_up(data);
-	if (data->key.key_s == 1)
-		moove_down(data);
-	if (data->key.key_d == 1)
-		moove_left(data);
-	if (data->key.key_a == 1)
-		moove_right(data);
-	if (data->key.key_l == 1 || data->key.key_r == 1)
-		ft_rotate(data);
-	draw_ray(data);
-	draw_map(data);
-	drawPlayer(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	if (key_pressed(data->key))
+	{
+		check_move(data);
+		draw_ray(data);
+		draw_map(data);
+		drawPlayer(data);
+		mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/20 19:37:54 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:30:04 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ void	handle_error(t_data *data)
 	(void)data;
 }
 
-void get_speed_factor(t_data *data)
-{
-	float ref_area;
-	float	actual_area;
+// void get_speed_factor(t_data *data)
+// {
+// 	float ref_area;
+// 	float	actual_area;
 	
-	ref_area = 3000000;
-	actual_area = WIN_HEIGHT * WIN_WIDTH;
-	data->speed_factor = actual_area/ ref_area;
-}
+// 	ref_area = 3000000;
+// 	actual_area = WIN_HEIGHT * WIN_WIDTH;
+// 	data->speed_factor = actual_area/ ref_area;
+// }
 
 void	init_data(t_data *data)
 {
@@ -50,10 +50,10 @@ void	init_data(t_data *data)
 	data->player->pos_x = 0;
 	data->player->pos_y = 0;
 	data->player->pa = 0;
+	// data->player->posdxp = sin((data->player->pa) * PI / 180);
+	// data->player->posdyp =  cos((data->player->pa) * PI / 180);
 	data->player->pdx = cos(deg_to_rad(data->player->pa));
 	data->player->pdy = -sin(deg_to_rad(data->player->pa));
-	data->player->posdxp = sin((data->player->pa) * PI / 180);
-	data->player->posdyp =  cos((data->player->pa) * PI / 180);
 	data->nbr_line = 0;
 	data->larg_row = 0;
 	data->img_no = NULL;
@@ -62,7 +62,7 @@ void	init_data(t_data *data)
 	data->img_we = NULL;
 	
 	init_key(data);
-	get_speed_factor(data);
+	// get_speed_factor(data);
 
 }
 
@@ -86,15 +86,14 @@ void	init_key(t_data *data)
 int	init_window(t_data *data)
 {
 	data->mlx = mlx_init();
-	//data->mlx = NULL;
 	if (!data->mlx)
 		return (err_msg(ERROR_MLX_INIT, NULL, 0));
 	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT,
 			"Hulahup Barbatruc");
 	if (!data->win)
 		return (err_msg(ERROR_WIN_INIT, NULL, 0));
-	data->player->pos_x = data->player->pos_x * SQUARE_SIZE + 10;
-	data->player->pos_y = data->player->pos_y * SQUARE_SIZE + 10;
+	data->player->pos_x = data->player->pos_x * SQUARE_SIZE + 20;
+	data->player->pos_y = data->player->pos_y * SQUARE_SIZE + 20;
 	return (1);
 }
 
