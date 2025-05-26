@@ -73,7 +73,7 @@
 // // 			if (data->map[(int)((data->player->pos_y - SQUARE_SIZE)
 // 						/ SQUARE_SIZE)]
 // // 			[(int)((data->player->pos_x - SQUARE_SIZE)
-				//	/ SQUARE_SIZE)] == '1')
+//	/ SQUARE_SIZE)] == '1')
 // // 			{
 // // 				if (data->player->pos_y - (floorf(data->player->pos_y
 // 								/ SQUARE_SIZE) * SQUARE_SIZE) < 20
@@ -105,32 +105,40 @@
 // // 	return (1);
 // // }
 
-// int check_cord(t_data *data)
-// {
-//     if (data->wall_hit[UP_RIGHT] &&
-//         (data->player->pos_y - (floorf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE) < 20) &&
-//         ((ceilf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE) - data->player->pos_x < 20))
-//         return (1); // Empêche le joueur d'aller dans le coin haut droit
-    
-//     if (data->wall_hit[UP_LEFT] &&
-//         (data->player->pos_y - (floorf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE) < 20) &&
-//         (data->player->pos_x - floorf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE < 20))
-//         return (1); // Empêche le joueur d'aller dans le coin haut gauche
+// // int check_cord(t_data *data)
+// // {
+// //     if (data->wall_hit[UP_RIGHT] &&
+// //         (data->player->pos_y - (floorf(data->player->pos_y / SQUARE_SIZE)
+// 			* SQUARE_SIZE) < 20) &&
+// //         ((ceilf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE)
+// 		- data->player->pos_x < 20))
+// //         return (1); // Empêche le joueur d'aller dans le coin haut droit
 
-//     if (data->wall_hit[DOWN_RIGHT] &&
-//         (ceilf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE - data->player->pos_y < 20) &&
-//         (ceilf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE - data->player->pos_x < 20))
-//         return (1); // Empêche le joueur d'aller dans le coin bas droit
+// //     if (data->wall_hit[UP_LEFT] &&
+// //         (data->player->pos_y - (floorf(data->player->pos_y / SQUARE_SIZE)
+// 			* SQUARE_SIZE) < 20) &&
+// //         (data->player->pos_x - floorf(data->player->pos_x / SQUARE_SIZE)
+// 		* SQUARE_SIZE < 20))
+// //         return (1); // Empêche le joueur d'aller dans le coin haut gauche
 
-//     if (data->wall_hit[DOWN_LEFT] &&
-//         (ceilf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE - data->player->pos_y < 20) &&
-//         (data->player->pos_x - floorf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE < 20))
-//         return (1); // Empêche le joueur d'aller dans le coin bas gauche
+// //     if (data->wall_hit[DOWN_RIGHT] &&
+// //         (ceilf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE
+// 		- data->player->pos_y < 20) &&
+// //         (ceilf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE
+// 		- data->player->pos_x < 20))
+// //         return (1); // Empêche le joueur d'aller dans le coin bas droit
 
-//     return (0);
-// }
+// //     if (data->wall_hit[DOWN_LEFT] &&
+// //         (ceilf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE
+// 		- data->player->pos_y < 20) &&
+// //         (data->player->pos_x - floorf(data->player->pos_x / SQUARE_SIZE)
+// 		* SQUARE_SIZE < 20))
+// //         return (1); // Empêche le joueur d'aller dans le coin bas gauche
 
-void reset_wall(t_data *data)
+// //     return (0);
+// // }
+
+void	reset_wall(t_data *data)
 {
 	data->wall_hit[UP_RIGHT] = 0;
 	data->wall_hit[UP_LEFT] = 0;
@@ -138,36 +146,57 @@ void reset_wall(t_data *data)
 	data->wall_hit[DOWN_LEFT] = 0;
 }
 
-
-int check_cord_x(t_data *data)
+int	check_cord_x(t_data *data)
 {
-    if ((data->wall_hit[UP_RIGHT] || data->wall_hit[DOWN_RIGHT]) &&
-        (ceilf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE) - data->player->pos_x < 20)
-        return (1); // Bloque l'entrée dans le coin à droite
-
-    if ((data->wall_hit[UP_LEFT] || data->wall_hit[DOWN_LEFT]) &&
-        (data->player->pos_x - floorf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE < 20))
-        return (1); // Bloque l'entrée dans le coin à gauche
-
-    return (0); // Sinon, X est libre
+	if (data->wall_hit[UP_RIGHT] && (ceilf(data->player->pos_x / SQUARE_SIZE)
+			* SQUARE_SIZE) - data->player->pos_x < 10 && data->player->pos_y
+		- floorf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE < 10)
+		return (1); // Bloque l'entrée dans le coin à droite
+	if ((data->wall_hit[DOWN_RIGHT]) && (ceilf(data->player->pos_x
+				/ SQUARE_SIZE)) * SQUARE_SIZE - data->player->pos_x < 10
+		&& (ceilf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE)
+		- data->player->pos_y < 10)
+		return (1); // Bloque l'entrée dans le coin à droite
+	if ((data->wall_hit[DOWN_LEFT]) && (data->player->pos_x
+			- floorf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE < 10)
+		&& (ceilf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE)
+		- data->player->pos_y < 10)
+		return (1); // Bloque l'entrée dans le coin à gauche
+	if ((data->wall_hit[UP_LEFT]) && (data->player->pos_x
+			- floorf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE < 10)
+		&& (data->player->pos_y - floorf(data->player->pos_y / SQUARE_SIZE))
+		* SQUARE_SIZE < 10)
+		return (1);
+	return (0);
 }
 
-int check_cord_y(t_data *data)
+int	check_cord_y(t_data *data)
 {
-    if ((data->wall_hit[UP_RIGHT] || data->wall_hit[UP_LEFT]) &&
-        (data->player->pos_y - floorf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE < 20))
-        return (1); // Bloque l'entrée dans le coin en haut
-
-    if ((data->wall_hit[DOWN_RIGHT] || data->wall_hit[DOWN_LEFT]) &&
-        (ceilf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE) - data->player->pos_y < 20)
-        return (1); // Bloque l'entrée dans le coin en bas
-
-    return (0); // Sinon, Y est libre
+	if (data->wall_hit[UP_RIGHT] && (ceilf(data->player->pos_y / SQUARE_SIZE)
+			* SQUARE_SIZE) - data->player->pos_y < 10 && data->player->pos_x
+		- floorf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE < 10)
+		return (1); // Bloque l'entrée dans le coin en haut à droite
+	if (data->wall_hit[UP_LEFT] && (ceilf(data->player->pos_y / SQUARE_SIZE)
+			* SQUARE_SIZE) - data->player->pos_y < 10 && (data->player->pos_x
+			- floorf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE < 10))
+		return (1); // Bloque l'entrée dans le coin en haut à gauche
+	if (data->wall_hit[DOWN_RIGHT] && (data->player->pos_y
+			- floorf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE < 10) &&
+		(ceilf(data->player->pos_x / SQUARE_SIZE) * SQUARE_SIZE)
+			- data->player->pos_x < 10)
+		return (1); // Bloque l'entrée dans le coin en bas à droite
+	if (data->wall_hit[DOWN_LEFT] && (data->player->pos_y
+			- floorf(data->player->pos_y / SQUARE_SIZE) * SQUARE_SIZE < 10) &&
+		(data->player->pos_x - floorf(data->player->pos_x / SQUARE_SIZE)
+				* SQUARE_SIZE < 10))
+		return (1); 
+	return (0);
 }
 
 
 int	check_border(t_data *data, int i)
 {
+	reset_wall(data);
 	if (data->map[(int)((data->player->pos_y - SQUARE_SIZE) / SQUARE_SIZE)]
 					[(int)((data->player->pos_x + SQUARE_SIZE)
 							/ SQUARE_SIZE)] == '1')
@@ -181,46 +210,74 @@ int	check_border(t_data *data, int i)
 							/ SQUARE_SIZE)] == '1')
 		data->wall_hit[UP_LEFT] = 1;
 	if (data->map[(int)((data->player->pos_y + SQUARE_SIZE) / SQUARE_SIZE)]
-		[(int)((data->player->pos_x - SQUARE_SIZE)
-				/ SQUARE_SIZE)] == '1')
+					[(int)((data->player->pos_x - SQUARE_SIZE)
+							/ SQUARE_SIZE)] == '1')
 		data->wall_hit[DOWN_LEFT] = 1;
 	if (i == 0)
 	{
-		if (check_cord_x(data))
-			return (1);
+		return (check_cord_x(data));
 	}
 	else
 	{
-		if (check_cord_y(data))
-			return (1);
+		return (check_cord_y(data));
 	}
-	return (0);
 }
+// int check_border(t_data *data, int i)
+// {
+//     reset_wall(data); // Réinitialisation avant recalcul
+
+//     // Vérification avec floorf() et ceilf() pour éviter les erreurs d'arrondi
+//     if (data->map[(int)(floorf((data->player->pos_y - SQUARE_SIZE) / SQUARE_SIZE))]
+//                     [(int)(ceilf((data->player->pos_x + SQUARE_SIZE) / SQUARE_SIZE))] == '1')
+//         data->wall_hit[UP_RIGHT] = 1;
+    
+//     if (data->map[(int)(ceilf((data->player->pos_y + SQUARE_SIZE) / SQUARE_SIZE))]
+//                     [(int)(ceilf((data->player->pos_x + SQUARE_SIZE) / SQUARE_SIZE))] == '1')
+//         data->wall_hit[DOWN_RIGHT] = 1;
+
+//     if (data->map[(int)(floorf((data->player->pos_y - SQUARE_SIZE) / SQUARE_SIZE))]
+//                     [(int)(floorf((data->player->pos_x - SQUARE_SIZE) / SQUARE_SIZE))] == '1')
+//         data->wall_hit[UP_LEFT] = 1;
+
+//     if (data->map[(int)(ceilf((data->player->pos_y + SQUARE_SIZE) / SQUARE_SIZE))]
+//                     [(int)(floorf((data->player->pos_x - SQUARE_SIZE) / SQUARE_SIZE))] == '1')
+//         data->wall_hit[DOWN_LEFT] = 1;
+
+//     // Vérification plus souple pour permettre le slide
+//     if (i == 0)
+//     {
+//         return (check_cord_x(data)); // Bloque X seulement si nécessaire
+//     }
+//     else
+//     {
+//         return (check_cord_y(data)); // Bloque Y seulement si nécessaire
+//     }
+// }
+
+
 void	move_up(t_data *data)
 {
 	int	xo;
 	int	yo;
 
 	if (data->player->pdx > 0)
-		xo = 20;
+		xo = 10;
 	else
-		xo = -20;
+		xo = -10;
 	if (data->player->pdy > 0)
-		yo = 20;
+		yo = 10;
 	else
-		yo = -20;
+		yo = -10;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
-					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1' && !check_border(data, 1))
-	{
+					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1' &&
+		!check_border(data, 1))
 		data->player->pos_y += (data->player->pdy * MOVE_SPEED);
-		reset_wall(data);
-	}
+	printf("%i\n", data->wall_hit[DOWN_RIGHT]);
 	if (data->map[(int)((data->player->pos_y) / SQUARE_SIZE)]
-					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1' && !check_border(data, 0))
-	{
+					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1' &&
+		!check_border(data, 0))
 		data->player->pos_x += (data->player->pdx * MOVE_SPEED);
-		reset_wall(data);
-	}
+	printf("%i %f\n", data->wall_hit[DOWN_RIGHT], data->player->pos_x);
 }
 
 void	move_down(t_data *data)
@@ -230,13 +287,13 @@ void	move_down(t_data *data)
 
 	reset_wall(data);
 	if (data->player->pdx > 0)
-		xo = -20;
+		xo = -10;
 	else
-		xo = 20;
+		xo = 10;
 	if (data->player->pdy > 0)
-		yo = -20;
+		yo = -10;
 	else
-		yo = 20;
+		yo = 10;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
 					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
 		data->player->pos_y -= (data->player->pdy * MOVE_SPEED);
@@ -251,20 +308,19 @@ void	move_left(t_data *data)
 	int	yo;
 
 	if (data->player->pdy > 0)
-		xo = 20;
+		xo = 10;
 	else
-		xo = -20;
+		xo = -10;
 	if (data->player->pdx > 0)
-		yo = -20;
+		yo = -10;
 	else
-		yo = 20;
+		yo = 10;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
 					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
 		data->player->pos_y -= (data->player->pdx * MOVE_SPEED);
 	if (data->map[(int)((data->player->pos_y) / SQUARE_SIZE)]
 					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1')
 		data->player->pos_x += (data->player->pdy * MOVE_SPEED);
-
 }
 
 void	move_right(t_data *data)
@@ -274,13 +330,13 @@ void	move_right(t_data *data)
 
 	reset_wall(data);
 	if (data->player->pdy > 0)
-		xo = -20;
+		xo = -10;
 	else
-		xo = 20;
+		xo = 10;
 	if (data->player->pdx > 0)
-		yo = 20;
+		yo = 10;
 	else
-		yo = -20;
+		yo = -10;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
 					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
 		data->player->pos_y += (data->player->pdx * MOVE_SPEED);
