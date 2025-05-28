@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/28 22:19:41 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:31:34 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,9 @@ typedef struct s_data
 	int					handle_error;
 	char				*north;
 	int					f_NO;
-	char				*SO;
+	char				*south;
 	int					f_SO;
-	char				*EA;
+	char				*east;
 	int					f_EA;
 	char				*WE;
 	int					f_WE;

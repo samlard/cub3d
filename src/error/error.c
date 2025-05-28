@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:44 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:23:16 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:34:28 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	ft_free_texture(t_data *data)
 {
 	if (data->north)
 		free(data->north);
-	if (data->SO)
-		free(data->SO);
-	if (data->EA)
-		free(data->EA);
+	if (data->south)
+		free(data->south);
+	if (data->east)
+		free(data->east);
 	if (data->WE)
 		free(data->WE);
 	if (data->C)

@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:20:20 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:32:18 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ void	get_addr(t_texture *texture)
 void	get_xpm2(t_data *data, int i, t_texture *texture)
 {
 	texture[EAST].img = mlx_xpm_file_to_image(data->mlx,
-				data->EA,
+				data->east,
 				&texture[EAST].width,
 				&texture[EAST].height);
 		if (!texture[EAST].img)
-		i = err_msg("EA file xpm", data->EA, 1);
+		i = err_msg("EA file xpm", data->east, 1);
 		texture[WEST].img = mlx_xpm_file_to_image(data->mlx,
 				data->WE,
 				&texture[WEST].width,
@@ -91,10 +91,10 @@ void	get_xpm(t_data *data)
 	if (!texture[NORTH].img)
 		i = err_msg("NO file xpm", data->north, 1);
 	texture[SOUTH].img = mlx_xpm_file_to_image(data->mlx,
-			data->SO,
+			data->south,
 			&texture[SOUTH].width,
 			&texture[SOUTH].height);
 	if (!texture[SOUTH].img)
-		i = err_msg("SO file xpm", data->SO, 1);
+		i = err_msg("SO file xpm", data->south, 1);
 	get_xpm2(data, i, texture);
 }

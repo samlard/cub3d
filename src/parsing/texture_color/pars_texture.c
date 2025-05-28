@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:22:17 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:33:40 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	name_error_texture(t_data *data, int end)
 	i = 0;
 	if (data->f_NO == 0 || data->f_NO > 1 || !data->north)
 		i = err_msg("only 1 texture for NO, no more, no less !", NULL, 1);
-	if (data->f_SO == 0 || data->f_SO > 1 || !data->SO)
+	if (data->f_SO == 0 || data->f_SO > 1 || !data->south)
 		i = err_msg("only 1 texture for SO, no more, no less !", NULL, 1);
 	if (data->f_WE == 0 || data->f_WE > 1 || !data->WE)
 		i = err_msg("only 1 texture for WE, no more, no less !", NULL, 1);
-	if (data->f_EA == 0 || data->f_EA > 1 || !data->EA)
+	if (data->f_EA == 0 || data->f_EA > 1 || !data->east)
 		i = err_msg("only 1 texture for EA, no more, no less !", NULL, 1);
 	if (data->f_C == 0 || data->f_C > 1 || !data->C)
 		i = err_msg("only 1 C ask for ceiling color, no more, no less !", NULL,
@@ -95,9 +95,9 @@ int	handle_texture(t_data *data, char *str)
 	if ((ft_strnstr(str, "NO", 2)) != NULL)
 		data->north = get_texture(str, 1, data->north, data);
 	else if (ft_strnstr(str, "SO", 3) != NULL)
-		data->SO = get_texture(str, 1, data->SO, data);
+		data->south = get_texture(str, 1, data->south, data);
 	else if (ft_strnstr(str, "EA", 3) != NULL)
-		data->EA = get_texture(str, 1, data->EA, data);
+		data->east = get_texture(str, 1, data->east, data);
 	else if (ft_strnstr(str, "WE", 3) != NULL)
 		data->WE = get_texture(str, 1, data->WE, data);
 	else if (ft_strnstr(str, "C", 2) != NULL)
