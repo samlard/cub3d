@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:32:18 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:42:24 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ void	get_addr(t_texture *texture)
 void	get_xpm2(t_data *data, int i, t_texture *texture)
 {
 	texture[EAST].img = mlx_xpm_file_to_image(data->mlx,
-				data->east,
-				&texture[EAST].width,
-				&texture[EAST].height);
-		if (!texture[EAST].img)
+			data->east,
+			&texture[EAST].width,
+			&texture[EAST].height);
+	if (!texture[EAST].img)
 		i = err_msg("EA file xpm", data->east, 1);
-		texture[WEST].img = mlx_xpm_file_to_image(data->mlx,
-				data->WE,
-				&texture[WEST].width,
-				&texture[WEST].height);
+	texture[WEST].img = mlx_xpm_file_to_image(data->mlx,
+			data->WE,
+			&texture[WEST].width,
+			&texture[WEST].height);
 	if (!texture[WEST].img)
 		i = err_msg("WE file xpm", data->WE, 1);
 	if (i != 0)

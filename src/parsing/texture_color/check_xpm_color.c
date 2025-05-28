@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 13:14:06 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/28 22:33:59 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:46:15 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ int	check_digit(char *str, int i)
 	{
 		if (i == 0)
 			return (err_msg("number missing for C : need 3, no more, no less !",
-							NULL,
-							1));
+					NULL,
+					1));
 		else
 			return (err_msg("number missing for F : need 3, no more, no less !",
-							NULL,
-							1));
+					NULL,
+					1));
 	}
 	while (*str)
 	{
@@ -97,6 +97,7 @@ int	check_digit(char *str, int i)
 	}
 	return (0);
 }
+
 int	convert_color(char **tab, int i, int j)
 {
 	int	r;
@@ -136,12 +137,12 @@ int	get_color(t_data *data, char *str, int i)
 	{
 		if (i == 0)
 			err_msg("need 3 number no more, no less, for C : xxx, xxx, xxx!",
-					NULL,
-					0);
+				NULL,
+				0);
 		else
 			err_msg("need 3 number no more, no less, for F : xxx, xxx, xxx!",
-					NULL,
-					0);
+				NULL,
+				0);
 		return (ft_free_tab(tab), 1);
 	}
 	if (i == 0)

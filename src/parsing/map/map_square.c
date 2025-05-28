@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:24:05 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/28 20:53:42 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:43:33 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	backtrack(t_data *data, char **map, int x, int y)
 	}
 	map[x][y] = 'z';
 	if (x > 0 && (y <= (int)ft_strlen(map[x - 1]) - 1) && (map[x - 1][y] != 'z'
-			&& map[x - 1][y] != '1'))
+		&& map[x - 1][y] != '1'))
 		backtrack(data, map, x - 1, y);
 	if (x < data->nbr_line - 1 && (y <= (int)ft_strlen(map[x + 1]) - 1)
 		&& (map[x + 1][y] != 'z' && map[x + 1][y] != '1'))
 		backtrack(data, map, x + 1, y);
 	if (y < ((int)ft_strlen(map[x]) - 1) && (map[x][y + 1] != 'z' && map[x][y
-			+ 1] != '1'))
+		+ 1] != '1'))
 		backtrack(data, map, x, y + 1);
 	if (y > 0 && (map[x][y - 1] != 'z' && map[x][y - 1] != '1'))
 		backtrack(data, map, x, y - 1);

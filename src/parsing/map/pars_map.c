@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/22 13:47:49 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:44:16 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	pos_player(t_data *data)
 	if (data->player->pos_x == 0 || data->player->pos_y == 0)
 		return (1);
 	else if (data->player->pos_x == data->larg_row - 1
-			|| data->player->pos_y == data->nbr_line - 1)
+		|| data->player->pos_y == data->nbr_line - 1)
 		return (1);
 	return (0);
 }
@@ -65,7 +65,7 @@ int	check_valid(t_data *data, char *str)
 		else if (*str != '0' && *str != '1' && *str != ' ' && *str != '\n')
 		{
 			err_msg("invalid caracter in map !", NULL, 0);
-			data->handle_error = 1; // 1 = pas les bons caractere
+			data->handle_error = 1;
 		}
 		str++;
 	}
