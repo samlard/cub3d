@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 20:52:21 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:20:51 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_data(t_data *data)
 	data->count_texture = 0;
 	data->count_player = 0;
 	data->handle_error = 0;
-	data->NO = NULL;
+	data->north = NULL;
 	data->SO = NULL;
 	data->EA = NULL;
 	data->WE = NULL;
@@ -89,6 +89,7 @@ float	fix_angle(float ra)
 		ra += 360;
 	return (ra);
 }
+
 float	deg_to_rad(float pa)
 {
 	return (pa * PI / 180);

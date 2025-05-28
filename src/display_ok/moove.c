@@ -18,13 +18,13 @@ void	move_up(t_data *data)
 	int	yo;
 
 	if (data->player->pdx > 0)
-		xo = 10;
+		xo = 20;
 	else
-		xo = -10;
+		xo = -20;
 	if (data->player->pdy > 0)
-		yo = 10;
+		yo = 20;
 	else
-		yo = -10;
+		yo = -20;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
 					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
 		data->player->pos_y += (data->player->pdy * MOVE_SPEED);
@@ -39,13 +39,13 @@ void	move_down(t_data *data)
 	int	yo;
 
 	if (data->player->pdx > 0)
-		xo = -10;
+		xo = -20;
 	else
-		xo = 10;
+		xo = 20;
 	if (data->player->pdy > 0)
-		yo = -10;
+		yo = -20;
 	else
-		yo = 10;
+		yo = 20;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
 					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
 		data->player->pos_y -= (data->player->pdy * MOVE_SPEED);
@@ -60,13 +60,13 @@ void	move_left(t_data *data)
 	int	yo;
 
 	if (data->player->pdy > 0)
-		xo = 10;
+		xo = 20;
 	else
-		xo = -10;
+		xo = -20;
 	if (data->player->pdx > 0)
-		yo = -10;
+		yo = -20;
 	else
-		yo = 10;
+		yo = 20;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
 					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
 		data->player->pos_y -= (data->player->pdx * MOVE_SPEED);
@@ -81,13 +81,13 @@ void	move_right(t_data *data)
 	int	yo;
 
 	if (data->player->pdy > 0)
-		xo = -10;
+		xo = -20;
 	else
-		xo = 10;
+		xo = 20;
 	if (data->player->pdx > 0)
-		yo = 10;
+		yo = 20;
 	else
-		yo = -10;
+		yo = -20;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
 					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
 		data->player->pos_y += (data->player->pdx * MOVE_SPEED);

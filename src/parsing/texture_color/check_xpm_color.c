@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 13:14:06 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/28 20:53:18 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:22:48 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_xpm(t_data *data)
 	int	i;
 
 	i = 0;
-	if ((access(data->NO, F_OK)) == -1)
+	if ((access(data->north, F_OK)) == -1)
 		i = err_msg("path for NO doesn't exist !", NULL, 1);
 	if ((access(data->SO, F_OK)) == -1)
 		i = err_msg("path for SO doesn't exist !", NULL, 1);
@@ -27,7 +27,7 @@ int	check_xpm(t_data *data)
 		i = err_msg("path for EA doesn't exist !", NULL, 1);
 	if (i == 0)
 	{
-		if ((access(data->NO, R_OK)) == -1)
+		if ((access(data->north, R_OK)) == -1)
 			i = err_msg("path for NO not accessible !", NULL, 1);
 		if ((access(data->SO, R_OK)) == -1)
 			i = err_msg("path for SO not accessible !", NULL, 1);

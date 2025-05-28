@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 20:51:42 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:21:16 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_ray(t_data *data, t_ray *ray)
 {
 	ray->ra = data->player->pa - 30;
-	ray->Tan = 0;
+	ray->tang = 0;
 	ray->px = data->player->pos_x;
 	ray->py = data->player->pos_y;
 	ray->map_x = 0;
@@ -60,15 +60,13 @@ void	draw_texture(t_data *data, int x, t_ray *ray)
 		text_x = (int)fmod(ray->ry_v, texture->width);
 	}
 	step = texture->height / ray->line_h;
-	if (step < 0.01)
-		step = 0.01;
 	texture_pos = (ray->line_o - WIN_HEIGHT / 2 + ray->line_h / 2) * step;
 	while (ray->line_h > 0)
 	{
 		text_y = (int)texture_pos % texture->height;
 		texture_pos += step;
 		my_pixel_put(data, x, ray->line_o, *(int *)(texture->addr + (text_y
-						* texture->size_line) + text_x * (texture->bpp / 8)));
+					* texture->size_line) + text_x * (texture->bpp / 8)));
 		ray->line_o++;
 		ray->line_h--;
 	}

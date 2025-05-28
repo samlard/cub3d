@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/28 20:50:37 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:19:41 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef struct s_texture
 typedef struct s_ray
 {
 	float				ra;
-	float				Tan;
+	float				tang;
 	float				px;
 	float				py;
 	int					map_x;
@@ -142,7 +142,7 @@ typedef struct s_data
 	int					count_texture;
 	int					count_player;
 	int					handle_error;
-	char				*NO;
+	char				*north;
 	int					f_NO;
 	char				*SO;
 	int					f_SO;

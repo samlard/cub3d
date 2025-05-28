@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pars_texture.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
+/*   Updated: 2025/05/28 22:22:17 by ssoumill         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "test.h"
 
 int	check_invalid_line(char *str)
@@ -16,7 +28,7 @@ int	name_error_texture(t_data *data, int end)
 	int	i;
 
 	i = 0;
-	if (data->f_NO == 0 || data->f_NO > 1 || !data->NO)
+	if (data->f_NO == 0 || data->f_NO > 1 || !data->north)
 		i = err_msg("only 1 texture for NO, no more, no less !", NULL, 1);
 	if (data->f_SO == 0 || data->f_SO > 1 || !data->SO)
 		i = err_msg("only 1 texture for SO, no more, no less !", NULL, 1);
@@ -81,7 +93,7 @@ char	*get_texture(char *str, int i, char *final, t_data *data)
 int	handle_texture(t_data *data, char *str)
 {
 	if ((ft_strnstr(str, "NO", 2)) != NULL)
-		data->NO = get_texture(str, 1, data->NO, data);
+		data->north = get_texture(str, 1, data->north, data);
 	else if (ft_strnstr(str, "SO", 3) != NULL)
 		data->SO = get_texture(str, 1, data->SO, data);
 	else if (ft_strnstr(str, "EA", 3) != NULL)
@@ -100,9 +112,9 @@ int	handle_texture(t_data *data, char *str)
 	}
 	else if (check_invalid_line(str))
 		return (err_msg("invalid line in file :", str, 2));
-	// remplacer ca par un exit
 	return (0);
 }
+
 int	check_texture(t_data *data)
 {
 	char	*str;

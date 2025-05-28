@@ -6,12 +6,12 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:59:32 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/03/29 11:59:57 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:18:55 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#ifndef COLOR_H
+# define COLOR_H
 
 # define RESET	"\e[0m"
 
