@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/23 16:30:15 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:50:37 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@
 #  define ROT_SPEED 2.2f
 # endif
 
-#define NORTH 0
+# define NORTH 0
 
-#define SOUTH 1
+# define SOUTH 1
 
-#define EAST 2
+# define EAST 2
 
-#define WEST 3
+# define WEST 3
 
-#define UP_RIGHT 0
-#define UP_LEFT 1
-#define DOWN_RIGHT 2
-#define DOWN_LEFT 3
+# define UP_RIGHT 0
+# define UP_LEFT 1
+# define DOWN_RIGHT 2
+# define DOWN_LEFT 3
 
 // message error
 
@@ -80,33 +80,32 @@
 
 typedef struct s_player	t_player;
 
-
 typedef struct s_texture
 {
-	int	endian;
-	int	bpp;
-	int	size_line;
-	int	width;
-	int	height;
-	char	*addr;
-	void	*img;
+	int					endian;
+	int					bpp;
+	int					size_line;
+	int					width;
+	int					height;
+	char				*addr;
+	void				*img;
 }						t_texture;
 
 typedef struct s_ray
 {
-	float ra; //vecteur directon du player
+	float				ra;
 	float				Tan;
-	float px;   //pos en x du joueur
-	float py;   //pos en y du joueur
-	int map_x;  //index position dans la map 2d
-	int map_y;  //index position dans la map 2d
-	float dist; // dist plus courte entre h_dist et v_dist
-	float xo;   // pas a faire quand check si mur
-	float yo;   //pas a faire quand check si mur
-	float rx_v;   //coordone avec ligne verticale la plus proche
-	float ry_v;   //coordone avec ligne verticale la plus proche
-	float	ry_h;
-	float	rx_h;
+	float				px;
+	float				py;
+	int					map_x;
+	int					map_y;
+	float				dist;
+	float				xo;
+	float				yo;
+	float				rx_v;
+	float				ry_v;
+	float				ry_h;
+	float				rx_h;
 	int					color;
 	float				v_dist;
 	float				h_dist;
@@ -162,13 +161,12 @@ typedef struct s_data
 	t_player			*player;
 	t_ray				*ray;
 	t_key				key;
-	void 				*img_no;
-	void 				*img_so;
-	void 				*img_ea;
-	void 				*img_we;
+	void				*img_no;
+	void				*img_so;
+	void				*img_ea;
+	void				*img_we;
 	int					rgb_c;
 	int					rgb_f;
-	int					wall_hit[4];
 	t_texture			texture[4];
 }						t_data;
 
@@ -176,14 +174,13 @@ typedef struct s_player
 {
 	float				pos_x;
 	float				pos_y;
-	float 				pdx; 
+	float				pdx;
 	float				pdy;
 	float				pa;
 
 }						t_player;
 
-
-void get_xpm(t_data *data);
+void					get_xpm(t_data *data);
 // parsing
 
 int						check_cub(char *str, t_data *data);
@@ -191,7 +188,7 @@ int						parsing(t_data *data, char *str);
 int						check_texture(t_data *data);
 int						copy_check_map(t_data *data);
 int						get_map_square(t_data *data);
-int 					check_xpm_color(t_data *data);
+int						check_xpm_color(t_data *data);
 
 // handle error + init data
 
@@ -204,8 +201,6 @@ void					ft_free_tab(char **tab);
 void					ft_free_texture(t_data *data);
 
 //draw function
-void					draw_map(t_data *data);
-void					drawPlayer(t_data *data);
 int						display(t_data *data);
 int						handle_keypress(int keycode, t_data *data);
 int						handle_keyrelease(int keysym, t_data *data);

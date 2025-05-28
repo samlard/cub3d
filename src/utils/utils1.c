@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/23 16:30:57 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:52:21 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,6 @@ void	handle_error(t_data *data)
 {
 	(void)data;
 }
-
-// void get_speed_factor(t_data *data)
-// {
-// 	float ref_area;
-// 	float	actual_area;
-	
-// 	ref_area = 3000000;
-// 	actual_area = WIN_HEIGHT * WIN_WIDTH;
-// 	data->speed_factor = actual_area/ ref_area;
-// }
 
 void	init_data(t_data *data)
 {
@@ -50,8 +40,6 @@ void	init_data(t_data *data)
 	data->player->pos_x = 0;
 	data->player->pos_y = 0;
 	data->player->pa = 0;
-	// data->player->posdxp = sin((data->player->pa) * PI / 180);
-	// data->player->posdyp =  cos((data->player->pa) * PI / 180);
 	data->player->pdx = cos(deg_to_rad(data->player->pa));
 	data->player->pdy = -sin(deg_to_rad(data->player->pa));
 	data->nbr_line = 0;
@@ -60,13 +48,7 @@ void	init_data(t_data *data)
 	data->img_so = NULL;
 	data->img_ea = NULL;
 	data->img_we = NULL;
-	data->wall_hit[UP_RIGHT] = 0;
-	data->wall_hit[UP_LEFT] = 0;
-	data->wall_hit[DOWN_RIGHT] = 0;
-	data->wall_hit[DOWN_LEFT] = 0;
 	init_key(data);
-	// get_speed_factor(data);
-
 }
 
 void	init_key(t_data *data)
@@ -74,9 +56,9 @@ void	init_key(t_data *data)
 	data->key.key_w = 0;
 	data->key.key_s = 0;
 	data->key.key_a = 0;
-	data->key.key_d= 0;
-	data->key.key_l= 0;
-	data->key.key_r= 0;
+	data->key.key_d = 0;
+	data->key.key_l = 0;
+	data->key.key_r = 0;
 	data->f_F = 0;
 	data->f_C = 0;
 	data->f_EA = 0;
@@ -84,7 +66,6 @@ void	init_key(t_data *data)
 	data->f_SO = 0;
 	data->f_NO = 0;
 }
-
 
 int	init_window(t_data *data)
 {
@@ -103,9 +84,9 @@ int	init_window(t_data *data)
 float	fix_angle(float ra)
 {
 	if (ra > 360)
-			ra -= 360;
+		ra -= 360;
 	else if (ra < 0)
-			ra += 360;
+		ra += 360;
 	return (ra);
 }
 float	deg_to_rad(float pa)

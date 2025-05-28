@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:24:05 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/04/28 11:33:03 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:53:42 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ void	backtrack(t_data *data, char **map, int x, int y)
 		backtrack(data, map, x, y - 1);
 }
 
-
 char	**cpy_map(char **map, t_data *data)
 {
-	char **tab;
-	int i;
+	char	**tab;
+	int		i;
 
 	i = 0;
 	tab = malloc((data->nbr_line + 1) * sizeof(char *));
@@ -72,8 +71,8 @@ char	**cpy_map(char **map, t_data *data)
 
 int	get_map_square(t_data *data)
 {
-	char **tab;
-	int i;
+	char	**tab;
+	int		i;
 
 	i = 0;
 	tab = malloc((data->nbr_line + 1) * sizeof(char *));
@@ -95,7 +94,7 @@ int	get_map_square(t_data *data)
 	if (data->flag == 1)
 	{
 		ft_free_tab(data->map);
-		return(err_msg("invalid map, there is a hole!", NULL, 1));
+		return (err_msg("invalid map, there is a hole!", NULL, 1));
 	}
-	return(0);
+	return (0);
 }

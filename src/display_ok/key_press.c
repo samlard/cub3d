@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:38:23 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/21 17:14:20 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:48:22 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	handle_keypress(int keycode, t_data *data)
 {
-	if (keycode == 65307) // Touche Escape pour quitter
+	if (keycode == 65307)
 		exit(0);
 	if (keycode == 119)
 		data->key.key_w = 1;

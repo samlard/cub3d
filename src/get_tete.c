@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/20 18:40:49 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:54:26 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,43 @@ void	destroy_xpm(t_data *data)
 	}
 	ft_free_texture(data);
 	close(data->fd_map);
-	exit(1);
 }
 
 void	get_addr(t_texture *texture)
 {
 	texture[NORTH].addr = mlx_get_data_addr(texture[NORTH].img,
-			&texture[NORTH].bpp, &texture[NORTH].size_line,
-			&texture[NORTH].endian);
+											&texture[NORTH].bpp,
+											&texture[NORTH].size_line,
+											&texture[NORTH].endian);
 	texture[SOUTH].addr = mlx_get_data_addr(texture[SOUTH].img,
-			&texture[SOUTH].bpp, &texture[SOUTH].size_line,
-			&texture[SOUTH].endian);
+											&texture[SOUTH].bpp,
+											&texture[SOUTH].size_line,
+											&texture[SOUTH].endian);
 	texture[EAST].addr = mlx_get_data_addr(texture[EAST].img,
-			&texture[EAST].bpp, &texture[EAST].size_line,
-			&texture[EAST].endian);
+											&texture[EAST].bpp,
+											&texture[EAST].size_line,
+											&texture[EAST].endian);
 	texture[WEST].addr = mlx_get_data_addr(texture[WEST].img,
-			&texture[WEST].bpp, &texture[WEST].size_line,
-			&texture[WEST].endian);
+											&texture[WEST].bpp,
+											&texture[WEST].size_line,
+											&texture[WEST].endian);
+}
+
+void	get_xpm2(t_data *data, int i, t_texture *texture)
+{
+	if (!(texture[EAST].img = mlx_xpm_file_to_image(data->mlx,
+													data->EA,
+													&texture[EAST].width,
+													&texture[EAST].height)))
+		i = err_msg("EA file xpm", data->EA, 1);
+	if (!(texture[WEST].img = mlx_xpm_file_to_image(data->mlx,
+													data->WE,
+													&texture[WEST].width,
+													&texture[WEST].height)))
+		i = err_msg("WE file xpm", data->WE, 1);
+	if (i != 0)
+		destroy_xpm(data);
+	get_addr(texture);
 }
 
 void	get_xpm(t_data *data)
@@ -72,17 +92,5 @@ void	get_xpm(t_data *data)
 														&texture[SOUTH].width,
 														&texture[SOUTH].height)))
 		i = err_msg("SO file xpm", data->SO, 1);
-	if (!(texture[EAST].img = mlx_xpm_file_to_image(data->mlx,
-													data->EA,
-													&texture[EAST].width,
-													&texture[EAST].height)))
-		i = err_msg("EA file xpm", data->EA, 1);
-	if (!(texture[WEST].img = mlx_xpm_file_to_image(data->mlx,
-													data->WE,
-													&texture[WEST].width,
-													&texture[WEST].height)))
-		i = err_msg("WE file xpm", data->WE, 1);
-	if (i != 0)
-		destroy_xpm(data);
-	get_addr(texture);
+	get_xpm2(data, i, texture);
 }

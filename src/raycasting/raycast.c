@@ -6,12 +6,11 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/23 16:17:34 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:51:42 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
-
 
 void	init_ray(t_data *data, t_ray *ray)
 {
@@ -36,49 +35,44 @@ void	init_ray(t_data *data, t_ray *ray)
 	ray->line_o = 0;
 }
 
-void draw_texture(t_data *data, int x, t_ray *ray)
+void	draw_texture(t_data *data, int x, t_ray *ray)
 {
-    int text_x;
-    int text_y;
-    float texture_pos;
-    float step;
-    t_texture *texture;
+	int			text_x;
+	int			text_y;
+	float		texture_pos;
+	float		step;
+	t_texture	*texture;
 
-    if (ray->h_dist < ray->v_dist) {
-        if (sin(deg_to_rad(ray->ra)) > 0)
-            texture = &data->texture[NORTH];
-        else
-            texture = &data->texture[SOUTH];
-        text_x = (int)fmod(ray->rx_h, texture->width);
-    } else {
-        if (cos(deg_to_rad(ray->ra)) > 0)
-            texture = &data->texture[EAST];
-        else
-            texture = &data->texture[WEST];
-        text_x = (int)fmod(ray->ry_v, texture->width);
-    }
-    step = texture->height / ray->line_h;
+	if (ray->h_dist < ray->v_dist)
+	{
+		if (sin(deg_to_rad(ray->ra)) > 0)
+			texture = &data->texture[NORTH];
+		else
+			texture = &data->texture[SOUTH];
+		text_x = (int)fmod(ray->rx_h, texture->width);
+	}
+	else
+	{
+		if (cos(deg_to_rad(ray->ra)) > 0)
+			texture = &data->texture[EAST];
+		else
+			texture = &data->texture[WEST];
+		text_x = (int)fmod(ray->ry_v, texture->width);
+	}
+	step = texture->height / ray->line_h;
 	if (step < 0.01)
 		step = 0.01;
-    texture_pos = (ray->line_o - WIN_HEIGHT / 2 + ray->line_h / 2) * step;
-
-    // Dessin de la texture ligne par ligne
-    while (ray->line_h > 0)
-    {
-        // Calcul de la coordonnée y de la texture
-        text_y = (int)texture_pos % texture->height;
-        texture_pos += step;
-
-        // Dessiner le pixel à la position correcte sur l'écran
-        my_pixel_put(data, x, ray->line_o, *(int *)(texture->addr + (text_y * texture->size_line) + text_x * (texture->bpp / 8)));
-
-        // Incrémentation de la position de l'écran et décrémentation de la hauteur
-        ray->line_o++;
-        ray->line_h--;
-    }
+	texture_pos = (ray->line_o - WIN_HEIGHT / 2 + ray->line_h / 2) * step;
+	while (ray->line_h > 0)
+	{
+		text_y = (int)texture_pos % texture->height;
+		texture_pos += step;
+		my_pixel_put(data, x, ray->line_o, *(int *)(texture->addr + (text_y
+						* texture->size_line) + text_x * (texture->bpp / 8)));
+		ray->line_o++;
+		ray->line_h--;
+	}
 }
-
-
 
 void	draw_ray_column(t_data *data, int x, t_ray *ray)
 {
@@ -101,7 +95,7 @@ void	draw_ray_column(t_data *data, int x, t_ray *ray)
 void	draw_ray(t_data *data)
 {
 	int		x;
-	t_ray 	ray;
+	t_ray	ray;
 
 	x = 0;
 	init_ray(data, &ray);
@@ -111,7 +105,7 @@ void	draw_ray(t_data *data)
 		horizontal_distance(data, &ray);
 		compute_distance(data->player->pa, &ray);
 		draw_ray_column(data, x, &ray);
-		ray.ra+= (float)FOV/(float)WIN_WIDTH;
+		ray.ra += (float)FOV / (float)WIN_WIDTH;
 		x++;
 	}
 }

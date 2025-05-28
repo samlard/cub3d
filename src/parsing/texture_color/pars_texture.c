@@ -100,7 +100,7 @@ int	handle_texture(t_data *data, char *str)
 	}
 	else if (check_invalid_line(str))
 		return (err_msg("invalid line in file :", str, 2));
-		// remplacer ca par un exit
+	// remplacer ca par un exit
 	return (0);
 }
 int	check_texture(t_data *data)
@@ -118,7 +118,7 @@ int	check_texture(t_data *data)
 		if (!str && check_empty == 0)
 			return (err_msg("empty file !", NULL, 1));
 		if (!str)
-			break;
+			break ;
 		if ((end = handle_texture(data, str)) > 0)
 			break ;
 		free(str);

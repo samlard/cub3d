@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_xpm_color.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 13:14:06 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/15 17:49:36 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:53:18 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,12 @@ int	check_digit(char *str, int i)
 	{
 		if (i == 0)
 			return (err_msg("number missing for C : need 3, no more, no less !",
-					NULL, 1));
+							NULL,
+							1));
 		else
 			return (err_msg("number missing for F : need 3, no more, no less !",
-					NULL, 1));
+							NULL,
+							1));
 	}
 	while (*str)
 	{

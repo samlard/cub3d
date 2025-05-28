@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:44 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/15 18:10:20 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:53:51 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_free_tab(char **tab)
 	int	i;
 
 	i = 0;
-	if(tab)
+	if (tab)
 	{
 		while (tab[i])
 		{
