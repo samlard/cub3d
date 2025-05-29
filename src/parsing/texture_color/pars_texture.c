@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:33:40 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:01:53 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,8 @@ char	*get_texture(char *str, int i, char *final, t_data *data)
 	str = str + j;
 	while (*str == ' ')
 		str++;
-	result = ft_strdup(str);
-	tmp = result;
-	result = ft_strtrim(result, "\n");
-	result = ft_strtrim(result, " ");
+	tmp = ft_strtrim(str, "\n");
+	result = ft_strtrim(tmp, " ");
 	free(tmp);
 	data->count_texture++;
 	return (result);
@@ -106,8 +104,7 @@ int	handle_texture(t_data *data, char *str)
 		data->F = get_texture(str, 0, data->F, data);
 	else if (ft_strchr(str, '1') || (ft_strchr(str, '0')))
 	{
-		data->map_first_line = ft_strdup(str);
-		data->map_first_line = ft_strtrim(data->map_first_line, " ");
+		data->map_first_line = ft_strtrim(str, " ");
 		return (1);
 	}
 	else if (check_invalid_line(str))
@@ -132,7 +129,10 @@ int	check_texture(t_data *data)
 		if (!str)
 			break ;
 		if ((end = handle_texture(data, str)) > 0)
+		{
+			free(str);
 			break ;
+		}
 		free(str);
 		check_empty++;
 	}

@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:32:27 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:09:49 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
-
-void	handle_error(t_data *data)
-{
-	(void)data;
-}
 
 void	init_data(t_data *data)
 {

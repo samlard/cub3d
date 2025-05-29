@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:39:10 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/28 20:52:55 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:48:58 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	parsing(t_data *data, char *str)
 	{
 		ft_free_texture(data);
 		close(data->fd_map);
-		return (0);
+		exit (1);
 	}
 	if (check_texture(data))
 	{
 		ft_free_texture(data);
 		close(data->fd_map);
-		return (0);
+		exit (1);
 	}
 	if (check_xpm_color(data))
 		return (0);
