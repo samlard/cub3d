@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/29 15:48:59 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:00:55 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ typedef struct s_texture
 	int					height;
 	char				*addr;
 	void				*img;
+	int					text_x;
+	int					text_y;
+	float				texture_pos;
+	float				step;
 }						t_texture;
 
 typedef struct s_ray
