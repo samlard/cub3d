@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 13:14:06 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/28 22:46:15 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:48:10 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_xpm(t_data *data)
 		i = err_msg("path for NO doesn't exist !", NULL, 1);
 	if ((access(data->south, F_OK)) == -1)
 		i = err_msg("path for SO doesn't exist !", NULL, 1);
-	if ((access(data->WE, F_OK)) == -1)
+	if ((access(data->west, F_OK)) == -1)
 		i = err_msg("path for WE doesn't exist !", NULL, 1);
 	if ((access(data->east, F_OK)) == -1)
 		i = err_msg("path for EA doesn't exist !", NULL, 1);
@@ -31,7 +31,7 @@ int	check_xpm(t_data *data)
 			i = err_msg("path for NO not accessible !", NULL, 1);
 		if ((access(data->south, R_OK)) == -1)
 			i = err_msg("path for SO not accessible !", NULL, 1);
-		if ((access(data->WE, R_OK)) == -1)
+		if ((access(data->west, R_OK)) == -1)
 			i = err_msg("path for WE not accessible !", NULL, 1);
 		if ((access(data->east, R_OK)) == -1)
 			i = err_msg("path for EA not accessible !", NULL, 1);
@@ -166,7 +166,7 @@ int	check_xpm_color(t_data *data)
 		close(data->fd_map);
 		return (1);
 	}
-	if (get_color(data, data->C, 0) || get_color(data, data->F, 1))
+	if (get_color(data, data->c, 0) || get_color(data, data->f, 1))
 	{
 		ft_free_texture(data);
 		close(data->fd_map);

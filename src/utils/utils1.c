@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:32:27 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/29 15:49:20 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	init_data(t_data *data)
 	data->north = NULL;
 	data->south = NULL;
 	data->east = NULL;
-	data->WE = NULL;
-	data->F = NULL;
-	data->C = NULL;
+	data->west = NULL;
+	data->f = NULL;
+	data->c = NULL;
 	data->flag = 0;
 	data->player->pos_x = 0;
 	data->player->pos_y = 0;
@@ -59,12 +59,12 @@ void	init_key(t_data *data)
 	data->key.key_d = 0;
 	data->key.key_l = 0;
 	data->key.key_r = 0;
-	data->f_F = 0;
-	data->f_C = 0;
-	data->f_EA = 0;
-	data->f_WE = 0;
-	data->f_SO = 0;
-	data->f_NO = 0;
+	data->f_f = 0;
+	data->f_c = 0;
+	data->f_ea = 0;
+	data->f_we = 0;
+	data->f_so = 0;
+	data->f_no = 0;
 }
 
 int	init_window(t_data *data)
