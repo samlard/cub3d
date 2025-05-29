@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/29 16:01:53 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:11:59 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ int	name_error_texture(t_data *data, int end)
 	int	i;
 
 	i = 0;
-	if (data->f_NO == 0 || data->f_NO > 1 || !data->north)
+	if (data->f_no == 0 || data->f_no > 1 || !data->north)
 		i = err_msg("only 1 texture for NO, no more, no less !", NULL, 1);
-	if (data->f_SO == 0 || data->f_SO > 1 || !data->south)
+	if (data->f_so == 0 || data->f_so > 1 || !data->south)
 		i = err_msg("only 1 texture for SO, no more, no less !", NULL, 1);
-	if (data->f_WE == 0 || data->f_WE > 1 || !data->WE)
+	if (data->f_we == 0 || data->f_we > 1 || !data->west)
 		i = err_msg("only 1 texture for WE, no more, no less !", NULL, 1);
-	if (data->f_EA == 0 || data->f_EA > 1 || !data->east)
+	if (data->f_ea == 0 || data->f_ea > 1 || !data->east)
 		i = err_msg("only 1 texture for EA, no more, no less !", NULL, 1);
-	if (data->f_C == 0 || data->f_C > 1 || !data->C)
+	if (data->f_c == 0 || data->f_c > 1 || !data->c)
 		i = err_msg("only 1 C ask for ceiling color, no more, no less !", NULL,
 				1);
-	if (data->F == 0 || data->f_F > 1 || !data->F)
+	if (data->f == 0 || data->f_f > 1 || !data->f)
 		i = err_msg("only 1 F ask for floor color, no more, no less !", NULL,
 				1);
 	if (end == 0)
@@ -52,17 +52,17 @@ int	name_error_texture(t_data *data, int end)
 void	verif_flag(char *str, t_data *data)
 {
 	if (ft_strnstr(str, "NO", 3) != 0)
-		data->f_NO += 1;
+		data->f_no += 1;
 	if (ft_strnstr(str, "SO", 3) != 0)
-		data->f_SO += 1;
+		data->f_so += 1;
 	if (ft_strnstr(str, "WE", 3) != 0)
-		data->f_WE += 1;
+		data->f_we += 1;
 	if (ft_strnstr(str, "EA", 3) != 0)
-		data->f_EA += 1;
+		data->f_ea += 1;
 	if (ft_strnstr(str, "C", 2) != 0)
-		data->f_C += 1;
+		data->f_c += 1;
 	if (ft_strnstr(str, "F", 2) != 0)
-		data->f_F += 1;
+		data->f_f += 1;
 }
 
 char	*get_texture(char *str, int i, char *final, t_data *data)
@@ -97,11 +97,11 @@ int	handle_texture(t_data *data, char *str)
 	else if (ft_strnstr(str, "EA", 3) != NULL)
 		data->east = get_texture(str, 1, data->east, data);
 	else if (ft_strnstr(str, "WE", 3) != NULL)
-		data->WE = get_texture(str, 1, data->WE, data);
+		data->west = get_texture(str, 1, data->west, data);
 	else if (ft_strnstr(str, "C", 2) != NULL)
-		data->C = get_texture(str, 0, data->C, data);
+		data->c = get_texture(str, 0, data->c, data);
 	else if (ft_strnstr(str, "F", 2) != NULL)
-		data->F = get_texture(str, 0, data->F, data);
+		data->f = get_texture(str, 0, data->f, data);
 	else if (ft_strchr(str, '1') || (ft_strchr(str, '0')))
 	{
 		data->map_first_line = ft_strtrim(str, " ");

@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/28 22:31:34 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:00:55 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ typedef struct s_texture
 	int					height;
 	char				*addr;
 	void				*img;
+	int					text_x;
+	int					text_y;
+	float				texture_pos;
+	float				step;
 }						t_texture;
 
 typedef struct s_ray
@@ -143,17 +147,17 @@ typedef struct s_data
 	int					count_player;
 	int					handle_error;
 	char				*north;
-	int					f_NO;
+	int					f_no;
 	char				*south;
-	int					f_SO;
+	int					f_so;
 	char				*east;
-	int					f_EA;
-	char				*WE;
-	int					f_WE;
-	char				*F;
-	int					f_F;
-	char				*C;
-	int					f_C;
+	int					f_ea;
+	char				*west;
+	int					f_we;
+	char				*f;
+	int					f_f;
+	char				*c;
+	int					f_c;
 	int					flag;
 	int					nbr_line;
 	int					larg_row;

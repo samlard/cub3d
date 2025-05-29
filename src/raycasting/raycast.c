@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:21:16 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:04:46 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,22 @@ void	init_ray(t_data *data, t_ray *ray)
 	ray->line_o = 0;
 }
 
-void	draw_texture(t_data *data, int x, t_ray *ray)
+void	draw_texture(t_data *data, t_texture *texture, t_ray *ray, int x)
 {
-	int			text_x;
-	int			text_y;
-	float		texture_pos;
-	float		step;
+	while (ray->line_h > 0)
+	{
+		texture->text_y = (int)texture->texture_pos % texture->height;
+		texture->texture_pos += texture->step;
+		my_pixel_put(data, x, ray->line_o, *(int *)(texture->addr
+				+ (texture->text_y * texture->size_line) + texture->text_x
+				* (texture->bpp / 8)));
+		ray->line_o++;
+		ray->line_h--;
+	}
+}
+
+void	set_up_texture(t_data *data, int x, t_ray *ray)
+{
 	t_texture	*texture;
 
 	if (ray->h_dist < ray->v_dist)
@@ -49,7 +59,7 @@ void	draw_texture(t_data *data, int x, t_ray *ray)
 			texture = &data->texture[NORTH];
 		else
 			texture = &data->texture[SOUTH];
-		text_x = (int)fmod(ray->rx_h, texture->width);
+		texture->text_x = (int)fmod(ray->rx_h, texture->width);
 	}
 	else
 	{
@@ -57,19 +67,12 @@ void	draw_texture(t_data *data, int x, t_ray *ray)
 			texture = &data->texture[EAST];
 		else
 			texture = &data->texture[WEST];
-		text_x = (int)fmod(ray->ry_v, texture->width);
+		texture->text_x = (int)fmod(ray->ry_v, texture->width);
 	}
-	step = texture->height / ray->line_h;
-	texture_pos = (ray->line_o - WIN_HEIGHT / 2 + ray->line_h / 2) * step;
-	while (ray->line_h > 0)
-	{
-		text_y = (int)texture_pos % texture->height;
-		texture_pos += step;
-		my_pixel_put(data, x, ray->line_o, *(int *)(texture->addr + (text_y
-					* texture->size_line) + text_x * (texture->bpp / 8)));
-		ray->line_o++;
-		ray->line_h--;
-	}
+	texture->step = texture->height / ray->line_h;
+	texture->texture_pos = (ray->line_o - WIN_HEIGHT / 2 + ray->line_h / 2)
+		* texture->step;
+	draw_texture(data, texture, ray, x);
 }
 
 void	draw_ray_column(t_data *data, int x, t_ray *ray)
@@ -82,7 +85,7 @@ void	draw_ray_column(t_data *data, int x, t_ray *ray)
 		my_pixel_put(data, x, i, data->rgb_c);
 		i++;
 	}
-	draw_texture(data, x, ray);
+	set_up_texture(data, x, ray);
 	while (ray->line_o < WIN_HEIGHT)
 	{
 		my_pixel_put(data, x, ray->line_o, data->rgb_f);
