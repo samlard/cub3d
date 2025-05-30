@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:44 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 16:21:40 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:06:50 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,21 @@ void	ft_free_texture(t_data *data)
 		free(data->map_first_line);
 	get_next_line(-1);
 	free(data->player);
+}
+
+void exit_texture(t_data *data)
+{
+		ft_free_tab(data->map);
+}
+
+int	exit_prog(t_data *data)
+{
+	destroy_xpm(data);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	data->mlx = NULL;
+	ft_free_tab(data->map);
+	exit(0);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:50:33 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:06:38 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,6 @@ typedef struct s_data
 	t_player			*player;
 	t_ray				*ray;
 	t_key				key;
-	void				*img_no;
-	void				*img_so;
-	void				*img_ea;
-	void				*img_we;
 	int					rgb_c;
 	int					rgb_f;
 	t_texture			texture[4];
@@ -209,6 +205,9 @@ int						err_msg(char *detail, char *str, int code);
 void					ft_free_tab(char **tab);
 void					ft_free_texture(t_data *data);
 void					handle_error(t_data *data);
+int						exit_prog(t_data *data);
+void					destroy_xpm(t_data *data);
+void					exit_texture(t_data *data);
 
 //draw function
 int						display(t_data *data);

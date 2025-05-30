@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 16:26:53 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:09:44 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int ac, char **av)
 			&data.endian);
 	draw_ray(&data);
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
-	mlx_hook(data.win, 17, 0, (void *)exit, 0);
+	mlx_hook(data.win, 17, 0, exit_prog, &data);
 	mlx_hook(data.win, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data.win, KeyRelease, KeyReleaseMask, &handle_keyrelease, &data);
 	mlx_loop_hook(data.mlx, &display, &data);

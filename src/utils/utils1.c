@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 17:00:37 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:37:24 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ void	init_data_2(t_data *data)
 	data->player->pdy = -sin(deg_to_rad(data->player->pa));
 	data->nbr_line = 0;
 	data->larg_row = 0;
-	data->img_no = NULL;
-	data->img_so = NULL;
-	data->img_ea = NULL;
-	data->img_we = NULL;
 }
 
 void	init_data(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/29 15:00:35 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:05:50 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,28 @@
 
 void	destroy_xpm(t_data *data)
 {
-	if (data->img_no)
+	if (data->texture[NORTH].img)
 	{
-		mlx_destroy_image(data->mlx, data->img_no);
-		data->img_no = NULL;
+		mlx_destroy_image(data->mlx, data->texture[NORTH].img);
+		data->texture[NORTH].img = NULL;
 	}
-	if (data->img_so)
+	if (data->texture[SOUTH].img)
 	{
-		mlx_destroy_image(data->mlx, data->img_so);
-		data->img_so = NULL;
+		mlx_destroy_image(data->mlx, data->texture[SOUTH].img);
+		data->texture[SOUTH].img = NULL;
 	}
-	if (data->img_ea)
+	if (data->texture[EAST].img)
 	{
-		mlx_destroy_image(data->mlx, data->img_ea);
-		data->img_ea = NULL;
+		mlx_destroy_image(data->mlx, data->texture[EAST].img);
+		data->texture[EAST].img = NULL;
 	}
-	if (data->img_we)
+	if (data->texture[WEST].img)
 	{
-		mlx_destroy_image(data->mlx, data->img_we);
-		data->img_we = NULL;
+		mlx_destroy_image(data->mlx, data->texture[WEST].img);
+		data->texture[WEST].img = NULL;
 	}
+	if (data->img)
+		mlx_destroy_image(data->mlx, data->img);
 	ft_free_texture(data);
 	close(data->fd_map);
 }
@@ -89,7 +91,10 @@ void	get_xpm(t_data *data)
 			&texture[NORTH].width,
 			&texture[NORTH].height);
 	if (!texture[NORTH].img)
+	{
 		i = err_msg("NO file xpm", data->north, 1);
+		exit_texture(data);
+	}
 	texture[SOUTH].img = mlx_xpm_file_to_image(data->mlx,
 			data->south,
 			&texture[SOUTH].width,
