@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:44:16 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:12:24 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	check_valid(t_data *data, char *str)
 		if (*str == 'N' || *str == 'S' || *str == 'W' || *str == 'E')
 		{
 			data->count_player++;
+			get_start_angle(*str, data);
 			if (data->count_player > 1)
 			{
 				err_msg("too many player !", NULL, 0);

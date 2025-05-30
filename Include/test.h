@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/29 16:00:55 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:12:04 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ int						check_texture(t_data *data);
 int						copy_check_map(t_data *data);
 int						get_map_square(t_data *data);
 int						check_xpm_color(t_data *data);
+void					get_start_angle(char c, t_data *data);
 
 // handle error + init data
 
