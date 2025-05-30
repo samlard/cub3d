@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/29 16:12:08 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:11:48 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
+
+void	get_start_angle(char c, t_data *data)
+{
+	if (c == 'N')
+		data->player->pa = 90;
+	if (c == 'S')
+		data->player->pa = 270;
+	if (c == 'W')
+		data->player->pa = 180;
+	if (c == 'E')
+		data->player->pa = 0;		
+}
 
 void	init_data(t_data *data)
 {

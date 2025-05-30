@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:39:10 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/30 15:59:48 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:03:50 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int	parsing(t_data *data, char *str)
 		close(data->fd_map);
 		exit(1);
 	}
-	check_xpm_color(data)
-	if (copy_check_map(data))
-		return (0);
+	check_xpm_color(data);
+	copy_check_map(data);
 	return (1);
 }

@@ -6,7 +6,11 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/30 16:01:11 by mvan-vel         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/30 14:12:04 by ssoumill         ###   ########.fr       */
+>>>>>>> 12311648547983ca6bbc3def34a23b57e0e3cb24
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +197,7 @@ int						check_texture(t_data *data);
 void						copy_check_map(t_data *data);
 int						get_map_square(t_data *data);
 void						check_xpm_color(t_data *data);
+void					get_start_angle(char c, t_data *data);
 
 // handle error + init data
 
