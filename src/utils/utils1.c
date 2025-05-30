@@ -6,22 +6,26 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 14:11:48 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:00:37 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-void	get_start_angle(char c, t_data *data)
+void	init_data_2(t_data *data)
 {
-	if (c == 'N')
-		data->player->pa = 90;
-	if (c == 'S')
-		data->player->pa = 270;
-	if (c == 'W')
-		data->player->pa = 180;
-	if (c == 'E')
-		data->player->pa = 0;		
+	data->flag = 0;
+	data->player->pos_x = 0;
+	data->player->pos_y = 0;
+	data->player->pa = 0;
+	data->player->pdx = cos(deg_to_rad(data->player->pa));
+	data->player->pdy = -sin(deg_to_rad(data->player->pa));
+	data->nbr_line = 0;
+	data->larg_row = 0;
+	data->img_no = NULL;
+	data->img_so = NULL;
+	data->img_ea = NULL;
+	data->img_we = NULL;
 }
 
 void	init_data(t_data *data)
@@ -43,18 +47,7 @@ void	init_data(t_data *data)
 	data->west = NULL;
 	data->f = NULL;
 	data->c = NULL;
-	data->flag = 0;
-	data->player->pos_x = 0;
-	data->player->pos_y = 0;
-	data->player->pa = 0;
-	data->player->pdx = cos(deg_to_rad(data->player->pa));
-	data->player->pdy = -sin(deg_to_rad(data->player->pa));
-	data->nbr_line = 0;
-	data->larg_row = 0;
-	data->img_no = NULL;
-	data->img_so = NULL;
-	data->img_ea = NULL;
-	data->img_we = NULL;
+	init_data_2(data);
 	init_key(data);
 }
 
@@ -86,18 +79,4 @@ int	init_window(t_data *data)
 	data->player->pos_x = data->player->pos_x * SQUARE_SIZE + 20;
 	data->player->pos_y = data->player->pos_y * SQUARE_SIZE + 20;
 	return (1);
-}
-
-float	fix_angle(float ra)
-{
-	if (ra > 360)
-		ra -= 360;
-	else if (ra < 0)
-		ra += 360;
-	return (ra);
-}
-
-float	deg_to_rad(float pa)
-{
-	return (pa * PI / 180);
 }
