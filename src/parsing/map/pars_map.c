@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 16:22:33 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:05:51 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,31 +49,7 @@ void	get_pos(t_data *data)
 	data->nbr_line = i;
 }
 
-int	check_valid(t_data *data, char *str)
-{
-	while (*str)
-	{
-		if (*str == 'N' || *str == 'S' || *str == 'W' || *str == 'E')
-		{
-			data->count_player++;
-			get_start_angle(*str, data);
-			if (data->count_player > 1)
-			{
-				err_msg("too many player !", NULL, 0);
-				data->handle_error = 1;
-			}
-		}
-		else if (*str != '0' && *str != '1' && *str != ' ' && *str != '\n')
-		{
-			err_msg("invalid caracter in map !", NULL, 0);
-			data->handle_error = 1;
-		}
-		str++;
-	}
-	return (data->handle_error);
-}
-
-int	map_copy(t_data *data)
+void	prepare_to_copy(t_data *data)
 {
 	char	*temp;
 	char	*temp2;
@@ -86,37 +62,50 @@ int	map_copy(t_data *data)
 			break ;
 		check_valid(data, temp);
 		temp2 = ft_strtrim(temp, " ");
+		if (!temp2)
+			return (free(temp), handle_error(data, 0));
 		data->map_first_line = ft_strjoin(data->map_first_line, temp2);
+		if (!data->map_first_line)
+			return (free(temp), free(temp2), handle_error(data, 0));
 		free(temp);
 		free(temp2);
 	}
-	if (data->count_player == 0)
-	{
-		err_msg("need a player !", NULL, 0);
-		data->handle_error = 1;
-	}
+}
+
+void	map_copy(t_data *data)
+{
+	prepare_to_copy(data);
 	data->map = ft_split(data->map_first_line, '\n');
+	if (!data->map)
+		handle_error(data, 0);
 	free(data->map_first_line);
 	data->map_first_line = NULL;
-	free(temp);
-	return (data->handle_error);
 }
 
 void	copy_check_map(t_data *data)
 {
-	if (map_copy(data))
-		handle_error(data);
+	map_copy(data);
+	if (data->count_player == 0)
+	{
+		err_msg("need a player !", NULL, 0);
+		handle_error(data, 1);
+	}
 	get_pos(data);
 	if (data->larg_row < 3 || data->nbr_line < 3)
 	{
 		err_msg("invalid map !", NULL, 1);
-		handle_error(data);
+		handle_error(data, 1);
 	}
 	if (pos_player(data))
 	{
 		err_msg("position player error !", NULL, 1);
-		handle_error(data);
+		handle_error(data, 1);
 	}
-	if (get_map_square(data))
-		handle_error(data);
+	get_map_square(data);
+	backtrack(data, data->map, data->player->pos_y, data->player->pos_x);
+	if (data->flag == 1)
+	{
+		err_msg("invalid map, there is a hole!", NULL, 1);
+		handle_error(data, 1);
+	}
 }

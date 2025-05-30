@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:44 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 16:21:40 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:24:45 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int	err_msg(char *detail, char *str, int code)
 	return (code);
 }
 
-void	handle_error(t_data *data)
+void	handle_error(t_data *data, int i)
 {
+	if (i == 0)
+		err_msg("malloc !", NULL, 1);
 	ft_free_texture(data);
 	if (data->map)
 		ft_free_tab(data->map);

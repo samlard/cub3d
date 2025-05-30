@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 16:32:37 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:21:40 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,15 @@ char	*get_texture(char *str, int i, char *final, t_data *data)
 	while (*str == ' ')
 		str++;
 	tmp = ft_strtrim(str, "\n");
+	if (!tmp)
+		handle_error(data, 0);
 	result = ft_strtrim(tmp, " ");
+	if (!result)
+	{
+		free(tmp);
+		handle_error(data, 0);
+	}
 	free(tmp);
-	data->count_texture++;
 	return (result);
 }
 
@@ -79,6 +85,8 @@ int	handle_texture(t_data *data, char *str)
 	else if (ft_strchr(str, '1') || (ft_strchr(str, '0')))
 	{
 		data->map_first_line = ft_strtrim(str, " ");
+		if (!data->map_first_line)
+			handle_error(data, 0);
 		return (1);
 	}
 	else if (check_invalid_line(str))
