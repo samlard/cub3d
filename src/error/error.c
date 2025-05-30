@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:44 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 18:09:25 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:14:43 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void	ft_free_texture(t_data *data)
 	free(data->player);
 }
 
-void exit_texture(t_data *data)
+void	exit_texture(t_data *data)
 {
-		ft_free_tab(data->map);
+	ft_free_tab(data->map);
 }
 
 int	exit_prog(t_data *data)
