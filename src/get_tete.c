@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 18:05:50 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:27:52 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,46 +60,51 @@ void	get_addr(t_texture *texture)
 			&texture[WEST].endian);
 }
 
-void	get_xpm2(t_data *data, int i, t_texture *texture)
+void	get_xpm2(t_data *data, t_texture *texture)
 {
 	texture[EAST].img = mlx_xpm_file_to_image(data->mlx,
 			data->east,
 			&texture[EAST].width,
 			&texture[EAST].height);
 	if (!texture[EAST].img)
-		i = err_msg("EA file xpm", data->east, 1);
+	{
+		err_msg("EA file xpm", data->east, 1);
+		handle_error(data, 2);
+	}
 	texture[WEST].img = mlx_xpm_file_to_image(data->mlx,
 			data->west,
 			&texture[WEST].width,
 			&texture[WEST].height);
 	if (!texture[WEST].img)
-		i = err_msg("WE file xpm", data->west, 1);
-	if (i != 0)
-		destroy_xpm(data);
+	{
+		err_msg("WE file xpm", data->west, 1);
+		handle_error(data, 2);
+	}
 	get_addr(texture);
 }
 
 void	get_xpm(t_data *data)
 {
-	int			i;
 	t_texture	*texture;
 
 	texture = data->texture;
-	i = 0;
 	texture[NORTH].img = mlx_xpm_file_to_image(data->mlx,
 			data->north,
 			&texture[NORTH].width,
 			&texture[NORTH].height);
 	if (!texture[NORTH].img)
 	{
-		i = err_msg("NO file xpm", data->north, 1);
-		exit_texture(data);
+		err_msg("NO file xpm", data->north, 1);
+		handle_error(data, 2);
 	}
 	texture[SOUTH].img = mlx_xpm_file_to_image(data->mlx,
 			data->south,
 			&texture[SOUTH].width,
 			&texture[SOUTH].height);
 	if (!texture[SOUTH].img)
-		i = err_msg("SO file xpm", data->south, 1);
-	get_xpm2(data, i, texture);
+	{
+		err_msg("SO file xpm", data->south, 1);
+		handle_error(data, 2);
+	}
+	get_xpm2(data, texture);
 }

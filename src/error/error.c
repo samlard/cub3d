@@ -6,7 +6,11 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:44 by ssoumill          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/30 18:14:43 by mvan-vel         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/30 18:33:35 by ssoumill         ###   ########.fr       */
+>>>>>>> d62a115905cd3292c82a3dfba214195e522faa0e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +40,12 @@ void	handle_error(t_data *data, int i)
 	ft_free_texture(data);
 	if (data->map)
 		ft_free_tab(data->map);
+	if (i == 2)
+	{
+		destroy_xpm(data);
+		mlx_destroy_window(data->mlx, data->win);
+		mlx_destroy_display(data->mlx);
+	}
 	close(data->fd_map);
 	exit(1);
 }
@@ -76,18 +86,17 @@ void	ft_free_texture(t_data *data)
 	free(data->player);
 }
 
-void	exit_texture(t_data *data)
-{
-	ft_free_tab(data->map);
-}
-
 int	exit_prog(t_data *data)
 {
 	destroy_xpm(data);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	data->mlx = NULL;
+	if (data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		data->mlx = NULL;
+	}
 	ft_free_tab(data->map);
 	exit(0);
 	return (0);

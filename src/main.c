@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 17:09:44 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:35:00 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ int	main(int ac, char **av)
 		return (err_msg("only one argument : exemple.cub", NULL, 1));
 	init_data(&data);
 	parsing(&data, av[1]);
-	if (!init_window(&data))
-		return (1);
+	init_window(&data);
 	get_xpm(&data);
 	data.img = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (!data.img)
+		exit_prog(&data);
 	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.size_line,
 			&data.endian);
+	if (!data.img_addr)
+		exit_prog(&data);
 	draw_ray(&data);
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	mlx_hook(data.win, 17, 0, exit_prog, &data);

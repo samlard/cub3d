@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/30 18:10:31 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:19:07 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void					backtrack(t_data *data, char **map, int x, int y);
 
 void					init_data(t_data *data);
 void					init_key(t_data *data);
-int						init_window(t_data *data);
+void					init_window(t_data *data);
 int						err_msg(char *detail, char *str, int code);
 void					ft_free_tab(char **tab);
 void					ft_free_texture(t_data *data);
