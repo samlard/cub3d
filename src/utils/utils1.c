@@ -6,7 +6,7 @@
 /*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 17:37:24 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:20:07 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,19 @@ void	init_key(t_data *data)
 	data->f_no = 0;
 }
 
-int	init_window(t_data *data)
+void	init_window(t_data *data)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
-		return (err_msg(ERROR_MLX_INIT, NULL, 0));
+		return (err_msg(ERROR_MLX_INIT, NULL, 0), handle_error(data, 1));
 	data->win = mlx_new_window(data->mlx, WIN_WIDTH, WIN_HEIGHT,
 			"Hulahup Barbatruc");
 	if (!data->win)
-		return (err_msg(ERROR_WIN_INIT, NULL, 0));
+	{
+		free(data->mlx);
+		data->mlx = NULL;
+		return (err_msg(ERROR_WIN_INIT, NULL, 0), handle_error(data, 1));
+	}
 	data->player->pos_x = data->player->pos_x * SQUARE_SIZE + 20;
 	data->player->pos_y = data->player->pos_y * SQUARE_SIZE + 20;
-	return (1);
 }
