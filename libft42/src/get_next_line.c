@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 15:39:40 by mvan-vel          #+#    #+#             */
-/*   Updated: 2024/08/08 17:52:36 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:29:36 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*get_next_line(int fd)
 	stach = ft_fill_stach(fd, stach);
 	line = fill_line(stach);
 	stach = trim_stach(stach);
-	if (!ft_strchr_gnl(line, '\n'))
+	if (!line || !ft_strchr_gnl(line, '\n'))
 		ft_free(&stach);
 	return (line);
 }

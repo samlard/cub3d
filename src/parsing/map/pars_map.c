@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:44:16 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:00:58 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	check_valid(t_data *data, char *str)
 int	map_copy(t_data *data)
 {
 	char	*temp;
+	char	*temp2;
 
 	check_valid(data, data->map_first_line);
 	while (1)
@@ -83,9 +84,10 @@ int	map_copy(t_data *data)
 		if (temp == NULL)
 			break ;
 		check_valid(data, temp);
-		temp = ft_strtrim(temp, " ");
-		data->map_first_line = ft_strjoin(data->map_first_line, temp);
+		temp2 = ft_strtrim(temp, " ");
+		data->map_first_line = ft_strjoin(data->map_first_line, temp2);
 		free(temp);
+		free(temp2);
 	}
 	if (data->count_player == 0)
 	{
@@ -94,25 +96,18 @@ int	map_copy(t_data *data)
 	}
 	data->map = ft_split(data->map_first_line, '\n');
 	free(data->map_first_line);
+	data->map_first_line = NULL;
 	free(temp);
 	return (data->handle_error);
 }
 
-int	copy_check_map(t_data *data)
+void	copy_check_map(t_data *data)
 {
-	int	i;
-
-	i = 0;
 	if (map_copy(data))
 	{
 		ft_free_texture(data);
 		ft_free_tab(data->map);
-		return (1);
-	}
-	while (data->map[i])
-	{
-		data->map[i] = ft_strtrim(data->map[i], " ");
-		i++;
+		exit (1);
 	}
 	get_pos(data);
 	if (data->larg_row < 3 || data->nbr_line < 3)
@@ -120,25 +115,19 @@ int	copy_check_map(t_data *data)
 		err_msg("invalid map !", NULL, 1);
 		ft_free_texture(data);
 		ft_free_tab(data->map);
-		return (1);
+		exit (1);
 	}
 	if (pos_player(data))
 	{
 		err_msg("position player error !", NULL, 1);
 		ft_free_texture(data);
 		ft_free_tab(data->map);
-		return (1);
-	}
-	i = 0;
-	while (data->map[i])
-	{
-		printf("<%s>\n", data->map[i]);
-		i++;
+		exit (1);
 	}
 	if (get_map_square(data))
 	{
 		ft_free_texture(data);
-		return (1);
+		ft_free_tab(data->map);
+		exit (1);
 	}
-	return (0);
 }

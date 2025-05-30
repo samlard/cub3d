@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/29 16:00:55 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:01:11 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,9 +190,9 @@ void					get_xpm(t_data *data);
 int						check_cub(char *str, t_data *data);
 int						parsing(t_data *data, char *str);
 int						check_texture(t_data *data);
-int						copy_check_map(t_data *data);
+void						copy_check_map(t_data *data);
 int						get_map_square(t_data *data);
-int						check_xpm_color(t_data *data);
+void						check_xpm_color(t_data *data);
 
 // handle error + init data
 

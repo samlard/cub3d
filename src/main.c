@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/28 22:16:59 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:02:30 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int	main(int ac, char **av)
 {
 	t_data	data;
-	int		i;
 
-	i = 0;
 	if (ac != 2)
 		return (err_msg("only one argument : exemple.cub", NULL, 1));
 	init_data(&data);
@@ -26,11 +24,6 @@ int	main(int ac, char **av)
 	if (!init_window(&data))
 		return (1);
 	get_xpm(&data);
-	while (data.map[i])
-	{
-		printf("<%s>\n", data.map[i]);
-		i++;
-	}
 	data.img = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
 	data.img_addr = mlx_get_data_addr(data.img, &data.bpp, &data.size_line,
 			&data.endian);

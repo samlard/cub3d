@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:39:10 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/29 15:48:58 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:59:48 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,15 @@ int	parsing(t_data *data, char *str)
 	{
 		ft_free_texture(data);
 		close(data->fd_map);
-		exit (1);
+		exit(1);
 	}
 	if (check_texture(data))
 	{
 		ft_free_texture(data);
 		close(data->fd_map);
-		exit (1);
+		exit(1);
 	}
-	if (check_xpm_color(data))
-		return (0);
+	check_xpm_color(data)
 	if (copy_check_map(data))
 		return (0);
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_square.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:24:05 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/28 22:43:33 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:02:25 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ size_t	ft_strcpy(char *dst, const char *src)
 	j = ft_strlen(src);
 	if (j < 1)
 		return (j);
-	while (src[i] && i < j)
+	while (src[i])
 	{
 		dst[i] = src[i];
 		i++;
 	}
 	return (j);
 }
+
 void	backtrack(t_data *data, char **map, int x, int y)
 {
 	if (map[x][y] == ' ' || (map[x][y] == '0' && (y == ((int)ft_strlen(map[x])
@@ -63,6 +64,7 @@ char	**cpy_map(char **map, t_data *data)
 	{
 		tab[i] = malloc((data->larg_row + 1) * sizeof(char));
 		ft_strcpy(tab[i], map[i]);
+		tab[i][data->larg_row] = '\0';
 		i++;
 	}
 	tab[i] = NULL;
@@ -81,20 +83,18 @@ int	get_map_square(t_data *data)
 	while (i < data->nbr_line)
 	{
 		tab[i] = malloc((data->larg_row + 1) * sizeof(char));
-		ft_memset(tab[i], ' ', data->larg_row + 1);
+		ft_memset(tab[i], ' ', data->larg_row);
+		tab[i][data->larg_row] = '\0';
 		ft_strcpy(tab[i], data->map[i]);
+		tab[i][data->larg_row] = '\0';
 		i++;
 	}
 	tab[i] = NULL;
-	i = 0;
-	ft_free(data->map);
+	ft_free_tab(data->map);
 	data->map = cpy_map(tab, data);
 	ft_free_tab(tab);
 	backtrack(data, data->map, data->player->pos_y, data->player->pos_x);
 	if (data->flag == 1)
-	{
-		ft_free_tab(data->map);
 		return (err_msg("invalid map, there is a hole!", NULL, 1));
-	}
 	return (0);
 }

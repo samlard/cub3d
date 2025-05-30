@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_xpm_color.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 13:14:06 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/29 15:48:10 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:59:01 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,21 @@ int	convert_color(char **tab, int i, int j)
 	int	r;
 	int	g;
 	int	b;
+	char *str;
 
 	while (tab[j])
 	{
-		if ((tab[j] = ft_strtrim(tab[j], " ")) == NULL)
+		if ((str = ft_strtrim(tab[j], " ")) == NULL)
+		{
+			free(str);
 			return (-1);
-		if (check_digit(tab[j], i))
+		}
+		if (check_digit(str, i))
+		{
+			free(str);
 			return (-1);
+		}
+		free(str);
 		j++;
 	}
 	r = ft_atoi_cub(tab[0]);
@@ -155,23 +163,22 @@ int	get_color(t_data *data, char *str, int i)
 		if ((data->rgb_f = convert_color(tab, i, 0)) == -1)
 			return (ft_free_tab(tab), 1);
 	}
+	ft_free_tab(tab);
 	return (0);
 }
 
-int	check_xpm_color(t_data *data)
+void	check_xpm_color(t_data *data)
 {
 	if (check_xpm(data))
 	{
 		ft_free_texture(data);
 		close(data->fd_map);
-		return (1);
+		exit (1);
 	}
 	if (get_color(data, data->c, 0) || get_color(data, data->f, 1))
 	{
 		ft_free_texture(data);
 		close(data->fd_map);
-		//ce faire une fonction pour l handle d error pour bien tout free et close proprement
-		return (1);
+		exit (1);
 	}
-	return (0);
 }

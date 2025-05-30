@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:44 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/29 16:11:41 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 14:21:29 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	ft_free_texture(t_data *data)
 		free(data->c);
 	if (data->f)
 		free(data->f);
-	if (data->map_first_line)
-		free(data->map_first_line);
+	if (data->map_first_line != NULL)
+	 	free(data->map_first_line);
+	get_next_line(-1);
 	free(data->player);
 }
