@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/29 16:43:16 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:32:37 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,6 @@ int	check_invalid_line(char *str)
 		str++;
 	}
 	return (0);
-}
-
-int	name_error_texture(t_data *data, int end)
-{
-	int	i;
-
-	i = 0;
-	if (data->f_no == 0 || data->f_no > 1 || !data->north)
-		i = err_msg("only 1 texture for NO, no more, no less !", NULL, 1);
-	if (data->f_so == 0 || data->f_so > 1 || !data->south)
-		i = err_msg("only 1 texture for SO, no more, no less !", NULL, 1);
-	if (data->f_we == 0 || data->f_we > 1 || !data->west)
-		i = err_msg("only 1 texture for WE, no more, no less !", NULL, 1);
-	if (data->f_ea == 0 || data->f_ea > 1 || !data->east)
-		i = err_msg("only 1 texture for EA, no more, no less !", NULL, 1);
-	if (data->f_c == 0 || data->f_c > 1 || !data->c)
-		i = err_msg("only 1 C ask for ceiling color, no more, no less !", NULL,
-				1);
-	if (data->f == 0 || data->f_f > 1 || !data->f)
-		i = err_msg("only 1 F ask for floor color, no more, no less !", NULL,
-				1);
-	if (end == 0)
-		i = (err_msg("missing map !", NULL, 1));
-	if (end == 2)
-		i = 1;
-	return (i);
 }
 
 void	verif_flag(char *str, t_data *data)
@@ -128,7 +102,8 @@ int	check_texture(t_data *data)
 			return (err_msg("empty file !", NULL, 1));
 		if (!str)
 			break ;
-		if ((end = handle_texture(data, str)) > 0)
+		end = handle_texture(data, str);
+		if (end > 0)
 		{
 			free(str);
 			break ;

@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 16:02:34 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:22:33 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,30 +105,18 @@ int	map_copy(t_data *data)
 void	copy_check_map(t_data *data)
 {
 	if (map_copy(data))
-	{
-		ft_free_texture(data);
-		ft_free_tab(data->map);
-		exit (1);
-	}
+		handle_error(data);
 	get_pos(data);
 	if (data->larg_row < 3 || data->nbr_line < 3)
 	{
 		err_msg("invalid map !", NULL, 1);
-		ft_free_texture(data);
-		ft_free_tab(data->map);
-		exit (1);
+		handle_error(data);
 	}
 	if (pos_player(data))
 	{
 		err_msg("position player error !", NULL, 1);
-		ft_free_texture(data);
-		ft_free_tab(data->map);
-		exit (1);
+		handle_error(data);
 	}
 	if (get_map_square(data))
-	{
-		ft_free_texture(data);
-		ft_free_tab(data->map);
-		exit (1);
-	}
+		handle_error(data);
 }

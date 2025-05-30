@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:44 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 14:21:29 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:21:40 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@ int	err_msg(char *detail, char *str, int code)
 	}
 	ft_putstr_fd("\n" RESET, 2);
 	return (code);
+}
+
+void	handle_error(t_data *data)
+{
+	ft_free_texture(data);
+	if (data->map)
+		ft_free_tab(data->map);
+	close(data->fd_map);
+	exit(1);
 }
 
 void	ft_free_tab(char **tab)
@@ -60,7 +69,7 @@ void	ft_free_texture(t_data *data)
 	if (data->f)
 		free(data->f);
 	if (data->map_first_line != NULL)
-	 	free(data->map_first_line);
+		free(data->map_first_line);
 	get_next_line(-1);
 	free(data->player);
 }

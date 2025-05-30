@@ -6,11 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/05/30 16:01:11 by mvan-vel         ###   ########.fr       */
-=======
-/*   Updated: 2025/05/30 14:12:04 by ssoumill         ###   ########.fr       */
->>>>>>> 12311648547983ca6bbc3def34a23b57e0e3cb24
+/*   Updated: 2025/05/30 16:50:33 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,22 +188,27 @@ void					get_xpm(t_data *data);
 // parsing
 
 int						check_cub(char *str, t_data *data);
-int						parsing(t_data *data, char *str);
+void					parsing(t_data *data, char *str);
 int						check_texture(t_data *data);
-void						copy_check_map(t_data *data);
+void					copy_check_map(t_data *data);
 int						get_map_square(t_data *data);
-void						check_xpm_color(t_data *data);
+void					check_xpm_color(t_data *data);
 void					get_start_angle(char c, t_data *data);
+int						name_error_texture(t_data *data, int end);
+int						ft_strlen_tab(char **tab);
+int						ft_atoi_cub(const char *str);
+int						check_digit(char *str, int i);
+int						check_tab(char **tab, int i);
 
 // handle error + init data
 
 void					init_data(t_data *data);
 void					init_key(t_data *data);
 int						init_window(t_data *data);
-void					handle_error(t_data *data);
 int						err_msg(char *detail, char *str, int code);
 void					ft_free_tab(char **tab);
 void					ft_free_texture(t_data *data);
+void					handle_error(t_data *data);
 
 //draw function
 int						display(t_data *data);
