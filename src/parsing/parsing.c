@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:39:10 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:27:59 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:26:10 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	check_cub(char *str, t_data *data)
 void	parsing(t_data *data, char *str)
 {
 	if (!check_cub(str, data))
-		handle_error(data);
+		handle_error(data, 1);
 	if (check_texture(data))
-		handle_error(data);
+		handle_error(data, 1);
 	check_xpm_color(data);
 	copy_check_map(data);
 }

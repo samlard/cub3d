@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:31:47 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:51:12 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:38:23 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,12 @@ int	check_digit(char *str, int i)
 	{
 		if (i == 0)
 			return (err_msg("number missing for C : need 3, no more, no less !",
-					NULL, 1));
+					NULL,
+					1));
 		else
 			return (err_msg("number missing for F : need 3, no more, no less !",
-					NULL, 1));
+					NULL,
+					1));
 	}
 	while (*str)
 	{
@@ -95,18 +97,15 @@ int	check_digit(char *str, int i)
 	return (0);
 }
 
-int	check_tab(char **tab, int i)
+int	check_tab(char **tab, int i, t_data *data)
 {
 	char	*str;
 
 	while (tab[i])
 	{
 		str = ft_strtrim(tab[i], " ");
-		if (str == NULL)
-		{
-			free(str);
-			return (1);
-		}
+		if (!str)
+			handle_error(data, 0);
 		if (check_digit(str, i))
 		{
 			free(str);
@@ -115,5 +114,5 @@ int	check_tab(char **tab, int i)
 		free(str);
 		i++;
 	}
-    return(0);
+	return (0);
 }

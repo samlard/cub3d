@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 13:14:06 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/30 16:50:17 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:26:50 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int	check_xpm(t_data *data)
 	return (i);
 }
 
-int	convert_color(char **tab, int i)
+int	convert_color(char **tab, int i, t_data *data)
 {
 	int	r;
 	int	g;
 	int	b;
 
-	if (check_tab(tab, 0))
+	if (check_tab(tab, 0, data))
 		return (-1);
 	r = ft_atoi_cub(tab[0]);
 	g = ft_atoi_cub(tab[1]);
@@ -62,12 +62,30 @@ int	convert_color(char **tab, int i)
 	return ((r << 16) + (g << 8) + b);
 }
 
+int	convert_c_or_f(t_data *data, int i, char **tab)
+{
+	if (i == 0)
+	{
+		data->rgb_c = convert_color(tab, i, data);
+		if (data->rgb_c == -1)
+			return (1);
+	}
+	else
+	{
+		data->rgb_f = convert_color(tab, i, data);
+		if (data->rgb_f == -1)
+			return (1);
+	}
+	return (0);
+}
+
 int	get_color(t_data *data, char *str, int i)
 {
 	char	**tab;
 
-	if (!(tab = ft_split(str, ',')))
-		return (err_msg("split malloc error !", NULL, 1));
+	tab = ft_split(str, ',');
+	if (!tab)
+		handle_error(data, 0);
 	if (ft_strlen_tab(tab) != 3)
 	{
 		if (i == 0)
@@ -78,16 +96,8 @@ int	get_color(t_data *data, char *str, int i)
 				NULL, 0);
 		return (ft_free_tab(tab), 1);
 	}
-	if (i == 0)
-	{
-		if ((data->rgb_c = convert_color(tab, i)) == -1)
-			return (ft_free_tab(tab), 1);
-	}
-	else
-	{
-		if ((data->rgb_f = convert_color(tab, i)) == -1)
-			return (ft_free_tab(tab), 1);
-	}
+	if (convert_c_or_f(data, i, tab))
+		return (ft_free_tab(tab), 1);
 	ft_free_tab(tab);
 	return (0);
 }
@@ -95,7 +105,7 @@ int	get_color(t_data *data, char *str, int i)
 void	check_xpm_color(t_data *data)
 {
 	if (check_xpm(data))
-		handle_error(data);
+		handle_error(data, 1);
 	if (get_color(data, data->c, 0) || get_color(data, data->f, 1))
-		handle_error(data);
+		handle_error(data, 1);
 }
