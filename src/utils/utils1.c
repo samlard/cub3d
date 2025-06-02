@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 18:20:07 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:11:03 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ void	init_window(t_data *data)
 		data->mlx = NULL;
 		return (err_msg(ERROR_WIN_INIT, NULL, 0), handle_error(data, 1));
 	}
-	data->player->pos_x = data->player->pos_x * SQUARE_SIZE + 20;
-	data->player->pos_y = data->player->pos_y * SQUARE_SIZE + 20;
+	data->player->pos_x = data->player->pos_x * SQUARE_SIZE + 22;
+	data->player->pos_y = data->player->pos_y * SQUARE_SIZE + 22;
 }
