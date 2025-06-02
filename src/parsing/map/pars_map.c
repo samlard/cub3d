@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 18:05:51 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:40:37 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	get_pos(t_data *data)
 void	prepare_to_copy(t_data *data)
 {
 	char	*temp;
-	char	*temp2;
 
 	check_valid(data, data->map_first_line);
 	while (1)
@@ -61,14 +60,10 @@ void	prepare_to_copy(t_data *data)
 		if (temp == NULL)
 			break ;
 		check_valid(data, temp);
-		temp2 = ft_strtrim(temp, " ");
-		if (!temp2)
-			return (free(temp), handle_error(data, 0));
-		data->map_first_line = ft_strjoin(data->map_first_line, temp2);
+		data->map_first_line = ft_strjoin(data->map_first_line, temp);
 		if (!data->map_first_line)
-			return (free(temp), free(temp2), handle_error(data, 0));
+			return (free(temp), handle_error(data, 0));
 		free(temp);
-		free(temp2);
 	}
 }
 

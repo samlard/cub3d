@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 17:21:40 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:36:13 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	handle_texture(t_data *data, char *str)
 		data->f = get_texture(str, 0, data->f, data);
 	else if (ft_strchr(str, '1') || (ft_strchr(str, '0')))
 	{
-		data->map_first_line = ft_strtrim(str, " ");
+		data->map_first_line = ft_strdup(str);
 		if (!data->map_first_line)
 			handle_error(data, 0);
 		return (1);
