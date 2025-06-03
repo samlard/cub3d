@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calcul_distance.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 14:35:57 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/05/30 14:42:49 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/06/03 19:23:39 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	horizontal_distance(t_data *data, t_ray *ray)
 	{
 		ray->map_x = (int)(ray->rx_h / SQUARE_SIZE);
 		ray->map_y = (int)(ray->ry_h / SQUARE_SIZE);
-		if (ray->map_x < 0 || ray->map_x > data->larg_row || ray->map_y < 0
+		if (ray->map_x < 0 || ray->map_x >= data->larg_row || ray->map_y < 0
 			|| ray->map_y >= data->nbr_line)
 			break ;
-		if (data->map[ray->map_y][ray->map_x] == '1')
+		if (data->map[ray->map_y][ray->map_x] != 'z')
 			break ;
 		ray->rx_h += ray->xo;
 		ray->ry_h += ray->yo;
@@ -105,10 +105,10 @@ void	vertical_distance(t_data *data, t_ray *ray)
 	{
 		ray->map_x = (int)(ray->rx_v / SQUARE_SIZE);
 		ray->map_y = (int)(ray->ry_v / SQUARE_SIZE);
-		if (ray->map_x < 0 || ray->map_x > data->larg_row || ray->map_y < 0
+		if (ray->map_x < 0 || ray->map_x >= data->larg_row || ray->map_y < 0
 			|| ray->map_y >= data->nbr_line)
 			break ;
-		if (data->map[ray->map_y][ray->map_x] == '1')
+		if (data->map[ray->map_y][ray->map_x] != 'z')
 			break ;
 		ray->rx_v += ray->xo;
 		ray->ry_v += ray->yo;

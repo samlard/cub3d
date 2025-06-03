@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/06/02 18:11:03 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/06/03 18:05:45 by ssoumill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	init_data_2(t_data *data)
 	data->player->pos_x = 0;
 	data->player->pos_y = 0;
 	data->player->pa = 0;
-	data->player->pdx = cos(deg_to_rad(data->player->pa));
-	data->player->pdy = -sin(deg_to_rad(data->player->pa));
+	data->player->pdx = -cos(deg_to_rad(data->player->pa));
+	data->player->pdy = sin(deg_to_rad(data->player->pa));
 	data->nbr_line = 0;
 	data->larg_row = 0;
 }
