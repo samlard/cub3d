@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:39:26 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/30 18:19:07 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:17:34 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ int						check_digit(char *str, int i);
 int						check_tab(char **tab, int i, t_data *data);
 void					check_valid(t_data *data, char *str);
 void					backtrack(t_data *data, char **map, int x, int y);
+void					replace_all_map(char **tab);
 
 // handle error + init data
 

@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:41:40 by mvan-vel          #+#    #+#             */
-/*   Updated: 2025/05/30 17:54:17 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:22:52 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,33 @@ void	backtrack(t_data *data, char **map, int x, int y)
 	}
 	map[x][y] = 'z';
 	if (x > 0 && (y <= (int)ft_strlen(map[x - 1]) - 1) && (map[x - 1][y] != 'z'
-		&& map[x - 1][y] != '1'))
+			&& map[x - 1][y] != '1'))
 		backtrack(data, map, x - 1, y);
 	if (x < data->nbr_line - 1 && (y <= (int)ft_strlen(map[x + 1]) - 1)
 		&& (map[x + 1][y] != 'z' && map[x + 1][y] != '1'))
 		backtrack(data, map, x + 1, y);
 	if (y < ((int)ft_strlen(map[x]) - 1) && (map[x][y + 1] != 'z' && map[x][y
-		+ 1] != '1'))
+			+ 1] != '1'))
 		backtrack(data, map, x, y + 1);
 	if (y > 0 && (map[x][y - 1] != 'z' && map[x][y - 1] != '1'))
 		backtrack(data, map, x, y - 1);
+}
+
+void	replace_all_map(char **tab)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (tab[i])
+	{
+		j = 0;
+		while (tab[i][j])
+		{
+			if (tab[i][j] != 'z' && tab[i][j] != '\0')
+				tab[i][j] = '1';
+			j++;
+		}
+		i++;
+	}
 }

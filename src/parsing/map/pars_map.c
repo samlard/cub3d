@@ -6,7 +6,7 @@
 /*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:51:38 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/06/02 13:40:37 by mvan-vel         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:23:00 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	copy_check_map(t_data *data)
 	}
 	get_map_square(data);
 	backtrack(data, data->map, data->player->pos_y, data->player->pos_x);
+	replace_all_map(data->map);
 	if (data->flag == 1)
 	{
 		err_msg("invalid map, there is a hole!", NULL, 1);
