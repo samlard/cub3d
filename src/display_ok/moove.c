@@ -26,10 +26,10 @@ void	move_up(t_data *data)
 	else
 		yo = -20;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
-					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
+					[(int)((data->player->pos_x) / SQUARE_SIZE)] == 'z')
 		data->player->pos_y += (data->player->pdy * MOVE_SPEED);
 	if (data->map[(int)((data->player->pos_y) / SQUARE_SIZE)]
-					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1')
+					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] == 'z')
 		data->player->pos_x += (data->player->pdx * MOVE_SPEED);
 }
 
@@ -47,10 +47,10 @@ void	move_down(t_data *data)
 	else
 		yo = 20;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
-					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
+					[(int)((data->player->pos_x) / SQUARE_SIZE)] == 'z')
 		data->player->pos_y -= (data->player->pdy * MOVE_SPEED);
 	if (data->map[(int)((data->player->pos_y) / SQUARE_SIZE)]
-					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1')
+					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] == 'z')
 		data->player->pos_x -= (data->player->pdx * MOVE_SPEED);
 }
 
@@ -68,10 +68,10 @@ void	move_left(t_data *data)
 	else
 		yo = 20;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
-					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
+					[(int)((data->player->pos_x) / SQUARE_SIZE)] == 'z')
 		data->player->pos_y -= (data->player->pdx * MOVE_SPEED);
 	if (data->map[(int)((data->player->pos_y) / SQUARE_SIZE)]
-					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1')
+					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] == 'z')
 		data->player->pos_x += (data->player->pdy * MOVE_SPEED);
 }
 
@@ -89,10 +89,10 @@ void	move_right(t_data *data)
 	else
 		yo = -20;
 	if (data->map[(int)((data->player->pos_y + yo) / SQUARE_SIZE)]
-					[(int)((data->player->pos_x) / SQUARE_SIZE)] != '1')
+					[(int)((data->player->pos_x) / SQUARE_SIZE)] == 'z')
 		data->player->pos_y += (data->player->pdx * MOVE_SPEED);
 	if (data->map[(int)((data->player->pos_y) / SQUARE_SIZE)]
-					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] != '1')
+					[(int)((data->player->pos_x + xo) / SQUARE_SIZE)] == 'z')
 		data->player->pos_x -= (data->player->pdy * MOVE_SPEED);
 }
 
