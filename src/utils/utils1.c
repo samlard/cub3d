@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoumill <ssoumill@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mvan-vel <mvan-vel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 11:58:54 by ssoumill          #+#    #+#             */
-/*   Updated: 2025/06/03 18:05:45 by ssoumill         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:52:38 by mvan-vel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	init_data_2(t_data *data)
 	data->player->pos_x = 0;
 	data->player->pos_y = 0;
 	data->player->pa = 0;
-	data->player->pdx = -cos(deg_to_rad(data->player->pa));
-	data->player->pdy = sin(deg_to_rad(data->player->pa));
 	data->nbr_line = 0;
 	data->larg_row = 0;
 }
@@ -62,7 +60,6 @@ void	init_key(t_data *data)
 	data->f_so = 0;
 	data->f_no = 0;
 }
-
 void	init_window(t_data *data)
 {
 	data->mlx = mlx_init();
@@ -78,4 +75,6 @@ void	init_window(t_data *data)
 	}
 	data->player->pos_x = data->player->pos_x * SQUARE_SIZE + 22;
 	data->player->pos_y = data->player->pos_y * SQUARE_SIZE + 22;
+	data->player->pdx = cos(deg_to_rad(data->player->pa));
+	data->player->pdy = -sin(deg_to_rad(data->player->pa));
 }
