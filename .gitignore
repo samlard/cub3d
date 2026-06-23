@@ -1,0 +1,4 @@
+obj/
+cub3D
+*.dSYM
+*.o
